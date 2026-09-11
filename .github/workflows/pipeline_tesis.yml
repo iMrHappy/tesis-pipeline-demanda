@@ -1,0 +1,33 @@
+name: Pipeline Diario Lima-Chiclayo
+
+on:
+  schedule:
+    # Se ejecuta a la 1:00 AM UTC (que son las 8:00 PM en Lima, Perú)
+    - cron: '0 1 * * *'
+  workflow_dispatch: # Te permite ejecutarlo manualmente con un botón
+
+jobs:
+  extraccion-datos:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Instalar librerías
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Ejecutar Scripts de Extracción
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
+      run: |
+        python src/ingest_trends.py
+        python src/ingest_traffic.py
