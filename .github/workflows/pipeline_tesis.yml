@@ -39,4 +39,4 @@ jobs:
       run: |
         python src/ingest_trends.py
         python src/ingest_traffic.py
-        python src/test_apify.py # Usa el nombre exacto de tu script
+        python src/test_apify.py
