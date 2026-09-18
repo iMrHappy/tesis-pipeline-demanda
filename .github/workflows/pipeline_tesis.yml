@@ -2,9 +2,9 @@ name: Pipeline Diario Lima-Chiclayo
 
 on:
   schedule:
-    # Se ejecuta a la 1:00 AM UTC (que son las 8:00 PM en Lima, Perú)
+    # Se ejecuta a la 1:00 AM UTC (que son las 8:00 PM en Lima, Peru)
     - cron: '0 1 * * *'
-  workflow_dispatch: # Te permite ejecutarlo manualmente con un botón
+  workflow_dispatch: # Te permite ejecutarlo manualmente con un boton
 
 jobs:
   extraccion-datos:
@@ -19,12 +19,12 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Instalar librerías
+    - name: Instalar librerias
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Ejecutar Scripts de Extracción
+    - name: Ejecutar Scripts de Extraccion (Ingesta)
       env:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
@@ -33,3 +33,15 @@ jobs:
         python src/ingest_trends.py
         python src/ingest_traffic.py
         python src/test_apify.py
+        python src/ingest_weather.py
+        python src/ingest_economy.py
+
+    # NOTA: si transform_weather.py y transform_staging.py son necesarios
+    # para pasar de raw.* a staging.*, deben agregarse aqui tambien,
+    # despues de la ingesta y antes de dar por completado el pipeline.
+    - name: Ejecutar Transformaciones (Raw -> Staging)
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      run: |
+        python src/transform_weather.py
+        python src/transform_staging.py
