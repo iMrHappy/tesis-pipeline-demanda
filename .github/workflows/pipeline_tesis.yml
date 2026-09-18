@@ -24,7 +24,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Ejecutar Scripts de Extraccion (Ingesta)
+    - name: Ejecutar Scripts de Extraccion (Ingesta -> raw / staging directo)
       env:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
@@ -36,12 +36,15 @@ jobs:
         python src/ingest_weather.py
         python src/ingest_economy.py
 
-    # NOTA: si transform_weather.py y transform_staging.py son necesarios
-    # para pasar de raw.* a staging.*, deben agregarse aqui tambien,
-    # despues de la ingesta y antes de dar por completado el pipeline.
     - name: Ejecutar Transformaciones (Raw -> Staging)
       env:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
       run: |
         python src/transform_weather.py
         python src/transform_staging.py
+
+    - name: Actualizar Features de Calendario (Logica Difusa)
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      run: |
+        python src/feature_calendar.py
