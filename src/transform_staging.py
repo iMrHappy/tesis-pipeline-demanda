@@ -14,7 +14,7 @@ try:
         # 2. Consulta SQL que extrae del JSON, calcula y carga en staging
         # Usamos WHERE para que solo procese los registros nuevos que aún no están en staging
         query = text("""
-            INSERT INTO staging.fact_redbus_snapshots (
+                        INSERT INTO staging.fact_redbus_snapshots (
                 raw_id, 
                 extraction_timestamp, 
                 operator_name, 
@@ -41,8 +41,10 @@ try:
                 (CAST(raw_data->>'totalSeats' AS INTEGER) - CAST(raw_data->>'availableSeats' AS INTEGER)),
                 CAST(raw_data->>'minFare' AS NUMERIC),
                 EXTRACT(EPOCH FROM (CAST(raw_data->>'departureTime' AS TIMESTAMP) - (extraction_timestamp AT TIME ZONE 'America/Lima'))) / 3600.0
-            FROM raw.redbus_services_raw
-            WHERE id NOT IN (SELECT raw_id FROM staging.fact_redbus_snapshots);
+            FROM raw.redbus_services_raw r
+            WHERE NOT EXISTS (
+                SELECT 1 FROM staging.fact_redbus_snapshots s WHERE s.raw_id = r.id
+);
         """)
         
         # 3. Ejecutar y confirmar los cambios
