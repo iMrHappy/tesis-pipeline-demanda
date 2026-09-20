@@ -9,7 +9,7 @@ load_dotenv()
 apify_token = os.getenv("APIFY_API_TOKEN")
 db_url = os.getenv("DATABASE_URL")
 
-DIAS_HACIA_ADELANTE = 6  # ventana rodante: hoy + 0 hasta +6 dias
+DIAS_HACIA_ADELANTE = 3  # ventana rodante: hoy + 0 hasta +3 dias
 
 try:
     engine = create_engine(db_url)
