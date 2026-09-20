@@ -3,7 +3,7 @@ name: Pipeline Diario Lima-Chiclayo
 on:
   schedule:
     # Se ejecuta a la 1:00 AM UTC (que son las 8:00 PM en Lima, Peru)
-    - cron: '0 1 * * *'
+    - cron: '0 16 * * *'   # 16:00 UTC = 11:00 AM Lima (UTC-5)
   workflow_dispatch: # Te permite ejecutarlo manualmente con un boton
 
 jobs:
