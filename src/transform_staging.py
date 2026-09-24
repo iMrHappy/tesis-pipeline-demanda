@@ -57,3 +57,4 @@ try:
 except Exception as e:
     print("\n[ERROR] Ocurrió un problema en la transformación:")
     print(e)
+    raise

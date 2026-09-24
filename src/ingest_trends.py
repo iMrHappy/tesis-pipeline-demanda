@@ -54,3 +54,4 @@ try:
 
 except Exception as e:
     print("\n[ERROR] Ocurrió un problema en la extracción:", e)
+    raise

@@ -62,3 +62,4 @@ try:
 except Exception as e:
     print("\n[ERROR] Ocurrio un problema en la extraccion economica:")
     print(e)
+    raise
