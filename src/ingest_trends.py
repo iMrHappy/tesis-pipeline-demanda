@@ -14,10 +14,10 @@ try:
     pytrends = TrendReq(hl='es-PE', tz=300)
     
     # Filtro masivo: Plataformas y marcas de tu directorio
-    kw_list = ["redbus", "cruz del sur", "transportes linea", "ittsa", "pasajes"]
+    kw_list = ["redbus", "transportes chiclayo", "ittsa", "transportes linea", "pasajes"]
     
     # Sin categoría restrictiva para capturar todo el tráfico
-    pytrends.build_payload(kw_list, cat=0, timeframe='today 1-m', geo='PE')
+    pytrends.build_payload(kw_list, cat=203, timeframe='today 1-m', geo='PE-LMA')
     df_trends = pytrends.interest_over_time()
     
     if not df_trends.empty:
