@@ -17,7 +17,7 @@ try:
     kw_list = ["redbus", "transportes chiclayo", "ittsa", "transportes linea", "pasajes"]
     
     # Sin categoría restrictiva para capturar todo el tráfico
-    pytrends.build_payload(kw_list, cat=203, timeframe='today 1-m', geo='PE-LMA')
+    pytrends.build_payload(kw_list, cat=203, timeframe='today 1-m', geo='PE-LIM')
     df_trends = pytrends.interest_over_time()
     
     if not df_trends.empty:
