@@ -1,0 +1,473 @@
+{
+  "generado_en": "2026-10-10",
+  "modelo": "XGBoost",
+  "entrenado_en": "2026-10-10T22:24:53",
+  "horizonte": "D+3",
+  "resultados": [
+    {
+      "fecha_viaje": "2026-10-11",
+      "n_servicios": 15,
+      "ocupacion_predicha_pct": 77.2,
+      "dias_a_feriado": -5,
+      "indice_clima": 50.0,
+      "unidades_recomendadas": 15.0,
+      "recomendacion": "Aumentar unidades",
+      "reglas_activadas": {
+        "R1_aumentar_urgente": 0.0,
+        "R2_aumentar": 0.16666666666666666,
+        "R3_aumentar": 0.0,
+        "R4_mantener": 0.0,
+        "R5_mantener": 0.0,
+        "R6_reducir": 0.0,
+        "R7_reducir": 0.0
+      },
+      "servicios": [
+        {
+          "hora_salida": "15:30",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 38,
+          "ocupacion_predicha": 57.8,
+          "ocupacion_predicha_pct": 86.2
+        },
+        {
+          "hora_salida": "17:00",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 38,
+          "ocupacion_predicha": 57.8,
+          "ocupacion_predicha_pct": 86.2
+        },
+        {
+          "hora_salida": "18:02",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 63,
+          "ocupacion_d3": 37,
+          "ocupacion_predicha": 49.3,
+          "ocupacion_predicha_pct": 78.3
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Transportes Chiclayo",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 62,
+          "ocupacion_d3": 34,
+          "ocupacion_predicha": 51.4,
+          "ocupacion_predicha_pct": 82.9
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "ITTSABUS",
+          "tipo_bus": "SEMI CAMA",
+          "asientos_totales": 64,
+          "ocupacion_d3": 30,
+          "ocupacion_predicha": 46.5,
+          "ocupacion_predicha_pct": 72.7
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 63,
+          "ocupacion_d3": 39,
+          "ocupacion_predicha": 48.0,
+          "ocupacion_predicha_pct": 76.1
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 25,
+          "ocupacion_predicha": 51.6,
+          "ocupacion_predicha_pct": 77.1
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "America Express",
+          "tipo_bus": "Premium Plus",
+          "asientos_totales": 48,
+          "ocupacion_d3": 15,
+          "ocupacion_predicha": 41.2,
+          "ocupacion_predicha_pct": 85.9
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "Turismo Dias",
+          "tipo_bus": "Oro",
+          "asientos_totales": 47,
+          "ocupacion_d3": 26,
+          "ocupacion_predicha": 43.7,
+          "ocupacion_predicha_pct": 92.9
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "ITTSABUS",
+          "tipo_bus": "Super Cama",
+          "asientos_totales": 39,
+          "ocupacion_d3": 25,
+          "ocupacion_predicha": 38.2,
+          "ocupacion_predicha_pct": 98.0
+        },
+        {
+          "hora_salida": "20:15",
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 45,
+          "ocupacion_d3": 16,
+          "ocupacion_predicha": 41.2,
+          "ocupacion_predicha_pct": 91.5
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Sajybus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 65,
+          "ocupacion_d3": 9,
+          "ocupacion_predicha": 40.4,
+          "ocupacion_predicha_pct": 62.2
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 16,
+          "ocupacion_predicha": 47.7,
+          "ocupacion_predicha_pct": 71.2
+        },
+        {
+          "hora_salida": "21:45",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 46,
+          "ocupacion_d3": 13,
+          "ocupacion_predicha": 34.1,
+          "ocupacion_predicha_pct": 74.2
+        },
+        {
+          "hora_salida": "22:00",
+          "operador": "Ronco Perú",
+          "tipo_bus": "DOBLE VIP",
+          "asientos_totales": 48,
+          "ocupacion_d3": 5,
+          "ocupacion_predicha": 13.8,
+          "ocupacion_predicha_pct": 28.8
+        }
+      ]
+    },
+    {
+      "fecha_viaje": "2026-10-12",
+      "n_servicios": 15,
+      "ocupacion_predicha_pct": 55.2,
+      "dias_a_feriado": -5,
+      "indice_clima": 50.0,
+      "unidades_recomendadas": 8.69,
+      "recomendacion": "Mantener programacion",
+      "reglas_activadas": {
+        "R1_aumentar_urgente": 0.0,
+        "R2_aumentar": 0.004538562909223427,
+        "R3_aumentar": 0.0,
+        "R4_mantener": 0.7918305867633979,
+        "R5_mantener": 0.7918305867633979,
+        "R6_reducir": 0.0,
+        "R7_reducir": 0.0
+      },
+      "servicios": [
+        {
+          "hora_salida": "17:00",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 63,
+          "ocupacion_d3": 16,
+          "ocupacion_predicha": 41.4,
+          "ocupacion_predicha_pct": 65.8
+        },
+        {
+          "hora_salida": "17:00",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 11,
+          "ocupacion_predicha": 46.1,
+          "ocupacion_predicha_pct": 68.9
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Transportes Chiclayo",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 62,
+          "ocupacion_d3": 21,
+          "ocupacion_predicha": 44.7,
+          "ocupacion_predicha_pct": 72.2
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 7,
+          "ocupacion_predicha": 34.5,
+          "ocupacion_predicha_pct": 51.6
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "ITTSABUS",
+          "tipo_bus": "SEMI CAMA",
+          "asientos_totales": 64,
+          "ocupacion_d3": 11,
+          "ocupacion_predicha": 30.0,
+          "ocupacion_predicha_pct": 46.9
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "America Express",
+          "tipo_bus": "Premium Plus",
+          "asientos_totales": 48,
+          "ocupacion_d3": 6,
+          "ocupacion_predicha": 23.7,
+          "ocupacion_predicha_pct": 49.4
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "ITTSABUS",
+          "tipo_bus": "Super Cama",
+          "asientos_totales": 39,
+          "ocupacion_d3": 11,
+          "ocupacion_predicha": 25.7,
+          "ocupacion_predicha_pct": 65.9
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "Turismo Dias",
+          "tipo_bus": "Oro",
+          "asientos_totales": 47,
+          "ocupacion_d3": 10,
+          "ocupacion_predicha": 28.2,
+          "ocupacion_predicha_pct": 60.0
+        },
+        {
+          "hora_salida": "19:45",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "EJECUTIVO",
+          "asientos_totales": 50,
+          "ocupacion_d3": 6,
+          "ocupacion_predicha": 18.8,
+          "ocupacion_predicha_pct": 37.6
+        },
+        {
+          "hora_salida": "20:15",
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 45,
+          "ocupacion_d3": 4,
+          "ocupacion_predicha": 27.0,
+          "ocupacion_predicha_pct": 60.0
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Sajybus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 65,
+          "ocupacion_d3": 14,
+          "ocupacion_predicha": 41.7,
+          "ocupacion_predicha_pct": 64.2
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 63,
+          "ocupacion_d3": 14,
+          "ocupacion_predicha": 30.2,
+          "ocupacion_predicha_pct": 47.9
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 15,
+          "ocupacion_predicha": 43.7,
+          "ocupacion_predicha_pct": 65.2
+        },
+        {
+          "hora_salida": "21:45",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 46,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 18.0,
+          "ocupacion_predicha_pct": 39.2
+        },
+        {
+          "hora_salida": "22:00",
+          "operador": "Ronco Perú",
+          "tipo_bus": "DOBLE VIP",
+          "asientos_totales": 48,
+          "ocupacion_d3": 5,
+          "ocupacion_predicha": 10.4,
+          "ocupacion_predicha_pct": 21.7
+        }
+      ]
+    },
+    {
+      "fecha_viaje": "2026-10-13",
+      "n_servicios": 15,
+      "ocupacion_predicha_pct": 57.7,
+      "dias_a_feriado": -5,
+      "indice_clima": 50.0,
+      "unidades_recomendadas": 9.21,
+      "recomendacion": "Mantener programacion",
+      "reglas_activadas": {
+        "R1_aumentar_urgente": 0.0,
+        "R2_aumentar": 0.06073550793782248,
+        "R3_aumentar": 0.0,
+        "R4_mantener": 0.6906760857119195,
+        "R5_mantener": 0.6906760857119195,
+        "R6_reducir": 0.0,
+        "R7_reducir": 0.0
+      },
+      "servicios": [
+        {
+          "hora_salida": "16:30",
+          "operador": "Vía Pacífico",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 19,
+          "ocupacion_predicha": 46.2,
+          "ocupacion_predicha_pct": 77.0
+        },
+        {
+          "hora_salida": "17:00",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 11,
+          "ocupacion_predicha": 45.6,
+          "ocupacion_predicha_pct": 68.0
+        },
+        {
+          "hora_salida": "17:00",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 63,
+          "ocupacion_d3": 27,
+          "ocupacion_predicha": 48.7,
+          "ocupacion_predicha_pct": 77.3
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Transportes Chiclayo",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 62,
+          "ocupacion_d3": 21,
+          "ocupacion_predicha": 45.4,
+          "ocupacion_predicha_pct": 73.2
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 7,
+          "ocupacion_predicha": 34.6,
+          "ocupacion_predicha_pct": 51.6
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "ITTSABUS",
+          "tipo_bus": "SEMI CAMA",
+          "asientos_totales": 64,
+          "ocupacion_d3": 12,
+          "ocupacion_predicha": 30.0,
+          "ocupacion_predicha_pct": 46.8
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "America Express",
+          "tipo_bus": "Premium Plus",
+          "asientos_totales": 48,
+          "ocupacion_d3": 8,
+          "ocupacion_predicha": 28.2,
+          "ocupacion_predicha_pct": 58.7
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "ITTSABUS",
+          "tipo_bus": "Super Cama",
+          "asientos_totales": 39,
+          "ocupacion_d3": 10,
+          "ocupacion_predicha": 25.7,
+          "ocupacion_predicha_pct": 65.8
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "Turismo Dias",
+          "tipo_bus": "Oro",
+          "asientos_totales": 47,
+          "ocupacion_d3": 10,
+          "ocupacion_predicha": 28.2,
+          "ocupacion_predicha_pct": 60.1
+        },
+        {
+          "hora_salida": "20:15",
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 45,
+          "ocupacion_d3": 11,
+          "ocupacion_predicha": 34.4,
+          "ocupacion_predicha_pct": 76.5
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Sajybus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 65,
+          "ocupacion_d3": 5,
+          "ocupacion_predicha": 39.8,
+          "ocupacion_predicha_pct": 61.2
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 7,
+          "ocupacion_predicha": 34.2,
+          "ocupacion_predicha_pct": 51.0
+        },
+        {
+          "hora_salida": "21:45",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 46,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 17.1,
+          "ocupacion_predicha_pct": 37.1
+        },
+        {
+          "hora_salida": "22:00",
+          "operador": "Ronco Perú",
+          "tipo_bus": "DOBLE VIP",
+          "asientos_totales": 48,
+          "ocupacion_d3": 6,
+          "ocupacion_predicha": 9.5,
+          "ocupacion_predicha_pct": 19.9
+        },
+        {
+          "hora_salida": "22:15",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 67,
+          "ocupacion_d3": 8,
+          "ocupacion_predicha": 26.1,
+          "ocupacion_predicha_pct": 38.9
+        }
+      ]
+    }
+  ]
+}

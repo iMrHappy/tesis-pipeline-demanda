@@ -1,0 +1,91 @@
+/* Estilos propios del panel. Bootstrap aporta la base; aqui solo lo especifico. */
+
+:root {
+  --color-reducir: #2b7fd9;
+  --color-mantener: #2a9d62;
+  --color-aumentar: #e8890c;
+  --color-urgente: #d93636;
+  --color-brand: #2459d6;
+}
+
+.app-navbar {
+  background: linear-gradient(90deg, #0f2a6b, #2459d6);
+}
+
+.hero {
+  background: linear-gradient(120deg, #16358a 0%, #2459d6 100%);
+}
+
+.hero .badge-meta {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+/* Tarjetas de fecha */
+.date-card {
+  cursor: pointer;
+  border-width: 2px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.date-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1.2rem rgba(16, 24, 40, 0.12);
+}
+.date-card.active {
+  border-color: var(--color-brand);
+}
+.date-card .dia {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+.date-card .grande {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Indicadores */
+.kpi .valor {
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+/* Grafico */
+.chart-box {
+  position: relative;
+  height: 340px;
+}
+
+/* Reglas del FIS */
+.regla {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+  font-size: 0.82rem;
+}
+.regla .texto { flex: 1; }
+.regla .progress { width: 80px; height: 8px; }
+.regla .valor { width: 36px; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Tabla */
+.tabla-num { font-variant-numeric: tabular-nums; }
+.barra-ocupacion { display: flex; align-items: center; gap: 0.6rem; }
+.barra-ocupacion .progress { flex: 1; height: 10px; }
+.barra-ocupacion .pct { min-width: 48px; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Etiquetas de recomendacion */
+.etiqueta { color: #fff; font-weight: 600; }
+.etiqueta.reducir { background-color: var(--color-reducir); }
+.etiqueta.mantener { background-color: var(--color-mantener); }
+.etiqueta.aumentar { background-color: var(--color-aumentar); }
+.etiqueta.urgente { background-color: var(--color-urgente); }
+
+[data-bs-theme="dark"] .table-light {
+  --bs-table-bg: #2b3035;
+  --bs-table-color: #dee2e6;
+}

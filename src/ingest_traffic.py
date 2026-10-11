@@ -85,3 +85,4 @@ try:
 except Exception as e:
     print("\n[ERROR] Ocurrió un problema en la extracción de tráfico:")
     print(e)
+    raise
