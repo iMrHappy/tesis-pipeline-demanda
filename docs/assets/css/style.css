@@ -1,91 +1,194 @@
-/* Estilos propios del panel. Bootstrap aporta la base; aqui solo lo especifico. */
+/* Estilos propios del panel. Bootstrap aporta la base; aqui va lo especifico. */
 
 :root {
-  --color-reducir: #2b7fd9;
-  --color-mantener: #2a9d62;
-  --color-aumentar: #e8890c;
-  --color-urgente: #d93636;
-  --color-brand: #2459d6;
+  --c-reducir: #2b7fd9;
+  --c-mantener: #2a9d62;
+  --c-aumentar: #e8890c;
+  --c-urgente: #d93636;
+  --c-brand: #2459d6;
+  --radio: 14px;
 }
 
+body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #f1f4fa;
+}
+[data-bs-theme="dark"] body { background: #12161f; }
+
+/* ---------- Barra superior y portada ---------- */
 .app-navbar {
-  background: linear-gradient(90deg, #0f2a6b, #2459d6);
+  background: linear-gradient(90deg, #0b1f55, #1d4ed8);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
 }
-
-.hero {
-  background: linear-gradient(120deg, #16358a 0%, #2459d6 100%);
-}
-
-.hero .badge-meta {
+.brand-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.16);
+}
+.hero {
+  background:
+    radial-gradient(circle at 85% 10%, rgba(255, 255, 255, 0.14), transparent 40%),
+    linear-gradient(120deg, #112a73 0%, #2459d6 100%);
+}
+.badge-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
   font-weight: 500;
-  padding: 0.4rem 0.8rem;
+  padding: 0.35rem 0.8rem;
   border-radius: 999px;
   font-size: 0.8rem;
 }
 
-/* Tarjetas de fecha */
-.date-card {
-  cursor: pointer;
-  border-width: 2px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-.date-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0.5rem 1.2rem rgba(16, 24, 40, 0.12);
-}
-.date-card.active {
-  border-color: var(--color-brand);
-}
-.date-card .dia {
+/* ---------- Tarjetas ---------- */
+.card { border-radius: var(--radio); }
+[data-bs-theme="dark"] .card { background-color: #1b2130; }
+
+/* ---------- Selector de fecha ---------- */
+.btn-fecha {
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.88rem;
   text-transform: capitalize;
+}
+.punto {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 6px;
+  background: #999;
+}
+.punto.reducir { background: var(--c-reducir); }
+.punto.mantener { background: var(--c-mantener); }
+.punto.aumentar { background: var(--c-aumentar); }
+.punto.urgente { background: var(--c-urgente); }
+.btn-check:checked + .btn-fecha .punto { box-shadow: 0 0 0 2px #fff; }
+
+/* ---------- Menu lateral de paneles ---------- */
+.side-sticky { position: sticky; top: 76px; }
+.side-nav .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-align: left;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  font-weight: 500;
+  color: var(--bs-body-color);
+  white-space: nowrap;
+}
+.side-nav .nav-link i { font-size: 1.05rem; opacity: 0.8; }
+.side-nav .nav-link:hover { background: rgba(36, 89, 214, 0.08); }
+.side-nav .nav-link.active {
+  background: linear-gradient(90deg, #2459d6, #3b82f6);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(36, 89, 214, 0.35);
+}
+.side-nav .nav-link.active i { opacity: 1; }
+@media (max-width: 991.98px) {
+  .side-sticky { position: static; }
+  .side-nav { overflow-x: auto; }
+}
+
+.titulo-panel {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+/* ---------- Indicadores ---------- */
+.kpi-card { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.kpi-card:hover { transform: translateY(-2px); box-shadow: 0 0.5rem 1.2rem rgba(16, 24, 40, 0.12) !important; }
+.kpi-icono {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  flex: none;
+}
+.kpi-valor { font-size: 1.45rem; font-weight: 700; line-height: 1.1; }
+
+/* ---------- Etiquetas de recomendacion ---------- */
+.etiqueta {
+  display: inline-block;
+  color: #fff;
   font-weight: 600;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
 }
-.date-card .grande {
-  font-size: 2.4rem;
-  font-weight: 700;
-  line-height: 1.1;
-}
+.etiqueta.reducir { background-color: var(--c-reducir); }
+.etiqueta.mantener { background-color: var(--c-mantener); }
+.etiqueta.aumentar { background-color: var(--c-aumentar); }
+.etiqueta.urgente { background-color: var(--c-urgente); }
 
-/* Indicadores */
-.kpi .valor {
-  font-size: 1.7rem;
-  font-weight: 700;
-}
-
-/* Grafico */
-.chart-box {
+/* ---------- Escala del FIS ---------- */
+.escala-fis {
   position: relative;
-  height: 340px;
+  display: flex;
+  height: 12px;
+  border-radius: 999px;
+  overflow: visible;
+}
+.escala-fis .tramo { height: 100%; }
+.escala-fis .tramo:first-child { border-radius: 999px 0 0 999px; }
+.escala-fis .tramo:nth-child(4) { border-radius: 0 999px 999px 0; }
+.escala-fis .marcador {
+  position: absolute;
+  top: -6px;
+  width: 4px;
+  height: 24px;
+  background: var(--bs-body-color);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 2px var(--bs-body-bg);
 }
 
-/* Reglas del FIS */
+/* ---------- Entradas del FIS ---------- */
+.entrada-fis {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  height: 100%;
+}
+.entrada-fis .valor { font-weight: 700; font-size: 1.1rem; }
+
+/* ---------- Reglas ---------- */
 .regla {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.7rem;
-  font-size: 0.82rem;
+  gap: 0.7rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.85rem;
 }
 .regla .texto { flex: 1; }
-.regla .progress { width: 80px; height: 8px; }
-.regla .valor { width: 36px; text-align: right; font-variant-numeric: tabular-nums; }
+.regla .progress { width: 110px; height: 8px; }
+.regla .valor { width: 38px; text-align: right; font-variant-numeric: tabular-nums; }
 
-/* Tabla */
+/* ---------- Tabla ---------- */
+.tabla-servicios thead th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+  user-select: none;
+}
+.tabla-servicios thead th i { font-size: 0.7rem; opacity: 0.5; }
 .tabla-num { font-variant-numeric: tabular-nums; }
 .barra-ocupacion { display: flex; align-items: center; gap: 0.6rem; }
-.barra-ocupacion .progress { flex: 1; height: 10px; }
-.barra-ocupacion .pct { min-width: 48px; text-align: right; font-variant-numeric: tabular-nums; }
+.barra-ocupacion .progress { flex: 1; height: 9px; }
+.barra-ocupacion .pct { min-width: 50px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
 
-/* Etiquetas de recomendacion */
-.etiqueta { color: #fff; font-weight: 600; }
-.etiqueta.reducir { background-color: var(--color-reducir); }
-.etiqueta.mantener { background-color: var(--color-mantener); }
-.etiqueta.aumentar { background-color: var(--color-aumentar); }
-.etiqueta.urgente { background-color: var(--color-urgente); }
-
-[data-bs-theme="dark"] .table-light {
-  --bs-table-bg: #2b3035;
-  --bs-table-color: #dee2e6;
-}
+.acerca h3 { margin-top: 1rem; }
+.acerca h3:first-child { margin-top: 0; }

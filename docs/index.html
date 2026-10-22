@@ -5,28 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Panel de despacho Lima - Chiclayo</title>
 
+  <!-- Frameworks y librerías (CDN) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="assets/css/styles.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <!-- Estilos propios -->
+  <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark app-navbar sticky-top">
+  <nav class="navbar navbar-dark app-navbar sticky-top">
     <div class="container">
-      <a class="navbar-brand fw-semibold" href="#">
-        <i class="bi bi-bus-front-fill me-2"></i>Despacho Lima &ndash; Chiclayo
+      <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="#">
+        <span class="brand-icon"><i class="bi bi-bus-front-fill"></i></span>
+        Despacho Lima &ndash; Chiclayo
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-              aria-controls="menu" aria-expanded="false" aria-label="Mostrar menú">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="#viajes">Próximos viajes</a></li>
-          <li class="nav-item"><a class="nav-link" href="#detalle">Detalle</a></li>
-          <li class="nav-item"><a class="nav-link" href="#modelo">Modelo</a></li>
-        </ul>
-        <button id="btnTema" type="button" class="btn btn-outline-light btn-sm" title="Cambiar tema">
+      <div class="d-flex align-items-center gap-2">
+        <span id="navActualizado" class="badge rounded-pill text-bg-light d-none d-md-inline"></span>
+        <button id="btnTema" type="button" class="btn btn-sm btn-outline-light" title="Cambiar tema">
           <i class="bi bi-moon-stars-fill"></i>
         </button>
       </div>
@@ -35,8 +35,10 @@
 
   <header class="hero text-white">
     <div class="container py-4 py-md-5">
-      <h1 class="h3 fw-bold mb-1">Ocupación prevista y unidades adicionales recomendadas</h1>
-      <p class="mb-3 opacity-75">Predicción a 72 horas de la salida con XGBoost y recomendación operativa con lógica difusa.</p>
+      <h1 class="h2 fw-bold mb-2">Ocupación prevista y recomendación de despacho</h1>
+      <p class="lead fs-6 mb-3 opacity-75">
+        Predicción a 72 horas de la salida con XGBoost y recomendación operativa con lógica difusa.
+      </p>
       <div id="meta" class="d-flex flex-wrap gap-2"></div>
     </div>
   </header>
@@ -49,89 +51,225 @@
       </div>
     </div>
 
-    <section id="viajes" class="mb-4">
-      <h2 class="h5 mb-3"><i class="bi bi-calendar-event me-2"></i>Próximos viajes</h2>
-      <div class="row g-3" id="dateCards"></div>
-    </section>
+    <div id="app" hidden>
 
-    <section id="detalle" class="mb-4" hidden>
-      <h2 class="h5 mb-3"><i class="bi bi-graph-up-arrow me-2"></i><span id="detalleTitulo"></span></h2>
+      <!-- Selector de fecha de viaje -->
+      <div class="selector-fecha card border-0 shadow-sm mb-4">
+        <div class="card-body d-flex flex-wrap align-items-center gap-3">
+          <div class="fw-semibold"><i class="bi bi-calendar3 me-2 text-primary"></i>Fecha de viaje</div>
+          <div id="fechas" class="d-flex flex-wrap gap-2"></div>
+        </div>
+      </div>
 
-      <div class="row g-3 mb-3" id="kpis"></div>
-
-      <div class="row g-3 mb-3">
-        <div class="col-lg-8">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <h3 class="h6 mb-1">Ocupación por servicio</h3>
-              <p class="small text-secondary mb-3">Asientos ocupados a 72 h de la salida (observado) más el aumento previsto hasta la salida.</p>
-              <div class="chart-box"><canvas id="chartServicios"></canvas></div>
+      <div class="row g-4">
+        <!-- Menú de paneles -->
+        <aside class="col-lg-3">
+          <div class="card border-0 shadow-sm side-sticky">
+            <div class="card-body p-2">
+              <div class="nav nav-pills flex-lg-column flex-row flex-nowrap side-nav" id="panelTabs" role="tablist">
+                <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#p-resumen" data-panel="resumen" type="button" role="tab">
+                  <i class="bi bi-grid-1x2-fill"></i><span>Resumen</span>
+                </button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#p-servicios" data-panel="servicios" type="button" role="tab">
+                  <i class="bi bi-bus-front"></i><span>Servicios</span>
+                </button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#p-fis" data-panel="fis" type="button" role="tab">
+                  <i class="bi bi-diagram-3-fill"></i><span>Recomendación</span>
+                </button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#p-modelo" data-panel="modelo" type="button" role="tab">
+                  <i class="bi bi-cpu-fill"></i><span>Modelo</span>
+                </button>
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#p-acerca" data-panel="acerca" type="button" role="tab">
+                  <i class="bi bi-info-circle-fill"></i><span>Acerca de</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <h3 class="h6 mb-1">¿Por qué esta recomendación?</h3>
-              <p class="small text-secondary mb-3">Reglas del sistema difuso y su grado de activación (0 a 1).</p>
-              <div id="reglas"></div>
+        </aside>
+
+        <!-- Contenido de los paneles -->
+        <section class="col-lg-9">
+          <div class="tab-content">
+
+            <!-- RESUMEN -->
+            <div class="tab-pane fade show active" id="p-resumen" role="tabpanel">
+              <h2 class="titulo-panel" id="tituloResumen"></h2>
+              <div class="row g-3 mb-3" id="kpis"></div>
+              <div class="row g-3">
+                <div class="col-xl-7">
+                  <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                      <h3 class="h6 mb-1">Ocupación prevista por fecha</h3>
+                      <p class="small text-secondary mb-2">Color según nivel de ocupación (azul: baja, verde: media, naranja: alta, rojo: casi lleno).</p>
+                      <div id="chartFechas"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-5">
+                  <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center">
+                      <h3 class="h6 mb-1 text-start">Ocupación media de la fecha</h3>
+                      <div id="chartGauge"></div>
+                      <div id="resumenEtiqueta"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <!-- SERVICIOS -->
+            <div class="tab-pane fade" id="p-servicios" role="tabpanel">
+              <h2 class="titulo-panel" id="tituloServicios"></h2>
+              <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                  <div class="row g-2 align-items-end mb-2">
+                    <div class="col-md-4">
+                      <label class="form-label small text-secondary mb-1" for="vista">Ver gráfico por</label>
+                      <select id="vista" class="form-select form-select-sm">
+                        <option value="servicio">Servicio (hora de salida)</option>
+                        <option value="operador">Operador</option>
+                        <option value="tipo">Tipo de bus</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label small text-secondary mb-1" for="orden">Ordenar por</label>
+                      <select id="orden" class="form-select form-select-sm">
+                        <option value="hora">Hora de salida</option>
+                        <option value="pct">Ocupación prevista (mayor primero)</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label small text-secondary mb-1" for="buscar">Buscar</label>
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input id="buscar" type="search" class="form-control" placeholder="Operador, tipo o hora">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="small text-secondary mb-2" id="notaVista"></p>
+                  <div id="chartServicios"></div>
+                </div>
+              </div>
+
+              <div class="card border-0 shadow-sm">
+                <div class="card-header bg-transparent fw-semibold d-flex justify-content-between align-items-center">
+                  <span>Detalle de servicios</span>
+                  <span class="small text-secondary" id="contador"></span>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-hover align-middle mb-0 tabla-servicios">
+                    <thead>
+                      <tr>
+                        <th data-key="hora_salida" role="button">Salida <i class="bi bi-arrow-down-up"></i></th>
+                        <th data-key="operador" role="button">Operador <i class="bi bi-arrow-down-up"></i></th>
+                        <th data-key="tipo_bus" role="button">Tipo de bus <i class="bi bi-arrow-down-up"></i></th>
+                        <th class="text-end" data-key="asientos_totales" role="button">Asientos <i class="bi bi-arrow-down-up"></i></th>
+                        <th class="text-end" data-key="ocupacion_d3" role="button">Ocupados D+3 <i class="bi bi-arrow-down-up"></i></th>
+                        <th class="text-end" data-key="ocupacion_predicha" role="button">Previsión final <i class="bi bi-arrow-down-up"></i></th>
+                        <th data-key="ocupacion_predicha_pct" role="button" style="min-width:190px">Ocupación prevista <i class="bi bi-arrow-down-up"></i></th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- RECOMENDACION (FIS) -->
+            <div class="tab-pane fade" id="p-fis" role="tabpanel">
+              <h2 class="titulo-panel" id="tituloFis"></h2>
+              <div class="row g-3">
+                <div class="col-xl-5">
+                  <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center">
+                      <h3 class="h6 text-start mb-1">Índice de despacho (0 a 20)</h3>
+                      <div id="chartFis"></div>
+                      <div id="fisEtiqueta" class="mb-3"></div>
+                      <div class="escala-fis" id="escalaFis"></div>
+                      <div class="d-flex justify-content-between small text-secondary mt-1">
+                        <span>Reducir</span><span>Mantener</span><span>Aumentar</span><span>Urgente</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-7">
+                  <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                      <h3 class="h6 mb-3">Datos que recibió el sistema difuso</h3>
+                      <div class="row g-2" id="entradasFis"></div>
+                    </div>
+                  </div>
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                      <h3 class="h6 mb-1">¿Por qué esta recomendación?</h3>
+                      <p class="small text-secondary mb-3">Reglas del sistema difuso y su grado de activación (0 a 1).</p>
+                      <div id="reglas"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODELO -->
+            <div class="tab-pane fade" id="p-modelo" role="tabpanel">
+              <h2 class="titulo-panel">Modelo predictivo</h2>
+              <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                  <p id="modeloInfo" class="mb-3"></p>
+                  <h3 class="h6 mb-1">Error medio absoluto (MAE) por modelo</h3>
+                  <p class="small text-secondary mb-2">Asientos de diferencia promedio entre lo previsto y lo observado. Menor es mejor.</p>
+                  <div id="chartModelo"></div>
+                </div>
+              </div>
+              <div class="card border-0 shadow-sm">
+                <div class="table-responsive">
+                  <table class="table align-middle mb-0">
+                    <thead>
+                      <tr><th>Modelo</th><th class="text-end">MAE</th><th class="text-end">RMSE</th><th class="text-end">Mejora vs. referencia</th></tr>
+                    </thead>
+                    <tbody id="metricas"></tbody>
+                  </table>
+                </div>
+                <div class="card-body small text-secondary">
+                  MAE y RMSE provienen de validación temporal: se entrena con fechas pasadas y se evalúa en la siguiente.
+                  La referencia es «ocupación a D+3 más el incremento mediano histórico».
+                </div>
+              </div>
+            </div>
+
+            <!-- ACERCA DE -->
+            <div class="tab-pane fade" id="p-acerca" role="tabpanel">
+              <h2 class="titulo-panel">Acerca de este panel</h2>
+              <div class="card border-0 shadow-sm">
+                <div class="card-body acerca">
+                  <h3 class="h6">¿Qué muestra?</h3>
+                  <p>Para cada servicio de la ruta Lima &ndash; Chiclayo, estima cuántos asientos estarán ocupados al momento de la salida, usando lo observado 72 horas antes (D+3), el calendario y otras variables.</p>
+                  <h3 class="h6">¿Cómo se recomienda el despacho?</h3>
+                  <p>La ocupación prevista de la fecha se entrega a un sistema de inferencia difusa (Mamdani) que combina ocupación, cercanía a un feriado e índice de clima, y devuelve un índice de 0 a 20 con su categoría.</p>
+                  <h3 class="h6">Limitaciones</h3>
+                  <ul class="mb-0">
+                    <li>La ocupación es un indicador aproximado (asientos vendidos observados en redBus), no ventas confirmadas.</li>
+                    <li>Se cubre una muestra de unos 15 servicios por día, no todo el mercado.</li>
+                    <li>El índice de clima es neutro (50) porque aún no se incorpora pronóstico para fechas futuras.</li>
+                    <li>La serie histórica es corta (desde septiembre de 2026), por lo que los resultados son exploratorios.</li>
+                    <li>Si una fecha aparece como «parcial», solo incluye los servicios que aún no han salido.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
           </div>
-        </div>
+        </section>
       </div>
-
-      <div class="card shadow-sm">
-        <div class="card-header bg-transparent fw-semibold">Detalle de servicios</div>
-        <div class="table-responsive">
-          <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
-              <tr>
-                <th>Salida</th><th>Operador</th><th>Tipo de bus</th>
-                <th class="text-end">Asientos</th><th class="text-end">Ocupados a D+3</th>
-                <th class="text-end">Previsión final</th><th style="min-width:190px">Ocupación prevista</th>
-              </tr>
-            </thead>
-            <tbody id="tbody"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section id="modelo" class="mb-4" hidden>
-      <h2 class="h5 mb-3"><i class="bi bi-cpu me-2"></i>Sobre el modelo</h2>
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <p id="modeloInfo" class="mb-3"></p>
-          <div class="table-responsive">
-            <table class="table table-sm align-middle mb-2">
-              <thead class="table-light">
-                <tr><th>Modelo</th><th class="text-end">MAE (asientos)</th><th class="text-end">RMSE</th><th class="text-end">Mejora vs. referencia</th></tr>
-              </thead>
-              <tbody id="metricas"></tbody>
-            </table>
-          </div>
-          <p class="small text-secondary mb-0">
-            MAE y RMSE provienen de validación temporal (se entrena con fechas pasadas y se evalúa en la siguiente).
-            La referencia es «ocupación a D+3 más el incremento mediano histórico».
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <div class="alert alert-warning small" role="alert">
-      <i class="bi bi-info-circle me-1"></i>
-      Prototipo académico. La ocupación es un indicador aproximado (asientos vendidos observados en redBus), no ventas
-      confirmadas, y cubre una muestra de unos 15 servicios por día. Las unidades recomendadas son <strong>adicionales</strong>
-      a la programación base. El índice de clima es neutro (50) porque aún no se incorpora pronóstico para fechas futuras.
     </div>
   </main>
 
   <footer class="py-4 border-top text-center small text-secondary">
-    Proyecto de tesis &middot; UPN &middot; Los datos se actualizan una vez al día.
+    Proyecto de tesis &middot; UPN &middot; Prototipo académico &middot; Los datos se actualizan una vez al día.
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts@8.3.1/dist/apexcharts.min.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>

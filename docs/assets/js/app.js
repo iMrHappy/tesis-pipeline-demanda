@@ -1,8 +1,10 @@
 /* Panel de despacho Lima - Chiclayo
-   Lee data/recomendaciones.json (generado por src/predict_and_recommend.py) y pinta el panel. */
+   Lee data/recomendaciones.json (generado por src/predict_and_recommend.py) y pinta el panel.
+   Librerias: Bootstrap 5 (maquetacion y pestañas), ApexCharts (graficos), animate.css (transiciones). */
 
 const DATA_URL = "data/recomendaciones.json";
 
+const COLORES = {reducir: "#2b7fd9", mantener: "#2a9d62", aumentar: "#e8890c", urgente: "#d93636"};
 const REGLAS = {
   R1_aumentar_urgente: "Demanda alta + feriado muy cercano: aumentar urgente",
   R2_aumentar: "Demanda alta + clima favorable: aumentar",
@@ -12,17 +14,29 @@ const REGLAS = {
   R6_reducir: "Demanda baja + clima adverso: reducir",
   R7_reducir: "Demanda baja: reducir"
 };
+const TRAMOS = [["reducir", 6], ["mantener", 7], ["aumentar", 4], ["urgente", 3]]; // ancho de cada tramo en la escala 0-20
+const NOTAS_VISTA = {
+  servicio: "Cada barra es un servicio: ocupados a 72 h (azul oscuro), aumento previsto hasta la salida (azul claro) y asientos libres previstos (gris).",
+  operador: "Ocupación prevista de cada operador, ponderada por asientos. Pasa el cursor para ver el detalle.",
+  tipo: "Ocupación prevista por tipo de bus, ponderada por asientos. Pasa el cursor para ver el detalle."
+};
 
 let DATOS = null;
-let grafico = null;
-let seleccionada = null;
+let FECHA = null;
+let PANEL = "resumen";
+let VISTA = "servicio";
+let ORDEN = "hora";
+let BUSCA = "";
+let MAXN = 0;
+let SORT = {key: "hora_salida", dir: 1};
+const charts = {};
 
+/* ---------- utilidades ---------- */
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
   ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
 const fmt = (n, d = 1) => Number(n).toLocaleString("es-PE", {minimumFractionDigits: d, maximumFractionDigits: d});
 
-/* ---------- utilidades de presentacion ---------- */
 function clase(etiqueta) {
   const e = (etiqueta || "").toLowerCase();
   if (e.includes("urgente")) return "urgente";
@@ -31,10 +45,13 @@ function clase(etiqueta) {
   return "mantener";
 }
 function colorPct(p) {
-  return p >= 90 ? "#d93636" : p >= 70 ? "#e8890c" : p >= 45 ? "#2a9d62" : "#2b7fd9";
+  return p >= 90 ? COLORES.urgente : p >= 70 ? COLORES.aumentar : p >= 45 ? COLORES.mantener : COLORES.reducir;
 }
 function fechaLarga(f) {
   return new Date(f + "T12:00:00").toLocaleDateString("es-PE", {weekday: "long", day: "numeric", month: "long"});
+}
+function fechaCorta(f) {
+  return new Date(f + "T12:00:00").toLocaleDateString("es-PE", {weekday: "short", day: "numeric", month: "short"});
 }
 function textoFeriado(d) {
   if (d === 0) return "Es feriado";
@@ -42,12 +59,78 @@ function textoFeriado(d) {
   return "Feriado en " + (-d) + (d === -1 ? " día" : " días");
 }
 function textoClima(i) {
-  return Number(i) === 50 ? "Clima: sin dato (neutro)" : "Índice de clima: " + fmt(i, 0);
+  return Number(i) === 50 ? "Sin dato (neutro)" : "Índice " + fmt(i, 0);
 }
-function barra(pct, color, alto) {
-  return '<div class="progress" role="progressbar" aria-valuenow="' + Math.round(pct) + '" aria-valuemin="0" aria-valuemax="100"' +
-    (alto ? ' style="height:' + alto + 'px"' : "") + '><div class="progress-bar" style="width:' +
-    Math.min(100, Math.max(0, pct)) + '%;background-color:' + color + '"></div></div>';
+function tema() {
+  return document.documentElement.getAttribute("data-bs-theme") === "dark" ? "dark" : "light";
+}
+function resultadoActual() {
+  return DATOS && DATOS.resultados.find((r) => r.fecha_viaje === FECHA);
+}
+function esParcial(r) {
+  return MAXN > 0 && r.n_servicios < 0.6 * MAXN;
+}
+function animar(el) {
+  if (!el || !el.classList) return;
+  el.classList.remove("animate__animated", "animate__fadeIn");
+  void el.offsetWidth;
+  el.classList.add("animate__animated", "animate__fadeIn");
+}
+function mezclar(a, b) {
+  const o = Object.assign({}, a);
+  for (const k in b) {
+    const esObj = b[k] && typeof b[k] === "object" && !Array.isArray(b[k]);
+    o[k] = esObj && a[k] && typeof a[k] === "object" && !Array.isArray(a[k]) ? mezclar(a[k], b[k]) : b[k];
+  }
+  return o;
+}
+
+/* ---------- graficos (ApexCharts) ---------- */
+function baseOpts() {
+  const t = tema();
+  return {
+    chart: {
+      fontFamily: "Inter, system-ui, sans-serif", background: "transparent", toolbar: {show: false},
+      foreColor: t === "dark" ? "#c9d1e0" : "#4b5565", animations: {enabled: true, speed: 400}
+    },
+    theme: {mode: t},
+    grid: {borderColor: t === "dark" ? "rgba(255,255,255,.09)" : "rgba(0,0,0,.08)"},
+    tooltip: {theme: t}
+  };
+}
+function dibujar(clave, selector, opciones) {
+  const el = document.querySelector(selector);
+  if (charts[clave]) { try { charts[clave].destroy(); } catch (e) { /* ignorar */ } delete charts[clave]; }
+  if (!el) return;
+  el.innerHTML = "";
+  if (typeof ApexCharts === "undefined") {
+    el.innerHTML = '<div class="alert alert-secondary small mb-0">No se pudo cargar la librería de gráficos. Revisa tu conexión a internet.</div>';
+    return;
+  }
+  try {
+    const c = new ApexCharts(el, mezclar(baseOpts(), opciones));
+    c.render();
+    charts[clave] = c;
+  } catch (e) {
+    el.innerHTML = '<div class="alert alert-warning small mb-0">No se pudo dibujar el gráfico: ' + esc(e.message) + "</div>";
+  }
+}
+function opcionesGauge(valorPct, color, textoValor, etiqueta) {
+  return {
+    chart: {type: "radialBar", height: 290},
+    series: [Math.max(0, Math.min(100, valorPct))],
+    colors: [color],
+    labels: [etiqueta],
+    stroke: {lineCap: "round"},
+    plotOptions: {radialBar: {
+      startAngle: -120, endAngle: 120, hollow: {size: "62%"},
+      track: {background: tema() === "dark" ? "rgba(255,255,255,.08)" : "rgba(0,0,0,.07)"},
+      dataLabels: {
+        name: {offsetY: 24, fontSize: "13px"},
+        value: {offsetY: -14, fontSize: "34px", fontWeight: 700, formatter: () => textoValor}
+      }
+    }}
+  };
 }
 
 /* ---------- carga ---------- */
@@ -66,113 +149,231 @@ async function cargar() {
     mostrarError(esc(DATOS.error || "Sin predicciones disponibles por ahora."));
     return;
   }
+  MAXN = Math.max.apply(null, DATOS.resultados.map((r) => r.n_servicios));
+  const primera = DATOS.resultados.find((r) => !esParcial(r)) || DATOS.resultados[0];
+  FECHA = primera.fecha_viaje;
+
   $("estado").innerHTML = "";
+  $("app").hidden = false;
   pintarEncabezado();
   pintarFechas();
-  pintarModelo();
-  seleccionar(DATOS.resultados[0].fecha_viaje);
+  enlazarEventos();
+  renderPanel(PANEL);
 }
-
 function mostrarError(html) {
   $("estado").innerHTML = '<div class="alert alert-danger" role="alert">' + html + "</div>";
 }
 
-/* ---------- secciones ---------- */
 function pintarEncabezado() {
-  const m = ["Actualizado: " + DATOS.generado_en, "Modelo: " + DATOS.modelo, "Horizonte: " + DATOS.horizonte];
-  if (DATOS.entrenado_en) m.push("Entrenado: " + String(DATOS.entrenado_en).slice(0, 10));
-  $("meta").innerHTML = m.map((t) => '<span class="badge-meta">' + esc(t) + "</span>").join("");
+  const m = [
+    ["bi-arrow-repeat", "Actualizado: " + DATOS.generado_en],
+    ["bi-cpu", "Modelo: " + DATOS.modelo],
+    ["bi-clock-history", "Horizonte: " + DATOS.horizonte]
+  ];
+  if (DATOS.entrenado_en) m.push(["bi-mortarboard", "Entrenado: " + String(DATOS.entrenado_en).slice(0, 10)]);
+  $("meta").innerHTML = m.map((x) => '<span class="badge-meta"><i class="bi ' + x[0] + '"></i>' + esc(x[1]) + "</span>").join("");
+  $("navActualizado").textContent = "Actualizado " + DATOS.generado_en;
 }
 
 function pintarFechas() {
-  $("dateCards").innerHTML = DATOS.resultados.map((r) =>
-    '<div class="col-12 col-md-6 col-lg-4"><div class="card h-100 shadow-sm date-card" data-f="' + esc(r.fecha_viaje) + '">' +
-    '<div class="card-body">' +
-    '<div class="dia">' + esc(fechaLarga(r.fecha_viaje)) + "</div>" +
-    '<div class="grande" style="color:' + colorPct(r.ocupacion_predicha_pct) + '">' + fmt(r.ocupacion_predicha_pct) + "%</div>" +
-    '<div class="small text-secondary mb-2">ocupación prevista &middot; ' + r.n_servicios + " servicios</div>" +
-    '<div class="fw-semibold mb-2">+' + fmt(r.unidades_recomendadas, 1) + " unidades adicionales</div>" +
-    '<span class="badge rounded-pill etiqueta ' + clase(r.recomendacion) + '">' + esc(r.recomendacion) + "</span>" +
-    '<div class="small text-secondary mt-3"><i class="bi bi-flag me-1"></i>' + esc(textoFeriado(r.dias_a_feriado)) +
-    ' &middot; <i class="bi bi-cloud-sun me-1"></i>' + esc(textoClima(r.indice_clima)) + "</div>" +
-    "</div></div></div>"
-  ).join("");
-  document.querySelectorAll(".date-card").forEach((el) =>
-    el.addEventListener("click", () => seleccionar(el.dataset.f)));
+  $("fechas").innerHTML = DATOS.resultados.map((r, i) => {
+    const id = "fecha" + i;
+    return '<input type="radio" class="btn-check" name="fecha" id="' + id + '" value="' + esc(r.fecha_viaje) + '" autocomplete="off"' +
+      (r.fecha_viaje === FECHA ? " checked" : "") + ">" +
+      '<label class="btn btn-outline-primary btn-fecha" for="' + id + '"><span class="punto ' + clase(r.recomendacion) + '"></span>' +
+      esc(fechaCorta(r.fecha_viaje)) + (esParcial(r) ? ' <span class="badge text-bg-warning ms-1">parcial</span>' : "") + "</label>";
+  }).join("");
+  document.querySelectorAll('input[name="fecha"]').forEach((el) =>
+    el.addEventListener("change", () => seleccionarFecha(el.value)));
 }
 
-function seleccionar(f) {
-  seleccionada = f;
-  document.querySelectorAll(".date-card").forEach((el) => el.classList.toggle("active", el.dataset.f === f));
-  const r = DATOS.resultados.find((x) => x.fecha_viaje === f);
+function seleccionarFecha(f) {
+  FECHA = f;
+  document.querySelectorAll('input[name="fecha"]').forEach((el) => { el.checked = el.value === f; });
+  renderPanel(PANEL);
+}
+
+function enlazarEventos() {
+  document.querySelectorAll("#panelTabs [data-panel]").forEach((el) =>
+    el.addEventListener("shown.bs.tab", () => {
+      renderPanel(el.dataset.panel);
+      animar(document.querySelector(el.dataset.bsTarget));
+    }));
+  $("vista").addEventListener("change", (e) => { VISTA = e.target.value; renderPanel("servicios"); });
+  $("orden").addEventListener("change", (e) => { ORDEN = e.target.value; renderPanel("servicios"); });
+  $("buscar").addEventListener("input", (e) => { BUSCA = e.target.value.trim().toLowerCase(); renderPanel("servicios"); });
+  document.querySelectorAll(".tabla-servicios th[data-key]").forEach((th) =>
+    th.addEventListener("click", () => {
+      SORT = {key: th.dataset.key, dir: SORT.key === th.dataset.key ? -SORT.dir : 1};
+      const r = resultadoActual();
+      if (r) renderTabla(filtrados(r));
+    }));
+  $("btnTema").addEventListener("click", () => aplicarTema(tema() === "dark" ? "light" : "dark"));
+}
+
+/* ---------- paneles ---------- */
+function renderPanel(nombre) {
+  PANEL = nombre;
+  const r = resultadoActual();
   if (!r) return;
+  if (nombre === "resumen") renderResumen(r);
+  else if (nombre === "servicios") renderServicios(r);
+  else if (nombre === "fis") renderFis(r);
+  else if (nombre === "modelo") renderModelo();
+}
 
-  $("detalle").hidden = false;
-  $("detalleTitulo").textContent = "Detalle: " + fechaLarga(f);
+function kpi(icono, color, valor, titulo) {
+  return '<div class="col-6 col-xl-3"><div class="card kpi-card border-0 shadow-sm h-100"><div class="card-body d-flex align-items-center gap-3">' +
+    '<div class="kpi-icono bg-' + color + '-subtle text-' + color + '-emphasis"><i class="bi ' + icono + '"></i></div>' +
+    '<div><div class="kpi-valor">' + valor + '</div><div class="small text-secondary">' + titulo + "</div></div></div></div></div>";
+}
+function chipEtiqueta(r) {
+  return '<span class="etiqueta ' + clase(r.recomendacion) + '">' + esc(r.recomendacion) + "</span>";
+}
 
-  const sv = r.servicios.slice().sort((a, b) => a.hora_salida.localeCompare(b.hora_salida));
+function renderResumen(r) {
+  $("tituloResumen").textContent = "Resumen · " + fechaLarga(r.fecha_viaje) + (esParcial(r) ? " (parcial)" : "");
+  const sv = r.servicios;
   const llenos = sv.filter((s) => s.ocupacion_predicha_pct >= 90).length;
   const asientos = sv.reduce((a, s) => a + s.asientos_totales, 0);
   const previstos = sv.reduce((a, s) => a + s.ocupacion_predicha, 0);
+  $("kpis").innerHTML =
+    kpi("bi-people-fill", "primary", fmt(previstos, 0) + " / " + asientos, "Pasajeros previstos / asientos") +
+    kpi("bi-speedometer2", "success", fmt(r.ocupacion_predicha_pct) + "%", "Ocupación media prevista") +
+    kpi("bi-exclamation-triangle-fill", "warning", String(llenos), "Servicios casi llenos (90% o más)") +
+    kpi("bi-sliders", "info", fmt(r.unidades_recomendadas, 1) + " / 20", "Índice de despacho (FIS)");
 
-  const kpis = [
-    ["bi-people", fmt(previstos, 0) + " / " + asientos, "Pasajeros previstos / asientos"],
-    ["bi-speedometer2", fmt(r.ocupacion_predicha_pct) + "%", "Ocupación media prevista"],
-    ["bi-exclamation-triangle", String(llenos), "Servicios casi llenos (90% o más)"],
-    ["bi-plus-circle", "+" + fmt(r.unidades_recomendadas, 1), "Unidades adicionales (FIS)"]
-  ];
-  $("kpis").innerHTML = kpis.map((k) =>
-    '<div class="col-6 col-lg-3"><div class="card h-100 shadow-sm kpi"><div class="card-body">' +
-    '<i class="bi ' + k[0] + ' text-primary fs-4"></i><div class="valor">' + k[1] + '</div>' +
-    '<div class="small text-secondary">' + k[2] + "</div></div></div></div>").join("");
+  const pcts = DATOS.resultados.map((x) => x.ocupacion_predicha_pct);
+  dibujar("fechas", "#chartFechas", {
+    chart: {type: "bar", height: 300},
+    series: [{name: "Ocupación prevista", data: pcts}],
+    colors: pcts.map(colorPct),
+    plotOptions: {bar: {distributed: true, borderRadius: 6, columnWidth: "55%"}},
+    dataLabels: {enabled: true, formatter: (v) => fmt(v, 0) + "%", style: {fontSize: "12px"}},
+    legend: {show: false},
+    xaxis: {categories: DATOS.resultados.map((x) => fechaCorta(x.fecha_viaje) + (esParcial(x) ? " *" : ""))},
+    yaxis: {max: 100, labels: {formatter: (v) => fmt(v, 0) + "%"}},
+    tooltip: {y: {formatter: (v) => fmt(v, 1) + "%"}}
+  });
+  dibujar("gauge", "#chartGauge", opcionesGauge(r.ocupacion_predicha_pct, colorPct(r.ocupacion_predicha_pct),
+    fmt(r.ocupacion_predicha_pct) + "%", "Ocupación prevista"));
+  $("resumenEtiqueta").innerHTML = chipEtiqueta(r) +
+    '<div class="small text-secondary mt-2"><i class="bi bi-flag me-1"></i>' + esc(textoFeriado(r.dias_a_feriado)) +
+    ' &middot; <i class="bi bi-cloud-sun me-1"></i>Clima: ' + esc(textoClima(r.indice_clima)) + "</div>" +
+    (DATOS.resultados.some(esParcial) ? '<div class="small text-secondary mt-2">* Fecha parcial: solo incluye servicios que aún no han salido.</div>' : "");
+}
 
-  $("tbody").innerHTML = sv.map((s) =>
+function filtrados(r) {
+  return r.servicios.filter((s) => !BUSCA ||
+    (s.hora_salida + " " + s.operador + " " + s.tipo_bus).toLowerCase().includes(BUSCA));
+}
+function agrupar(sv, clave) {
+  const m = new Map();
+  sv.forEach((s) => {
+    const g = m.get(s[clave]) || {k: s[clave], n: 0, asientos: 0, prev: 0};
+    g.n += 1; g.asientos += s.asientos_totales; g.prev += s.ocupacion_predicha;
+    m.set(s[clave], g);
+  });
+  return Array.from(m.values()).map((g) => Object.assign(g, {pct: g.prev / g.asientos * 100}))
+    .sort((a, b) => b.pct - a.pct);
+}
+
+function renderServicios(r) {
+  $("tituloServicios").textContent = "Servicios · " + fechaLarga(r.fecha_viaje) + (esParcial(r) ? " (parcial)" : "");
+  $("notaVista").textContent = NOTAS_VISTA[VISTA];
+  const sv = filtrados(r);
+  $("contador").textContent = sv.length + " de " + r.servicios.length + " servicios";
+
+  if (!sv.length) {
+    if (charts.servicios) { try { charts.servicios.destroy(); } catch (e) { /* ignorar */ } delete charts.servicios; }
+    $("chartServicios").innerHTML = '<div class="text-secondary small py-4 text-center">Ningún servicio coincide con la búsqueda.</div>';
+    renderTabla(sv);
+    return;
+  }
+
+  if (VISTA === "servicio") {
+    const lista = sv.slice().sort((a, b) => ORDEN === "pct"
+      ? b.ocupacion_predicha_pct - a.ocupacion_predicha_pct : a.hora_salida.localeCompare(b.hora_salida));
+    const maxAsientos = Math.max.apply(null, lista.map((s) => s.asientos_totales));
+    dibujar("servicios", "#chartServicios", {
+      chart: {type: "bar", stacked: true, height: Math.max(260, lista.length * 34 + 110)},
+      series: [
+        {name: "Ocupados a D+3 (observado)", data: lista.map((s) => s.ocupacion_d3)},
+        {name: "Aumento previsto hasta la salida", data: lista.map((s) => Math.max(0, +(s.ocupacion_predicha - s.ocupacion_d3).toFixed(1)))},
+        {name: "Asientos libres previstos", data: lista.map((s) => Math.max(0, +(s.asientos_totales - s.ocupacion_predicha).toFixed(1)))}
+      ],
+      colors: ["#2459d6", "#7aa2f7", "#b8c0d4"],
+      fill: {opacity: [1, 1, 0.55]},
+      plotOptions: {bar: {horizontal: true, barHeight: "64%", borderRadius: 3}},
+      dataLabels: {enabled: false},
+      legend: {position: "top", horizontalAlign: "left"},
+      xaxis: {categories: lista.map((s) => s.hora_salida + " · " + s.operador), max: maxAsientos,
+        title: {text: "Asientos"}},
+      yaxis: {labels: {maxWidth: 210, style: {fontSize: "12px"}}},
+      tooltip: {shared: true, intersect: false, y: {formatter: (v) => fmt(v, 0) + " asientos"}}
+    });
+  } else {
+    const g = agrupar(sv, VISTA === "operador" ? "operador" : "tipo_bus");
+    dibujar("servicios", "#chartServicios", {
+      chart: {type: "bar", height: Math.max(240, g.length * 42 + 70)},
+      series: [{name: "Ocupación prevista", data: g.map((x) => +x.pct.toFixed(1))}],
+      colors: g.map((x) => colorPct(x.pct)),
+      plotOptions: {bar: {horizontal: true, distributed: true, barHeight: "62%", borderRadius: 4}},
+      dataLabels: {enabled: true, formatter: (v) => fmt(v, 0) + "%"},
+      legend: {show: false},
+      xaxis: {categories: g.map((x) => x.k), max: 100, labels: {formatter: (v) => fmt(v, 0) + "%"}},
+      yaxis: {labels: {maxWidth: 210, style: {fontSize: "12px"}}},
+      tooltip: {y: {formatter: (v, o) => {
+        const x = g[o.dataPointIndex];
+        return fmt(v, 1) + "% · " + x.n + (x.n === 1 ? " servicio" : " servicios") + " · " + fmt(x.prev, 0) + " de " + x.asientos + " asientos";
+      }}}
+    });
+  }
+  renderTabla(sv);
+}
+
+function renderTabla(sv) {
+  const lista = sv.slice().sort((a, b) => {
+    const x = a[SORT.key], y = b[SORT.key];
+    if (typeof x === "number" && typeof y === "number") return (x - y) * SORT.dir;
+    return String(x).localeCompare(String(y), "es") * SORT.dir;
+  });
+  $("tbody").innerHTML = lista.map((s) =>
     "<tr><td>" + esc(s.hora_salida) + "</td><td>" + esc(s.operador) + "</td><td>" + esc(s.tipo_bus) + "</td>" +
     '<td class="text-end tabla-num">' + s.asientos_totales + '</td><td class="text-end tabla-num">' + s.ocupacion_d3 + "</td>" +
     '<td class="text-end tabla-num">' + fmt(s.ocupacion_predicha, 0) + "</td>" +
-    '<td><div class="barra-ocupacion">' + barra(s.ocupacion_predicha_pct, colorPct(s.ocupacion_predicha_pct), 10) +
+    '<td><div class="barra-ocupacion"><div class="progress" role="progressbar"><div class="progress-bar" style="width:' +
+    Math.min(100, s.ocupacion_predicha_pct) + "%;background-color:" + colorPct(s.ocupacion_predicha_pct) + '"></div></div>' +
     '<span class="pct">' + fmt(s.ocupacion_predicha_pct) + "%</span></div></td></tr>").join("");
+}
+
+function renderFis(r) {
+  $("tituloFis").textContent = "Recomendación · " + fechaLarga(r.fecha_viaje) + (esParcial(r) ? " (parcial)" : "");
+  const u = Number(r.unidades_recomendadas);
+  const c = clase(r.recomendacion);
+  dibujar("fis", "#chartFis", opcionesGauge(u / 20 * 100, COLORES[c], fmt(u, 1), "de 20"));
+  $("fisEtiqueta").innerHTML = chipEtiqueta(r);
+  $("escalaFis").innerHTML = TRAMOS.map((t) =>
+    '<div class="tramo" style="width:' + (t[1] / 20 * 100) + "%;background:" + COLORES[t[0]] + '"></div>').join("") +
+    '<div class="marcador" style="left:' + Math.min(100, Math.max(0, u / 20 * 100)) + '%"></div>';
+
+  const entradas = [
+    ["bi-speedometer2", "Ocupación prevista", fmt(r.ocupacion_predicha_pct) + "%"],
+    ["bi-flag", "Feriado", textoFeriado(r.dias_a_feriado)],
+    ["bi-cloud-sun", "Clima", textoClima(r.indice_clima)]
+  ];
+  $("entradasFis").innerHTML = entradas.map((e) =>
+    '<div class="col-md-4"><div class="entrada-fis"><div class="small text-secondary"><i class="bi ' + e[0] + ' me-1"></i>' + e[1] +
+    '</div><div class="valor">' + esc(e[2]) + "</div></div></div>").join("");
 
   $("reglas").innerHTML = Object.entries(r.reglas_activadas || {}).map(([k, v]) =>
     '<div class="regla"><div class="texto">' + esc(REGLAS[k] || k) + "</div>" +
     '<div class="progress" role="progressbar"><div class="progress-bar bg-primary" style="width:' + Math.round(v * 100) + '%"></div></div>' +
     '<div class="valor">' + fmt(v, 2) + "</div></div>").join("");
-
-  pintarGrafico(sv);
 }
 
-function pintarGrafico(sv) {
-  if (typeof Chart === "undefined") return;
-  const texto = getComputedStyle(document.body).color;
-  Chart.defaults.color = texto;
-  Chart.defaults.borderColor = "rgba(128,128,128,.2)";
-  const labels = sv.map((s) => s.hora_salida + " " + s.operador);
-  const d3 = sv.map((s) => s.ocupacion_d3);
-  const inc = sv.map((s) => Math.max(0, +(s.ocupacion_predicha - s.ocupacion_d3).toFixed(1)));
-  const libres = sv.map((s) => Math.max(0, +(s.asientos_totales - s.ocupacion_predicha).toFixed(1)));
-  if (grafico) grafico.destroy();
-  grafico = new Chart($("chartServicios"), {
-    type: "bar",
-    data: {labels, datasets: [
-      {label: "Ocupados a D+3 (observado)", data: d3, backgroundColor: "#2459d6"},
-      {label: "Aumento previsto hasta la salida", data: inc, backgroundColor: "#8fb0f5"},
-      {label: "Asientos libres previstos", data: libres, backgroundColor: "rgba(150,160,180,.35)"}
-    ]},
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      scales: {
-        x: {stacked: true, ticks: {maxRotation: 70, minRotation: 45, font: {size: 10}}},
-        y: {stacked: true, title: {display: true, text: "Asientos"}}
-      },
-      plugins: {legend: {position: "bottom"}}
-    }
-  });
-}
-
-function pintarModelo() {
+function renderModelo() {
   const m = DATOS.metricas_modelo;
-  if (!m || !m.length) return;
-  $("modelo").hidden = false;
   let info = "Modelo en uso: <strong>" + esc(DATOS.modelo) + "</strong>";
   if (DATOS.n_filas_entrenamiento) {
     info += " &middot; entrenado con " + DATOS.n_filas_entrenamiento + " servicios históricos";
@@ -181,32 +382,50 @@ function pintarModelo() {
     }
   }
   $("modeloInfo").innerHTML = info;
-  $("metricas").innerHTML = m
-    .filter((x) => !String(x.modelo).startsWith("Persistencia (final"))
-    .map((x) => {
-      const mejora = x["mejora_vs_pers+incremento_%"];
-      const esRef = x.modelo === "Persistencia + incremento mediano";
-      return "<tr><td>" + esc(x.modelo) + (esRef ? ' <span class="badge text-bg-secondary">referencia</span>' : "") + "</td>" +
-        '<td class="text-end tabla-num">' + fmt(x.MAE, 2) + '</td><td class="text-end tabla-num">' + fmt(x.RMSE, 2) + "</td>" +
-        '<td class="text-end tabla-num">' + (esRef || mejora === undefined ? "-" : fmt(mejora, 1) + "%") + "</td></tr>";
-    }).join("");
+  if (!m || !m.length) {
+    $("chartModelo").innerHTML = '<div class="text-secondary small">Sin métricas disponibles en el JSON.</div>';
+    $("metricas").innerHTML = "";
+    return;
+  }
+  const color = (n) => n.startsWith("Persistencia (final") ? "#9aa5b8" : n.startsWith("Persistencia +") ? COLORES.aumentar
+    : n === DATOS.modelo ? COLORES.mantener : "#2459d6";
+  dibujar("modelo", "#chartModelo", {
+    chart: {type: "bar", height: Math.max(240, m.length * 46 + 60)},
+    series: [{name: "MAE", data: m.map((x) => +Number(x.MAE).toFixed(2))}],
+    colors: m.map((x) => color(String(x.modelo))),
+    plotOptions: {bar: {horizontal: true, distributed: true, barHeight: "60%", borderRadius: 4}},
+    dataLabels: {enabled: true, formatter: (v) => fmt(v, 2)},
+    legend: {show: false},
+    xaxis: {categories: m.map((x) => x.modelo), title: {text: "MAE (asientos)"}},
+    yaxis: {labels: {maxWidth: 230, style: {fontSize: "12px"}}},
+    tooltip: {y: {formatter: (v) => fmt(v, 2) + " asientos"}}
+  });
+  $("metricas").innerHTML = m.map((x) => {
+    const mejora = x["mejora_vs_pers+incremento_%"];
+    const esRef = x.modelo === "Persistencia + incremento mediano";
+    const esPura = String(x.modelo).startsWith("Persistencia (final");
+    return "<tr><td>" + esc(x.modelo) + (esRef ? ' <span class="badge text-bg-secondary">referencia</span>' : "") +
+      (x.modelo === DATOS.modelo ? ' <span class="badge text-bg-success">en uso</span>' : "") + "</td>" +
+      '<td class="text-end tabla-num">' + fmt(x.MAE, 2) + '</td><td class="text-end tabla-num">' + fmt(x.RMSE, 2) + "</td>" +
+      '<td class="text-end tabla-num">' + (esRef || esPura || mejora === undefined ? "-" : fmt(mejora, 1) + "%") + "</td></tr>";
+  }).join("");
 }
 
 /* ---------- tema claro/oscuro ---------- */
 function aplicarTema(t) {
   document.documentElement.setAttribute("data-bs-theme", t);
   try { localStorage.setItem("tema", t); } catch (e) { /* sin almacenamiento */ }
-  const icono = $("btnTema") && $("btnTema").querySelector("i");
+  const btn = $("btnTema");
+  const icono = btn && btn.querySelector("i");
   if (icono) icono.className = "bi " + (t === "dark" ? "bi-sun-fill" : "bi-moon-stars-fill");
-  if (DATOS && seleccionada) seleccionar(seleccionada);
+  if (DATOS) renderPanel(PANEL);
 }
-function iniciarTema() {
-  let t = "light";
-  try { t = localStorage.getItem("tema") || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); } catch (e) { /* ignorar */ }
-  aplicarTema(t);
-  $("btnTema").addEventListener("click", () =>
-    aplicarTema(document.documentElement.getAttribute("data-bs-theme") === "dark" ? "light" : "dark"));
+function temaInicial() {
+  try {
+    return localStorage.getItem("tema") ||
+      (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  } catch (e) { return "light"; }
 }
 
-iniciarTema();
+aplicarTema(temaInicial());
 cargar();
