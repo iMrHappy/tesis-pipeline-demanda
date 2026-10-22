@@ -1,0 +1,5 @@
+modelo,MAE_con,MAE_sin,cambio_MAE,RMSE_con,RMSE_sin
+Ridge,7.666,7.928,0.262,9.595,9.906
+Random Forest,7.216,7.263,0.047,9.207,9.289
+XGBoost,7.292,7.494,0.202,9.112,9.341
+XGBoost (objetivo incremento),7.204,7.293,0.089,9.177,9.216

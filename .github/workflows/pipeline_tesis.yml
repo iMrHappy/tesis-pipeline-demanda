@@ -2,49 +2,68 @@ name: Pipeline Diario Lima-Chiclayo
 
 on:
   schedule:
-    # Se ejecuta a la 1:00 AM UTC (que son las 8:00 PM en Lima, Peru)
-    - cron: '0 16 * * *'   # 16:00 UTC = 11:00 AM Lima (UTC-5)
-  workflow_dispatch: # Te permite ejecutarlo manualmente con un boton
+    # Principal: 16:17 UTC = 11:17 Lima (minuto impar para esquivar la hora en punto, la mas saturada)
+    - cron: '17 16 * * *'
+    # Respaldo: 21:47 UTC = 16:47 Lima. Solo captura si el principal no corrio o quedo incompleto
+    - cron: '47 21 * * *'
+  workflow_dispatch:
+
+# Si el principal sigue corriendo cuando llega el respaldo, el respaldo espera su turno
+concurrency:
+  group: pipeline-diario
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
-  extraccion-datos:
+  pipeline:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 45
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
     steps:
-    - name: Clonar repositorio
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Configurar Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
 
-    - name: Instalar librerias
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
 
-    - name: Ejecutar Scripts de Extraccion (Ingesta -> raw / staging directo)
-      env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        TOMTOM_API_KEY: ${{ secrets.TOMTOM_API_KEY }}
-        APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
-      run: |
-        python src/ingest_trends.py
-        python src/ingest_traffic.py
-        python src/test_apify.py
-        python src/ingest_weather.py
-        python src/ingest_economy.py
+      - name: Guardia - ya se capturo redBus hoy?
+        id: guardia
+        run: python src/guardia_diaria.py
 
-    - name: Ejecutar Transformaciones (Raw -> Staging)
-      env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      run: |
-        python src/transform_weather.py
-        python src/transform_staging.py
+      # DATO PRINCIPAL: va primero y con reintentos. Es la unica foto que no se puede recuperar despues.
+      - name: Ingesta redBus (con reintentos)
+        if: steps.guardia.outputs.ya_corrio != 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          for intento in 1 2 3; do
+            if python src/test_apify.py; then
+              exit 0
+            fi
+            echo "::warning::Intento $intento de redBus fallido; reintentando en 120 s"
+            sleep 120
+          done
+          exit 1
 
-    - name: Actualizar Features de Calendario (Logica Difusa)
-      env:
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      run: |
-        python src/feature_calendar.py
+      # CLIMA: unica fuente secundaria que se conserva. Si falla, el pipeline continua.
+      - name: Ingesta clima (secundaria)
+        if: steps.guardia.outputs.ya_corrio != 'true' || github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        run: python src/ingest_weather.py
+
+      # TRANSFORMACIONES: siempre corren (son idempotentes), aunque la ingesta de clima haya fallado
+      - name: Transformaciones
+        if: ${{ !cancelled() }}
+        run: |
+          python src/transform_weather.py
+          python src/transform_staging.py
+
+      - name: Actualizar features de calendario
+        if: ${{ !cancelled() }}
+        run: python src/feature_calendar.py

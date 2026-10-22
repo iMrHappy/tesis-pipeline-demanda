@@ -1,76 +1,76 @@
 {
   "generado_en": "2026-10-22",
   "modelo": "XGBoost",
-  "entrenado_en": "2026-10-10T22:24:53",
+  "entrenado_en": "2026-10-22T18:46:16",
   "horizonte": "D+3",
-  "n_filas_entrenamiento": 207,
+  "n_filas_entrenamiento": 296,
   "entrenamiento_desde": "2026-09-21",
-  "entrenamiento_hasta": "2026-10-10",
+  "entrenamiento_hasta": "2026-10-22",
   "metricas_modelo": [
     {
       "modelo": "Persistencia (final = D+3)",
-      "MAE": 22.272,
-      "RMSE": 24.727,
-      "n_pred": 147,
+      "MAE": 23.674,
+      "RMSE": 26.08,
+      "n_pred": 236,
       "mejora_vs_persistencia_%": 0.0,
-      "mejora_vs_pers+incremento_%": -152.623
+      "mejora_vs_pers+incremento_%": -163.165
     },
     {
       "modelo": "Persistencia + incremento mediano",
-      "MAE": 8.816,
-      "RMSE": 11.284,
-      "n_pred": 147,
-      "mejora_vs_persistencia_%": 60.415,
+      "MAE": 8.996,
+      "RMSE": 11.588,
+      "n_pred": 236,
+      "mejora_vs_persistencia_%": 62.001,
       "mejora_vs_pers+incremento_%": 0.0
     },
     {
       "modelo": "Ridge",
-      "MAE": 7.583,
-      "RMSE": 9.525,
-      "n_pred": 147,
-      "mejora_vs_persistencia_%": 65.951,
-      "mejora_vs_pers+incremento_%": 13.984
+      "MAE": 7.666,
+      "RMSE": 9.595,
+      "n_pred": 236,
+      "mejora_vs_persistencia_%": 67.616,
+      "mejora_vs_pers+incremento_%": 14.777
     },
     {
       "modelo": "Random Forest",
-      "MAE": 7.149,
-      "RMSE": 9.119,
-      "n_pred": 147,
-      "mejora_vs_persistencia_%": 67.903,
-      "mejora_vs_pers+incremento_%": 18.915
+      "MAE": 7.216,
+      "RMSE": 9.207,
+      "n_pred": 236,
+      "mejora_vs_persistencia_%": 69.519,
+      "mejora_vs_pers+incremento_%": 19.785
     },
     {
       "modelo": "XGBoost",
-      "MAE": 7.171,
-      "RMSE": 8.838,
-      "n_pred": 147,
-      "mejora_vs_persistencia_%": 67.801,
-      "mejora_vs_pers+incremento_%": 18.659
+      "MAE": 7.292,
+      "RMSE": 9.112,
+      "n_pred": 236,
+      "mejora_vs_persistencia_%": 69.197,
+      "mejora_vs_pers+incremento_%": 18.937
     },
     {
       "modelo": "XGBoost (objetivo incremento)",
-      "MAE": 6.978,
-      "RMSE": 8.78,
-      "n_pred": 147,
-      "mejora_vs_persistencia_%": 68.669,
-      "mejora_vs_pers+incremento_%": 20.85
+      "MAE": 7.204,
+      "RMSE": 9.177,
+      "n_pred": 236,
+      "mejora_vs_persistencia_%": 69.569,
+      "mejora_vs_pers+incremento_%": 19.915
     }
   ],
   "resultados": [
     {
       "fecha_viaje": "2026-10-22",
       "n_servicios": 11,
-      "ocupacion_predicha_pct": 64.7,
+      "ocupacion_predicha_pct": 67.2,
       "dias_a_feriado": -5,
       "indice_clima": 100.0,
-      "unidades_recomendadas": 10.7,
+      "unidades_recomendadas": 11.4,
       "recomendacion": "Mantener programacion",
       "reglas_activadas": {
         "R1_aumentar_urgente": 0.0,
-        "R2_aumentar": 0.2153,
+        "R2_aumentar": 0.2714,
         "R3_aumentar": 0.0,
-        "R4_mantener": 0.4125,
-        "R5_mantener": 0.4125,
+        "R4_mantener": 0.3115,
+        "R5_mantener": 0.3115,
         "R6_reducir": 0.0,
         "R7_reducir": 0.0
       },
@@ -81,8 +81,8 @@
           "tipo_bus": "SEMI CAMA",
           "asientos_totales": 64,
           "ocupacion_d3": 12,
-          "ocupacion_predicha": 31.5,
-          "ocupacion_predicha_pct": 49.2
+          "ocupacion_predicha": 40.1,
+          "ocupacion_predicha_pct": 62.7
         },
         {
           "hora_salida": "19:00",
@@ -90,8 +90,8 @@
           "tipo_bus": "Premium Plus",
           "asientos_totales": 48,
           "ocupacion_d3": 12,
-          "ocupacion_predicha": 32.7,
-          "ocupacion_predicha_pct": 68.1
+          "ocupacion_predicha": 31.9,
+          "ocupacion_predicha_pct": 66.4
         },
         {
           "hora_salida": "19:30",
@@ -99,8 +99,8 @@
           "tipo_bus": "Oro",
           "asientos_totales": 47,
           "ocupacion_d3": 13,
-          "ocupacion_predicha": 31.2,
-          "ocupacion_predicha_pct": 66.4
+          "ocupacion_predicha": 32.6,
+          "ocupacion_predicha_pct": 69.4
         },
         {
           "hora_salida": "19:30",
@@ -108,8 +108,8 @@
           "tipo_bus": "Super Cama",
           "asientos_totales": 39,
           "ocupacion_d3": 17,
-          "ocupacion_predicha": 31.0,
-          "ocupacion_predicha_pct": 79.5
+          "ocupacion_predicha": 27.8,
+          "ocupacion_predicha_pct": 71.3
         },
         {
           "hora_salida": "19:45",
@@ -117,8 +117,8 @@
           "tipo_bus": "EJECUTIVO",
           "asientos_totales": 50,
           "ocupacion_d3": 13,
-          "ocupacion_predicha": 30.5,
-          "ocupacion_predicha_pct": 61.0
+          "ocupacion_predicha": 32.0,
+          "ocupacion_predicha_pct": 64.1
         },
         {
           "hora_salida": "20:15",
@@ -126,8 +126,8 @@
           "tipo_bus": "GOLD",
           "asientos_totales": 45,
           "ocupacion_d3": 17,
-          "ocupacion_predicha": 41.4,
-          "ocupacion_predicha_pct": 92.0
+          "ocupacion_predicha": 35.4,
+          "ocupacion_predicha_pct": 78.7
         },
         {
           "hora_salida": "20:30",
@@ -135,8 +135,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 67,
           "ocupacion_d3": 16,
-          "ocupacion_predicha": 47.1,
-          "ocupacion_predicha_pct": 70.3
+          "ocupacion_predicha": 50.6,
+          "ocupacion_predicha_pct": 75.6
         },
         {
           "hora_salida": "20:30",
@@ -144,8 +144,8 @@
           "tipo_bus": "MASTER",
           "asientos_totales": 63,
           "ocupacion_d3": 21,
-          "ocupacion_predicha": 44.0,
-          "ocupacion_predicha_pct": 69.9
+          "ocupacion_predicha": 45.5,
+          "ocupacion_predicha_pct": 72.3
         },
         {
           "hora_salida": "20:30",
@@ -153,8 +153,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 65,
           "ocupacion_d3": 15,
-          "ocupacion_predicha": 49.0,
-          "ocupacion_predicha_pct": 75.3
+          "ocupacion_predicha": 50.5,
+          "ocupacion_predicha_pct": 77.7
         },
         {
           "hora_salida": "21:45",
@@ -162,8 +162,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 46,
           "ocupacion_d3": 2,
-          "ocupacion_predicha": 21.1,
-          "ocupacion_predicha_pct": 45.9
+          "ocupacion_predicha": 22.9,
+          "ocupacion_predicha_pct": 49.7
         },
         {
           "hora_salida": "22:15",
@@ -171,25 +171,25 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 67,
           "ocupacion_d3": 9,
-          "ocupacion_predicha": 29.3,
-          "ocupacion_predicha_pct": 43.8
+          "ocupacion_predicha": 34.5,
+          "ocupacion_predicha_pct": 51.6
         }
       ]
     },
     {
       "fecha_viaje": "2026-10-23",
       "n_servicios": 15,
-      "ocupacion_predicha_pct": 74.8,
+      "ocupacion_predicha_pct": 75.8,
       "dias_a_feriado": -5,
       "indice_clima": 50.0,
-      "unidades_recomendadas": 14.66,
+      "unidades_recomendadas": 15.0,
       "recomendacion": "Aumentar unidades",
       "reglas_activadas": {
         "R1_aumentar_urgente": 0.0,
         "R2_aumentar": 0.1667,
         "R3_aumentar": 0.0,
-        "R4_mantener": 0.0084,
-        "R5_mantener": 0.0084,
+        "R4_mantener": 0.0,
+        "R5_mantener": 0.0,
         "R6_reducir": 0.0,
         "R7_reducir": 0.0
       },
@@ -200,8 +200,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 67,
           "ocupacion_d3": 29,
-          "ocupacion_predicha": 58.6,
-          "ocupacion_predicha_pct": 87.5
+          "ocupacion_predicha": 55.9,
+          "ocupacion_predicha_pct": 83.4
         },
         {
           "hora_salida": "17:00",
@@ -209,8 +209,8 @@
           "tipo_bus": "MASTER",
           "asientos_totales": 63,
           "ocupacion_d3": 32,
-          "ocupacion_predicha": 51.6,
-          "ocupacion_predicha_pct": 81.9
+          "ocupacion_predicha": 49.2,
+          "ocupacion_predicha_pct": 78.1
         },
         {
           "hora_salida": "17:30",
@@ -218,8 +218,8 @@
           "tipo_bus": "MASTER",
           "asientos_totales": 63,
           "ocupacion_d3": 30,
-          "ocupacion_predicha": 49.0,
-          "ocupacion_predicha_pct": 77.8
+          "ocupacion_predicha": 48.9,
+          "ocupacion_predicha_pct": 77.7
         },
         {
           "hora_salida": "18:30",
@@ -227,8 +227,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 62,
           "ocupacion_d3": 18,
-          "ocupacion_predicha": 46.5,
-          "ocupacion_predicha_pct": 75.0
+          "ocupacion_predicha": 48.2,
+          "ocupacion_predicha_pct": 77.7
         },
         {
           "hora_salida": "19:00",
@@ -236,8 +236,8 @@
           "tipo_bus": "Premium Plus",
           "asientos_totales": 48,
           "ocupacion_d3": 25,
-          "ocupacion_predicha": 45.9,
-          "ocupacion_predicha_pct": 95.7
+          "ocupacion_predicha": 40.8,
+          "ocupacion_predicha_pct": 85.1
         },
         {
           "hora_salida": "19:00",
@@ -245,8 +245,8 @@
           "tipo_bus": "SEMI CAMA",
           "asientos_totales": 64,
           "ocupacion_d3": 19,
-          "ocupacion_predicha": 39.7,
-          "ocupacion_predicha_pct": 62.0
+          "ocupacion_predicha": 44.3,
+          "ocupacion_predicha_pct": 69.2
         },
         {
           "hora_salida": "19:30",
@@ -254,8 +254,8 @@
           "tipo_bus": "Oro",
           "asientos_totales": 47,
           "ocupacion_d3": 23,
-          "ocupacion_predicha": 43.6,
-          "ocupacion_predicha_pct": 92.8
+          "ocupacion_predicha": 39.3,
+          "ocupacion_predicha_pct": 83.7
         },
         {
           "hora_salida": "19:30",
@@ -263,8 +263,8 @@
           "tipo_bus": "Super Cama",
           "asientos_totales": 39,
           "ocupacion_d3": 12,
-          "ocupacion_predicha": 27.7,
-          "ocupacion_predicha_pct": 70.9
+          "ocupacion_predicha": 28.4,
+          "ocupacion_predicha_pct": 72.8
         },
         {
           "hora_salida": "19:45",
@@ -272,8 +272,8 @@
           "tipo_bus": "EJECUTIVO",
           "asientos_totales": 50,
           "ocupacion_d3": 13,
-          "ocupacion_predicha": 31.9,
-          "ocupacion_predicha_pct": 63.7
+          "ocupacion_predicha": 34.8,
+          "ocupacion_predicha_pct": 69.6
         },
         {
           "hora_salida": "20:15",
@@ -281,8 +281,8 @@
           "tipo_bus": "GOLD",
           "asientos_totales": 45,
           "ocupacion_d3": 9,
-          "ocupacion_predicha": 35.1,
-          "ocupacion_predicha_pct": 78.1
+          "ocupacion_predicha": 34.4,
+          "ocupacion_predicha_pct": 76.4
         },
         {
           "hora_salida": "20:30",
@@ -290,8 +290,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 67,
           "ocupacion_d3": 15,
-          "ocupacion_predicha": 46.9,
-          "ocupacion_predicha_pct": 70.0
+          "ocupacion_predicha": 51.1,
+          "ocupacion_predicha_pct": 76.2
         },
         {
           "hora_salida": "20:30",
@@ -299,8 +299,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 65,
           "ocupacion_d3": 20,
-          "ocupacion_predicha": 49.9,
-          "ocupacion_predicha_pct": 76.8
+          "ocupacion_predicha": 49.6,
+          "ocupacion_predicha_pct": 76.2
         },
         {
           "hora_salida": "21:45",
@@ -308,8 +308,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 46,
           "ocupacion_d3": 9,
-          "ocupacion_predicha": 28.8,
-          "ocupacion_predicha_pct": 62.7
+          "ocupacion_predicha": 29.4,
+          "ocupacion_predicha_pct": 63.9
         },
         {
           "hora_salida": "22:00",
@@ -317,8 +317,8 @@
           "tipo_bus": "MASTER",
           "asientos_totales": 63,
           "ocupacion_d3": 25,
-          "ocupacion_predicha": 43.1,
-          "ocupacion_predicha_pct": 68.4
+          "ocupacion_predicha": 46.1,
+          "ocupacion_predicha_pct": 73.2
         },
         {
           "hora_salida": "22:15",
@@ -326,25 +326,25 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 67,
           "ocupacion_d3": 15,
-          "ocupacion_predicha": 41.9,
-          "ocupacion_predicha_pct": 62.5
+          "ocupacion_predicha": 48.3,
+          "ocupacion_predicha_pct": 72.1
         }
       ]
     },
     {
       "fecha_viaje": "2026-10-25",
       "n_servicios": 15,
-      "ocupacion_predicha_pct": 60.2,
+      "ocupacion_predicha_pct": 64.8,
       "dias_a_feriado": -5,
       "indice_clima": 50.0,
-      "unidades_recomendadas": 9.71,
+      "unidades_recomendadas": 10.35,
       "recomendacion": "Mantener programacion",
       "reglas_activadas": {
         "R1_aumentar_urgente": 0.0,
-        "R2_aumentar": 0.1167,
+        "R2_aumentar": 0.1667,
         "R3_aumentar": 0.0,
-        "R4_mantener": 0.59,
-        "R5_mantener": 0.59,
+        "R4_mantener": 0.4085,
+        "R5_mantener": 0.4085,
         "R6_reducir": 0.0,
         "R7_reducir": 0.0
       },
@@ -355,8 +355,8 @@
           "tipo_bus": "MASTER",
           "asientos_totales": 63,
           "ocupacion_d3": 24,
-          "ocupacion_predicha": 48.6,
-          "ocupacion_predicha_pct": 77.2
+          "ocupacion_predicha": 48.3,
+          "ocupacion_predicha_pct": 76.7
         },
         {
           "hora_salida": "18:30",
@@ -364,8 +364,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 62,
           "ocupacion_d3": 19,
-          "ocupacion_predicha": 47.0,
-          "ocupacion_predicha_pct": 75.8
+          "ocupacion_predicha": 47.4,
+          "ocupacion_predicha_pct": 76.4
         },
         {
           "hora_salida": "19:00",
@@ -373,8 +373,8 @@
           "tipo_bus": "MASTER",
           "asientos_totales": 63,
           "ocupacion_d3": 19,
-          "ocupacion_predicha": 41.6,
-          "ocupacion_predicha_pct": 66.0
+          "ocupacion_predicha": 44.3,
+          "ocupacion_predicha_pct": 70.4
         },
         {
           "hora_salida": "19:00",
@@ -382,8 +382,8 @@
           "tipo_bus": "Premium Plus",
           "asientos_totales": 48,
           "ocupacion_d3": 14,
-          "ocupacion_predicha": 35.4,
-          "ocupacion_predicha_pct": 73.7
+          "ocupacion_predicha": 37.2,
+          "ocupacion_predicha_pct": 77.6
         },
         {
           "hora_salida": "19:00",
@@ -391,8 +391,8 @@
           "tipo_bus": "SEMI CAMA",
           "asientos_totales": 64,
           "ocupacion_d3": 16,
-          "ocupacion_predicha": 36.3,
-          "ocupacion_predicha_pct": 56.7
+          "ocupacion_predicha": 41.3,
+          "ocupacion_predicha_pct": 64.5
         },
         {
           "hora_salida": "19:30",
@@ -400,8 +400,8 @@
           "tipo_bus": "Super Cama",
           "asientos_totales": 39,
           "ocupacion_d3": 10,
-          "ocupacion_predicha": 26.9,
-          "ocupacion_predicha_pct": 68.9
+          "ocupacion_predicha": 28.9,
+          "ocupacion_predicha_pct": 74.2
         },
         {
           "hora_salida": "19:30",
@@ -409,8 +409,8 @@
           "tipo_bus": "Oro",
           "asientos_totales": 47,
           "ocupacion_d3": 27,
-          "ocupacion_predicha": 43.6,
-          "ocupacion_predicha_pct": 92.8
+          "ocupacion_predicha": 39.4,
+          "ocupacion_predicha_pct": 83.7
         },
         {
           "hora_salida": "19:45",
@@ -418,8 +418,8 @@
           "tipo_bus": "SEMI CAMA",
           "asientos_totales": 64,
           "ocupacion_d3": 14,
-          "ocupacion_predicha": 29.6,
-          "ocupacion_predicha_pct": 46.2
+          "ocupacion_predicha": 37.9,
+          "ocupacion_predicha_pct": 59.2
         },
         {
           "hora_salida": "20:15",
@@ -427,8 +427,8 @@
           "tipo_bus": "GOLD",
           "asientos_totales": 45,
           "ocupacion_d3": 9,
-          "ocupacion_predicha": 35.0,
-          "ocupacion_predicha_pct": 77.8
+          "ocupacion_predicha": 34.9,
+          "ocupacion_predicha_pct": 77.6
         },
         {
           "hora_salida": "20:30",
@@ -436,8 +436,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 67,
           "ocupacion_d3": 11,
-          "ocupacion_predicha": 39.1,
-          "ocupacion_predicha_pct": 58.4
+          "ocupacion_predicha": 40.6,
+          "ocupacion_predicha_pct": 60.6
         },
         {
           "hora_salida": "20:30",
@@ -445,8 +445,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 65,
           "ocupacion_d3": 7,
-          "ocupacion_predicha": 38.2,
-          "ocupacion_predicha_pct": 58.8
+          "ocupacion_predicha": 41.4,
+          "ocupacion_predicha_pct": 63.7
         },
         {
           "hora_salida": "20:45",
@@ -454,8 +454,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 67,
           "ocupacion_d3": 11,
-          "ocupacion_predicha": 32.4,
-          "ocupacion_predicha_pct": 48.3
+          "ocupacion_predicha": 37.6,
+          "ocupacion_predicha_pct": 56.1
         },
         {
           "hora_salida": "21:45",
@@ -463,8 +463,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 46,
           "ocupacion_d3": 4,
-          "ocupacion_predicha": 20.8,
-          "ocupacion_predicha_pct": 45.1
+          "ocupacion_predicha": 23.4,
+          "ocupacion_predicha_pct": 50.9
         },
         {
           "hora_salida": "22:00",
@@ -472,8 +472,8 @@
           "tipo_bus": "DOBLE VIP",
           "asientos_totales": 48,
           "ocupacion_d3": 5,
-          "ocupacion_predicha": 11.2,
-          "ocupacion_predicha_pct": 23.3
+          "ocupacion_predicha": 16.4,
+          "ocupacion_predicha_pct": 34.1
         },
         {
           "hora_salida": "22:15",
@@ -481,8 +481,8 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 67,
           "ocupacion_d3": 11,
-          "ocupacion_predicha": 29.5,
-          "ocupacion_predicha_pct": 44.0
+          "ocupacion_predicha": 34.9,
+          "ocupacion_predicha_pct": 52.1
         }
       ]
     }
