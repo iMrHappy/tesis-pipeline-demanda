@@ -1,0 +1,4 @@
+A,B,MAE_A,MAE_B,dif_MAE_(B-A),IC95_inf,IC95_sup,fechas_a_favor_de_A,fechas_en_contra,fechas_total,p_signos,DM_estadistico,DM_p_aprox,lectura
+XGBoost,Persistencia + incremento mediano,7.976,9.173,1.197,-0.057,2.284,11,7,18,0.481,1.501,0.133,Sin evidencia de diferencia entre XGBoost y Persistencia + incremento mediano: el intervalo del 95 % incluye 0.
+Random Forest,Persistencia + incremento mediano,7.471,9.173,1.703,0.707,2.575,15,3,18,0.008,3.498,0.0,Random Forest supera a Persistencia + incremento mediano: el intervalo del 95 % no incluye 0.
+XGBoost,Random Forest,7.976,7.471,-0.506,-1.353,0.209,7,11,18,0.481,-1.125,0.261,Sin evidencia de diferencia entre XGBoost y Random Forest: el intervalo del 95 % incluye 0.

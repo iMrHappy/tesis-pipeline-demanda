@@ -2,15 +2,24 @@
 train_xgboost.py
 Entrena y evalua modelos de ocupacion final (horizonte D+3) desde staging.vw_training_d3.
 
+Cambios 22/10/2026 (MEJORAS_PROYECTO.md):
+  T2: solo se entrena con viajes YA realizados (fecha_viaje < hoy en Lima).
+  T4: la validacion respeta el horizonte: para predecir una fecha solo se usan viajes cuyo
+      resultado ya se conocia 3 dias antes (sin fuga temporal).
+  T5: se guardan las predicciones de validacion por servicio (models/predicciones_cv.csv).
+  Rastro: antes de sobrescribir un resultado se archiva el anterior en models/archivo/.
+
 Ubicacion: src/train_xgboost.py   (requiere src/features.py)
 Ejecucion (desde la raiz del repo): python src/train_xgboost.py
 
-Salida (carpeta models/ en la raiz):
-    demand_model.joblib, metricas_cv.csv, mae_por_fecha.csv, importancia_features.csv
+Salida (carpeta models/): demand_model.joblib, metricas_cv.csv, mae_por_fecha.csv,
+importancia_features.csv, predicciones_cv.csv
 """
 
 import os
-from datetime import datetime
+import shutil
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 import joblib
 import numpy as np
@@ -29,8 +38,14 @@ from features import CERO_ES_FALTANTE, TARGET, construir_X, transformar
 
 VISTA = "staging.vw_training_d3"
 MIN_FECHAS_TRAIN = 5
+HORIZONTE_DIAS = 3
 SEED = 42
 MODELO_PRINCIPAL = "XGBoost"
+ZONA = ZoneInfo("America/Lima")
+ARCHIVOS_A_ARCHIVAR = [
+    "models/demand_model.joblib", "models/metricas_cv.csv", "models/mae_por_fecha.csv",
+    "models/importancia_features.csv", "models/predicciones_cv.csv",
+]
 
 
 def cargar_datos():
@@ -39,8 +54,11 @@ def cargar_datos():
     return pd.read_sql(f"SELECT * FROM {VISTA}", engine)
 
 
-def preparar(df):
-    return transformar(df).dropna(subset=[TARGET]).reset_index(drop=True)
+def preparar(df, hoy=None):
+    """Solo viajes ya realizados: el objetivo del dia en curso se toma antes de las salidas y es incompleto."""
+    hoy = hoy or datetime.now(ZONA).date()
+    d = transformar(df).dropna(subset=[TARGET])
+    return d[d["fecha_viaje"] < hoy].reset_index(drop=True)
 
 
 def modelo_xgb():
@@ -70,14 +88,17 @@ def acotar(pred, df):
 
 
 def evaluar(df, X):
+    """Validacion temporal sin fuga: para predecir la fecha f solo se entrena con viajes anteriores
+    a f - HORIZONTE_DIAS, que son los que ya habian ocurrido cuando se emitio el pronostico."""
     fechas = sorted(df["fecha_viaje"].unique())
-    if len(fechas) <= MIN_FECHAS_TRAIN:
-        raise SystemExit(f"Solo hay {len(fechas)} fechas; se necesitan mas de {MIN_FECHAS_TRAIN}.")
-
-    registros = []
-    for i in range(MIN_FECHAS_TRAIN, len(fechas)):
-        tr = df["fecha_viaje"].isin(fechas[:i]).values
-        te = (df["fecha_viaje"] == fechas[i]).values
+    registros, n_folds = [], 0
+    for f_te in fechas:
+        corte = f_te - timedelta(days=HORIZONTE_DIAS)
+        tr = (df["fecha_viaje"] < corte).values
+        if df.loc[tr, "fecha_viaje"].nunique() < MIN_FECHAS_TRAIN:
+            continue
+        te = (df["fecha_viaje"] == f_te).values
+        n_folds += 1
         d_tr, d_te = df[tr], df[te]
         y_tr, y_te = d_tr[TARGET].values, d_te[TARGET].values
         inc_tr = y_tr - d_tr["ocupacion_d3"].values
@@ -93,9 +114,18 @@ def evaluar(df, X):
         preds["XGBoost (objetivo incremento)"] = d_te["ocupacion_d3"].values + mb.predict(X[te])
 
         for nombre, p in preds.items():
-            for yt, yp, fv in zip(y_te, acotar(p, d_te), d_te["fecha_viaje"]):
-                registros.append({"modelo": nombre, "fecha": fv, "y": yt, "pred": yp})
-    return pd.DataFrame(registros), len(fechas) - MIN_FECHAS_TRAIN
+            p = acotar(p, d_te)
+            for (_, fila), yt, yp in zip(d_te.iterrows(), y_te, p):
+                registros.append({
+                    "modelo": nombre, "fecha": fila["fecha_viaje"], "operador": fila["operador"],
+                    "tipo_bus": fila["tipo_bus"], "salida": fila["departure_time"],
+                    "asientos": fila["asientos_totales"], "ocupacion_d3": fila["ocupacion_d3"],
+                    "y": yt, "pred": float(yp),
+                })
+    if n_folds == 0:
+        raise SystemExit(f"No hay evaluaciones posibles: se necesitan al menos {MIN_FECHAS_TRAIN} fechas de "
+                         f"entrenamiento anteriores a cada fecha de prueba menos {HORIZONTE_DIAS} dias.")
+    return pd.DataFrame(registros), n_folds
 
 
 def resumen(res):
@@ -122,15 +152,30 @@ def mae_por_fecha(res):
     return tabla[cols].round(2)
 
 
-def main(df=None):
-    df = preparar(cargar_datos() if df is None else df)
+def archivar_anteriores(hoy):
+    """Conserva los resultados previos con fecha antes de sobrescribirlos (no se pierde ninguna version)."""
+    os.makedirs("models/archivo", exist_ok=True)
+    for ruta in ARCHIVOS_A_ARCHIVAR:
+        if not os.path.exists(ruta):
+            continue
+        base, ext = os.path.splitext(os.path.basename(ruta))
+        destino, n = f"models/archivo/{base}_{hoy}{ext}", 2
+        while os.path.exists(destino):
+            destino, n = f"models/archivo/{base}_{hoy}_{n}{ext}", n + 1
+        shutil.copy2(ruta, destino)
+        print(f"  archivado: {destino}")
+
+
+def main(df=None, hoy=None):
+    hoy = hoy or datetime.now(ZONA).date()
+    df = preparar(cargar_datos() if df is None else df, hoy=hoy)
     X = construir_X(df)
     constantes = [c for c in X.columns if X[c].nunique(dropna=True) <= 1]
     X = X.drop(columns=constantes)
 
     print(f"Filas: {len(df)} | Fechas de viaje: {df['fecha_viaje'].nunique()} "
-          f"({df['fecha_viaje'].min()} a {df['fecha_viaje'].max()})")
-    print(f"Features constantes descartadas: {constantes}")
+          f"({df['fecha_viaje'].min()} a {df['fecha_viaje'].max()}) | solo viajes anteriores a {hoy}")
+    print(f"Variables del modelo: {X.shape[1]} | constantes descartadas: {constantes}")
     faltantes = X.isna().sum()
     print(f"Faltantes por columna:\n{faltantes[faltantes > 0]}")
     print(f"Target: media={df[TARGET].mean():.1f} std={df[TARGET].std():.1f} "
@@ -138,7 +183,8 @@ def main(df=None):
 
     res, n_folds = evaluar(df, X)
     tabla = resumen(res)
-    print(f"\nValidacion temporal rolling-origin por fecha de viaje ({n_folds} folds)\n")
+    print(f"\nValidacion temporal sin fuga (entrena con viajes anteriores a fecha - {HORIZONTE_DIAS} dias): "
+          f"{n_folds} evaluaciones\n")
     print(tabla.to_string(index=False))
 
     por_fecha = mae_por_fecha(res)
@@ -160,20 +206,25 @@ def main(df=None):
     print(imp.head(10).round(3).to_string())
 
     os.makedirs("models", exist_ok=True)
+    print("\nArchivando resultados anteriores:")
+    archivar_anteriores(hoy)
     joblib.dump({
         "model": final, "model_name": MODELO_PRINCIPAL, "mejor_por_mae": mejor_mae,
         "features": list(X.columns), "target": TARGET, "horizonte": "D+3",
         "cero_es_faltante": CERO_ES_FALTANTE,
+        "validacion": {"horizonte_dias": HORIZONTE_DIAS, "min_fechas_train": MIN_FECHAS_TRAIN,
+                       "n_evaluaciones": n_folds},
         "n_filas": int(len(df)), "fecha_min": str(df["fecha_viaje"].min()),
         "fecha_max": str(df["fecha_viaje"].max()),
-        "entrenado_en": datetime.now().isoformat(timespec="seconds"),
+        "entrenado_en": datetime.now(ZONA).isoformat(timespec="seconds"),
         "metricas_cv": tabla.to_dict(orient="records"),
     }, "models/demand_model.joblib")
     tabla.to_csv("models/metricas_cv.csv", index=False)
     por_fecha.to_csv("models/mae_por_fecha.csv")
     imp.to_csv("models/importancia_features.csv", header=["importancia"])
-    print("\nGuardado en models/: demand_model.joblib, metricas_cv.csv, "
-          "mae_por_fecha.csv, importancia_features.csv")
+    res.to_csv("models/predicciones_cv.csv", index=False)
+    print("\nGuardado en models/: demand_model.joblib, metricas_cv.csv, mae_por_fecha.csv, "
+          "importancia_features.csv, predicciones_cv.csv")
 
 
 if __name__ == "__main__":

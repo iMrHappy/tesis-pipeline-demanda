@@ -1,16 +1,19 @@
 """
 test_apify.py
-Ingesta de redBus -> raw.redbus_services_raw (ventana rodante: hoy y los proximos DIAS_HACIA_ADELANTE dias).
+Ingesta de redBus -> raw.redbus_services_raw.
 
-Mejoras respecto a la version anterior:
-  - Usa la fecha de LIMA (el runner de GitHub trabaja en UTC y podria desfasar los dias).
-  - Es idempotente: si una fecha ya se capturo hoy, la salta (permite reintentar sin duplicar filas ni gastar Apify).
+Consulta cada dia las fechas de viaje definidas en OFFSETS (0 = hoy, 3 = dentro de 3 dias).
+  - Es idempotente: si una fecha ya se capturo hoy (fecha de Lima), la salta.
   - Cada fecha se guarda en una sola transaccion: o entran todas sus filas o ninguna.
-  - Reintenta cada fecha antes de rendirse y termina con codigo 1 si alguna fecha quedo sin capturar,
-    para que el reintento del workflow tenga efecto.
+  - Reintenta cada fecha y termina con codigo 1 si alguna queda sin capturar.
+  - Avisa si el resultado llega al tope de MAX_ITEMS (posible truncamiento).
+
+Costo aproximado (referencia 22/10/2026: ~US$ 0.001 por servicio devuelto):
+    costo diario = len(OFFSETS) * servicios_por_fecha * 0.001
 
 Ubicacion: src/test_apify.py
 Requiere en .env o secrets: APIFY_API_TOKEN, DATABASE_URL
+Opcional: MAX_ITEMS (variable de entorno) para sobreescribir el tope sin tocar el codigo.
 """
 
 import json
@@ -27,8 +30,8 @@ from sqlalchemy import create_engine, text
 load_dotenv()
 
 ACTOR = "rl1987/redbus-api-scraper"
-DIAS_HACIA_ADELANTE = 3      # ajustar segun presupuesto de Apify
-MAX_ITEMS = 15
+OFFSETS = [0, 3]     # D+0 (objetivo) y D+3 (pronostico). Anadir 1 solo si el presupuesto lo permite
+MAX_ITEMS = int(os.getenv("MAX_ITEMS") or "60")   # ajustar tras medir cuantos servicios hay por fecha
 INTENTOS_POR_FECHA = 2
 ESPERA_SEGUNDOS = 30
 ZONA = ZoneInfo("America/Lima")
@@ -69,8 +72,8 @@ def main():
     client = ApifyClient(os.getenv("APIFY_API_TOKEN"))
 
     hoy = datetime.now(ZONA).date()
-    fechas = [(hoy + timedelta(days=o)).isoformat() for o in range(0, DIAS_HACIA_ADELANTE + 1)]
-    print(f"Hoy (Lima): {hoy} | fechas a consultar: {fechas}")
+    fechas = [(hoy + timedelta(days=o)).isoformat() for o in OFFSETS]
+    print(f"Hoy (Lima): {hoy} | fechas a consultar: {fechas} | maxItems={MAX_ITEMS}")
 
     fallidas = []
     for fecha in fechas:
@@ -86,7 +89,8 @@ def main():
                 with engine.begin() as conn:
                     for item in items:
                         conn.execute(SQL_INSERTAR, {"f": fecha, "raw_data": json.dumps(item)})
-                print(f"[OK] {fecha}: {len(items)} servicios guardados")
+                aviso = "  [AVISO] llego al tope: subir MAX_ITEMS" if len(items) >= MAX_ITEMS else ""
+                print(f"[OK] {fecha}: {len(items)} servicios guardados{aviso}")
                 break
             except Exception as e:
                 print(f"[ADVERTENCIA] {fecha}, intento {intento}/{INTENTOS_POR_FECHA}: {e}")

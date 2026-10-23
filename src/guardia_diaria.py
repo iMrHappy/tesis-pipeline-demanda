@@ -3,6 +3,9 @@ guardia_diaria.py
 Dice al workflow si la captura de redBus de HOY (fecha de Lima) ya esta completa.
 Escribe ya_corrio=true|false en $GITHUB_OUTPUT. El cron de respaldo usa esto para no duplicar el trabajo.
 
+El numero de fechas esperadas sale de OFFSETS en test_apify.py (una sola fuente de verdad).
+(Si se renombra test_apify.py a ingest_redbus.py, actualizar el import de abajo.)
+
 Ubicacion: src/guardia_diaria.py
 Ejecucion: python src/guardia_diaria.py
 """
@@ -14,10 +17,11 @@ from zoneinfo import ZoneInfo
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 
+from test_apify import OFFSETS
+
 load_dotenv()
 
-# Fechas de viaje que debe consultar test_apify.py cada dia (hoy + 3 dias = 4 fechas)
-DIAS_ESPERADOS = int(os.getenv("DIAS_ESPERADOS", "4"))
+DIAS_ESPERADOS = len(OFFSETS)
 
 hoy = datetime.now(ZoneInfo("America/Lima")).date()
 engine = create_engine(os.getenv("DATABASE_URL"))
