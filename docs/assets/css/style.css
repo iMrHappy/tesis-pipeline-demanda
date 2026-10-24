@@ -1,10 +1,11 @@
-/* Estilos propios del panel. Bootstrap aporta la base; aqui va lo especifico. */
+/* Estilos propios del panel (v3). Bootstrap aporta la base; aqui va lo especifico. */
 
 :root {
   --c-reducir: #2b7fd9;
   --c-mantener: #2a9d62;
   --c-aumentar: #e8890c;
   --c-urgente: #d93636;
+  --c-neutro: #9aa5b8;
   --c-brand: #2459d6;
   --radio: 14px;
 }
@@ -63,12 +64,13 @@ body {
   height: 9px;
   border-radius: 50%;
   margin-right: 6px;
-  background: #999;
+  background: var(--c-neutro);
 }
 .punto.reducir { background: var(--c-reducir); }
 .punto.mantener { background: var(--c-mantener); }
 .punto.aumentar { background: var(--c-aumentar); }
 .punto.urgente { background: var(--c-urgente); }
+.punto.neutro { background: var(--c-neutro); }
 .btn-check:checked + .btn-fecha .punto { box-shadow: 0 0 0 2px #fff; }
 
 /* ---------- Menu lateral de paneles ---------- */
@@ -131,6 +133,27 @@ body {
 .etiqueta.mantener { background-color: var(--c-mantener); }
 .etiqueta.aumentar { background-color: var(--c-aumentar); }
 .etiqueta.urgente { background-color: var(--c-urgente); }
+.etiqueta.neutro { background-color: var(--c-neutro); }
+
+/* ---------- Decisiones por grupo ---------- */
+.tabla-grupos tbody tr { cursor: pointer; }
+.tabla-grupos tbody tr.activa { background-color: rgba(36, 89, 214, 0.12); }
+.tabla-grupos tbody tr.informativo { opacity: 0.6; }
+.delta-badge {
+  display: inline-block;
+  min-width: 2.6rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: #fff;
+}
+.delta-badge.pos2 { background: var(--c-urgente); }
+.delta-badge.pos1 { background: var(--c-aumentar); }
+.delta-badge.cero { background: var(--c-mantener); }
+.delta-badge.neg { background: var(--c-reducir); }
+.delta-grande { font-size: 3rem; font-weight: 800; line-height: 1; }
 
 /* ---------- Escala del FIS ---------- */
 .escala-fis {
@@ -158,10 +181,10 @@ body {
 .entrada-fis {
   border: 1px solid var(--bs-border-color);
   border-radius: 12px;
-  padding: 0.75rem 0.9rem;
+  padding: 0.6rem 0.8rem;
   height: 100%;
 }
-.entrada-fis .valor { font-weight: 700; font-size: 1.1rem; }
+.entrada-fis .valor { font-weight: 700; font-size: 1.02rem; }
 
 /* ---------- Reglas ---------- */
 .regla {
@@ -176,7 +199,7 @@ body {
 .regla .valor { width: 38px; text-align: right; font-variant-numeric: tabular-nums; }
 
 /* ---------- Tabla ---------- */
-.tabla-servicios thead th {
+.tabla-servicios thead th, .tabla-grupos thead th {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;

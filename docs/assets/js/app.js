@@ -1,23 +1,22 @@
-/* Panel de despacho Lima - Chiclayo
-   Lee data/recomendaciones.json (generado por src/predict_and_recommend.py) y pinta el panel.
+/* Panel de despacho Lima - Chiclayo (v3)
+   Lee data/recomendaciones.json (generado por src/predict_and_recommend.py v3) y pinta el panel.
    Librerias: Bootstrap 5 (maquetacion y pestañas), ApexCharts (graficos), animate.css (transiciones). */
 
 const DATA_URL = "data/recomendaciones.json";
 
-const COLORES = {reducir: "#2b7fd9", mantener: "#2a9d62", aumentar: "#e8890c", urgente: "#d93636"};
+const COLORES = {reducir: "#2b7fd9", mantener: "#2a9d62", aumentar: "#e8890c", urgente: "#d93636", neutro: "#9aa5b8"};
 const REGLAS = {
-  R1_aumentar_urgente: "Demanda alta + feriado muy cercano: aumentar urgente",
-  R2_aumentar: "Demanda alta + clima favorable: aumentar",
-  R3_aumentar: "Demanda alta + feriado cercano: aumentar",
-  R4_mantener: "Demanda media + feriado lejano: mantener",
-  R5_mantener: "Demanda media: mantener",
-  R6_reducir: "Demanda baja + clima adverso: reducir",
-  R7_reducir: "Demanda baja: reducir"
+  R1_baja_lejos_reducir: "Demanda baja y feriado lejos: reducir",
+  R2_media_lejos_mantener: "Demanda media y feriado lejos: mantener",
+  R3_alta_lejos_aumentar: "Demanda alta y feriado lejos: aumentar",
+  R4_baja_feriado_mantener: "Demanda baja y feriado cerca: mantener",
+  R5_media_feriado_aumentar: "Demanda media y feriado cerca: aumentar",
+  R6_alta_feriado_urgente: "Demanda alta y feriado cerca: urgente"
 };
-const TRAMOS = [["reducir", 6], ["mantener", 7], ["aumentar", 4], ["urgente", 3]]; // ancho de cada tramo en la escala 0-20
+const TRAMOS_DELTA = [["reducir", 37.5], ["mantener", 25], ["aumentar", 25], ["urgente", 12.5]]; // escala -2..+2 en %
 const NOTAS_VISTA = {
   servicio: "Cada barra es un servicio: ocupados a 72 h (azul oscuro), aumento previsto hasta la salida (azul claro) y asientos libres previstos (gris).",
-  operador: "Ocupación prevista de cada operador, ponderada por asientos. Pasa el cursor para ver el detalle.",
+  operador: "Ocupación prevista de cada empresa, ponderada por asientos. Pasa el cursor para ver el detalle.",
   tipo: "Ocupación prevista por tipo de bus, ponderada por asientos. Pasa el cursor para ver el detalle."
 };
 
@@ -28,6 +27,8 @@ let VISTA = "servicio";
 let ORDEN = "hora";
 let BUSCA = "";
 let MAXN = 0;
+let SOLO_DEC = true;
+let GRUPO_SEL = null;
 let SORT = {key: "hora_salida", dir: 1};
 const charts = {};
 
@@ -42,8 +43,11 @@ function clase(etiqueta) {
   if (e.includes("urgente")) return "urgente";
   if (e.startsWith("aumentar")) return "aumentar";
   if (e.startsWith("reducir")) return "reducir";
+  if (e.startsWith("sin grupos")) return "neutro";
   return "mantener";
 }
+function deltaClase(d) { return d >= 2 ? "pos2" : d === 1 ? "pos1" : d === 0 ? "cero" : "neg"; }
+function fmtDelta(d) { return d > 0 ? "+" + d : String(d); }
 function colorPct(p) {
   return p >= 90 ? COLORES.urgente : p >= 70 ? COLORES.aumentar : p >= 45 ? COLORES.mantener : COLORES.reducir;
 }
@@ -58,18 +62,10 @@ function textoFeriado(d) {
   if (d <= -5) return "Sin feriado cercano";
   return "Feriado en " + (-d) + (d === -1 ? " día" : " días");
 }
-function textoClima(i) {
-  return Number(i) === 50 ? "Sin dato (neutro)" : "Índice " + fmt(i, 0);
-}
-function tema() {
-  return document.documentElement.getAttribute("data-bs-theme") === "dark" ? "dark" : "light";
-}
-function resultadoActual() {
-  return DATOS && DATOS.resultados.find((r) => r.fecha_viaje === FECHA);
-}
-function esParcial(r) {
-  return MAXN > 0 && r.n_servicios < 0.6 * MAXN;
-}
+function tema() { return document.documentElement.getAttribute("data-bs-theme") === "dark" ? "dark" : "light"; }
+function resultadoActual() { return DATOS && DATOS.resultados.find((r) => r.fecha_viaje === FECHA); }
+function esParcial(r) { return MAXN > 0 && r.n_servicios < 0.6 * MAXN; }
+function claveGrupo(g) { return g.operador + "|" + g.tipo_bus; }
 function animar(el) {
   if (!el || !el.classList) return;
   el.classList.remove("animate__animated", "animate__fadeIn");
@@ -189,6 +185,7 @@ function pintarFechas() {
 
 function seleccionarFecha(f) {
   FECHA = f;
+  GRUPO_SEL = null;
   document.querySelectorAll('input[name="fecha"]').forEach((el) => { el.checked = el.value === f; });
   renderPanel(PANEL);
 }
@@ -202,6 +199,7 @@ function enlazarEventos() {
   $("vista").addEventListener("change", (e) => { VISTA = e.target.value; renderPanel("servicios"); });
   $("orden").addEventListener("change", (e) => { ORDEN = e.target.value; renderPanel("servicios"); });
   $("buscar").addEventListener("input", (e) => { BUSCA = e.target.value.trim().toLowerCase(); renderPanel("servicios"); });
+  $("soloDecisorios").addEventListener("change", (e) => { SOLO_DEC = e.target.checked; renderPanel("fis"); });
   document.querySelectorAll(".tabla-servicios th[data-key]").forEach((th) =>
     th.addEventListener("click", () => {
       SORT = {key: th.dataset.key, dir: SORT.key === th.dataset.key ? -SORT.dir : 1};
@@ -227,8 +225,8 @@ function kpi(icono, color, valor, titulo) {
     '<div class="kpi-icono bg-' + color + '-subtle text-' + color + '-emphasis"><i class="bi ' + icono + '"></i></div>' +
     '<div><div class="kpi-valor">' + valor + '</div><div class="small text-secondary">' + titulo + "</div></div></div></div></div>";
 }
-function chipEtiqueta(r) {
-  return '<span class="etiqueta ' + clase(r.recomendacion) + '">' + esc(r.recomendacion) + "</span>";
+function chipEtiqueta(texto) {
+  return '<span class="etiqueta ' + clase(texto) + '">' + esc(texto) + "</span>";
 }
 
 function renderResumen(r) {
@@ -237,11 +235,16 @@ function renderResumen(r) {
   const llenos = sv.filter((s) => s.ocupacion_predicha_pct >= 90).length;
   const asientos = sv.reduce((a, s) => a + s.asientos_totales, 0);
   const previstos = sv.reduce((a, s) => a + s.ocupacion_predicha, 0);
+  const c = r.resumen;
+  const minS = (DATOS.parametros && DATOS.parametros.min_servicios) || 3;
+  const decisiones = c
+    ? c.aumentar + " ↑ · " + c.mantener + " = · " + c.reducir + " ↓"
+    : "-";
   $("kpis").innerHTML =
     kpi("bi-people-fill", "primary", fmt(previstos, 0) + " / " + asientos, "Pasajeros previstos / asientos") +
     kpi("bi-speedometer2", "success", fmt(r.ocupacion_predicha_pct) + "%", "Ocupación media prevista") +
     kpi("bi-exclamation-triangle-fill", "warning", String(llenos), "Servicios casi llenos (90% o más)") +
-    kpi("bi-sliders", "info", fmt(r.unidades_recomendadas, 1) + " / 20", "Índice de despacho (FIS)");
+    kpi("bi-diagram-3-fill", "info", decisiones, "Decisiones (grupos con " + minS + "+ servicios)");
 
   const pcts = DATOS.resultados.map((x) => x.ocupacion_predicha_pct);
   dibujar("fechas", "#chartFechas", {
@@ -257,9 +260,8 @@ function renderResumen(r) {
   });
   dibujar("gauge", "#chartGauge", opcionesGauge(r.ocupacion_predicha_pct, colorPct(r.ocupacion_predicha_pct),
     fmt(r.ocupacion_predicha_pct) + "%", "Ocupación prevista"));
-  $("resumenEtiqueta").innerHTML = chipEtiqueta(r) +
-    '<div class="small text-secondary mt-2"><i class="bi bi-flag me-1"></i>' + esc(textoFeriado(r.dias_a_feriado)) +
-    ' &middot; <i class="bi bi-cloud-sun me-1"></i>Clima: ' + esc(textoClima(r.indice_clima)) + "</div>" +
+  $("resumenEtiqueta").innerHTML = chipEtiqueta(r.recomendacion || "Sin recomendación") +
+    '<div class="small text-secondary mt-2"><i class="bi bi-flag me-1"></i>' + esc(textoFeriado(r.dias_a_feriado)) + "</div>" +
     (DATOS.resultados.some(esParcial) ? '<div class="small text-secondary mt-2">* Fecha parcial: solo incluye servicios que aún no han salido.</div>' : "");
 }
 
@@ -347,31 +349,94 @@ function renderTabla(sv) {
     '<span class="pct">' + fmt(s.ocupacion_predicha_pct) + "%</span></div></td></tr>").join("");
 }
 
+/* ---------- recomendacion: sistema difuso por empresa y tipo de servicio ---------- */
+function seleccionarGrupo(clave) {
+  GRUPO_SEL = clave;
+  const r = resultadoActual();
+  if (r) renderFis(r);
+}
+
 function renderFis(r) {
   $("tituloFis").textContent = "Recomendación · " + fechaLarga(r.fecha_viaje) + (esParcial(r) ? " (parcial)" : "");
-  const u = Number(r.unidades_recomendadas);
-  const c = clase(r.recomendacion);
-  dibujar("fis", "#chartFis", opcionesGauge(u / 20 * 100, COLORES[c], fmt(u, 1), "de 20"));
-  $("fisEtiqueta").innerHTML = chipEtiqueta(r);
-  $("escalaFis").innerHTML = TRAMOS.map((t) =>
-    '<div class="tramo" style="width:' + (t[1] / 20 * 100) + "%;background:" + COLORES[t[0]] + '"></div>').join("") +
-    '<div class="marcador" style="left:' + Math.min(100, Math.max(0, u / 20 * 100)) + '%"></div>';
+  const p = DATOS.parametros || {};
+  const minS = p.min_servicios || 3;
+  const objetivo = Math.round((p.ocupacion_objetivo || 0.85) * 100);
+  $("notaFis").innerHTML = "Cada fila es un grupo de <strong>empresa + tipo de servicio</strong>. El sistema difuso recomienda cuántos buses " +
+    "<strong>añadir o quitar</strong> sobre lo programado (de −2 a +2). Solo deciden los grupos con " + minS +
+    " o más servicios; los demás son informativos. La <em>regla fija</em> es la comparación: calcula los buses necesarios para llegar a una ocupación del " +
+    objetivo + " %.";
+
+  if (!r.grupos) {
+    $("fisAviso").innerHTML = '<div class="alert alert-warning">Este JSON es de una versión anterior y no trae decisiones por grupo. ' +
+      "Ejecuta <code>python src/predict_and_recommend.py</code> para regenerarlo.</div>";
+    $("fisContenido").hidden = true;
+    return;
+  }
+  $("fisAviso").innerHTML = "";
+  $("fisContenido").hidden = false;
+
+  const lista = r.grupos.filter((g) => !SOLO_DEC || g.decide);
+  if (!lista.length) {
+    $("tbodyGrupos").innerHTML = '<tr><td colspan="7" class="text-secondary text-center py-4">No hay grupos con ' + minS +
+      " o más servicios en esta fecha. Desactiva el filtro para ver todos.</td></tr>";
+    $("grupoTitulo").textContent = "Sin grupos que decidan";
+    $("grupoDelta").innerHTML = "";
+    $("escalaDelta").innerHTML = "";
+    $("entradasFis").innerHTML = "";
+    $("reglas").innerHTML = "";
+    return;
+  }
+  if (!lista.some((g) => claveGrupo(g) === GRUPO_SEL)) GRUPO_SEL = claveGrupo(lista[0]);
+
+  $("tbodyGrupos").innerHTML = lista.map((g) => {
+    const k = claveGrupo(g);
+    return '<tr class="' + (g.decide ? "" : "informativo ") + (k === GRUPO_SEL ? "activa" : "") + '" data-g="' + esc(k) + '">' +
+      "<td>" + esc(g.operador) + "</td><td>" + esc(g.tipo_bus) + "</td>" +
+      '<td class="text-end tabla-num">' + g.n_servicios + "</td>" +
+      '<td class="text-end tabla-num">' + fmt(g.ocupacion_predicha_pct) + "%</td>" +
+      '<td class="text-center"><span class="delta-badge ' + deltaClase(g.delta_buses) + '">' + fmtDelta(g.delta_buses) + "</span></td>" +
+      '<td class="text-center tabla-num">' + fmtDelta(g.delta_regla) + "</td>" +
+      "<td>" + (g.decide ? '<span class="badge text-bg-success">Decide</span>' : '<span class="badge text-bg-secondary">Informativo</span>') + "</td></tr>";
+  }).join("");
+  document.querySelectorAll("#tbodyGrupos tr[data-g]").forEach((tr) =>
+    tr.addEventListener("click", () => seleccionarGrupo(tr.dataset.g)));
+
+  renderDetalleGrupo(r, lista.find((g) => claveGrupo(g) === GRUPO_SEL));
+}
+
+function renderDetalleGrupo(r, g) {
+  $("grupoTitulo").textContent = g.operador + " · " + g.tipo_bus;
+  const etiqueta = g.etiqueta || "";
+  $("grupoDelta").innerHTML =
+    '<div class="delta-grande" style="color:' + COLORES[clase(etiqueta)] + '">' + fmtDelta(g.delta_buses) + "</div>" +
+    '<div class="mt-2">' + chipEtiqueta(etiqueta) + "</div>" +
+    '<div class="small text-secondary mt-2">buses sobre lo programado · valor continuo ' + fmt(g.delta_continuo, 2) + "</div>" +
+    (g.decide ? "" : '<div class="small text-warning mt-1">Informativo: solo ' + g.n_servicios + (g.n_servicios === 1 ? " servicio" : " servicios") + " en el grupo</div>");
+
+  const pos = Math.min(100, Math.max(0, (g.delta_continuo + 2) / 4 * 100));
+  $("escalaDelta").innerHTML = TRAMOS_DELTA.map((t) =>
+    '<div class="tramo" style="width:' + t[1] + "%;background:" + COLORES[t[0]] + '"></div>').join("") +
+    '<div class="marcador" style="left:' + pos + '%"></div>';
 
   const entradas = [
-    ["bi-speedometer2", "Ocupación prevista", fmt(r.ocupacion_predicha_pct) + "%"],
+    ["bi-speedometer2", "Ocupación prevista", fmt(g.ocupacion_predicha_pct) + "%"],
+    ["bi-people", "Pasajeros / asientos", fmt(g.pasajeros_previstos, 0) + " / " + g.asientos_totales],
+    ["bi-bus-front", "Servicios del grupo", String(g.n_servicios)],
     ["bi-flag", "Feriado", textoFeriado(r.dias_a_feriado)],
-    ["bi-cloud-sun", "Clima", textoClima(r.indice_clima)]
+    ["bi-rulers", "Regla fija (comparación)", fmtDelta(g.delta_regla) + " buses"],
+    ["bi-shield-check", "Soporte de la regla", fmt(g.soporte, 2)]
   ];
   $("entradasFis").innerHTML = entradas.map((e) =>
-    '<div class="col-md-4"><div class="entrada-fis"><div class="small text-secondary"><i class="bi ' + e[0] + ' me-1"></i>' + e[1] +
+    '<div class="col-6"><div class="entrada-fis"><div class="small text-secondary"><i class="bi ' + e[0] + ' me-1"></i>' + e[1] +
     '</div><div class="valor">' + esc(e[2]) + "</div></div></div>").join("");
 
-  $("reglas").innerHTML = Object.entries(r.reglas_activadas || {}).map(([k, v]) =>
+  $("reglas").innerHTML = Object.entries(g.activaciones || {}).map(([k, v]) =>
     '<div class="regla"><div class="texto">' + esc(REGLAS[k] || k) + "</div>" +
     '<div class="progress" role="progressbar"><div class="progress-bar bg-primary" style="width:' + Math.round(v * 100) + '%"></div></div>' +
     '<div class="valor">' + fmt(v, 2) + "</div></div>").join("");
 }
 
+/* ---------- modelo y evaluacion (OE1 y OE2) ---------- */
 function renderModelo() {
   const m = DATOS.metricas_modelo;
   let info = "Modelo en uso: <strong>" + esc(DATOS.modelo) + "</strong>";
@@ -385,30 +450,67 @@ function renderModelo() {
   if (!m || !m.length) {
     $("chartModelo").innerHTML = '<div class="text-secondary small">Sin métricas disponibles en el JSON.</div>';
     $("metricas").innerHTML = "";
-    return;
+  } else {
+    const color = (n) => n.startsWith("Persistencia (final") ? "#9aa5b8" : n.startsWith("Persistencia +") ? COLORES.aumentar
+      : n === DATOS.modelo ? COLORES.mantener : "#2459d6";
+    dibujar("modelo", "#chartModelo", {
+      chart: {type: "bar", height: Math.max(240, m.length * 46 + 60)},
+      series: [{name: "MAE", data: m.map((x) => +Number(x.MAE).toFixed(2))}],
+      colors: m.map((x) => color(String(x.modelo))),
+      plotOptions: {bar: {horizontal: true, distributed: true, barHeight: "60%", borderRadius: 4}},
+      dataLabels: {enabled: true, formatter: (v) => fmt(v, 2)},
+      legend: {show: false},
+      xaxis: {categories: m.map((x) => x.modelo), title: {text: "MAE (asientos)"}},
+      yaxis: {labels: {maxWidth: 230, style: {fontSize: "12px"}}},
+      tooltip: {y: {formatter: (v) => fmt(v, 2) + " asientos"}}
+    });
+    $("metricas").innerHTML = m.map((x) => {
+      const mejora = x["mejora_vs_pers+incremento_%"];
+      const esRef = x.modelo === "Persistencia + incremento mediano";
+      const esPura = String(x.modelo).startsWith("Persistencia (final");
+      return "<tr><td>" + esc(x.modelo) + (esRef ? ' <span class="badge text-bg-secondary">referencia</span>' : "") +
+        (x.modelo === DATOS.modelo ? ' <span class="badge text-bg-success">en uso</span>' : "") + "</td>" +
+        '<td class="text-end tabla-num">' + fmt(x.MAE, 2) + '</td><td class="text-end tabla-num">' + fmt(x.RMSE, 2) + "</td>" +
+        '<td class="text-end tabla-num">' + (esRef || esPura || mejora === undefined ? "-" : fmt(mejora, 1) + "%") + "</td></tr>";
+    }).join("");
   }
-  const color = (n) => n.startsWith("Persistencia (final") ? "#9aa5b8" : n.startsWith("Persistencia +") ? COLORES.aumentar
-    : n === DATOS.modelo ? COLORES.mantener : "#2459d6";
-  dibujar("modelo", "#chartModelo", {
-    chart: {type: "bar", height: Math.max(240, m.length * 46 + 60)},
-    series: [{name: "MAE", data: m.map((x) => +Number(x.MAE).toFixed(2))}],
-    colors: m.map((x) => color(String(x.modelo))),
-    plotOptions: {bar: {horizontal: true, distributed: true, barHeight: "60%", borderRadius: 4}},
-    dataLabels: {enabled: true, formatter: (v) => fmt(v, 2)},
-    legend: {show: false},
-    xaxis: {categories: m.map((x) => x.modelo), title: {text: "MAE (asientos)"}},
-    yaxis: {labels: {maxWidth: 230, style: {fontSize: "12px"}}},
-    tooltip: {y: {formatter: (v) => fmt(v, 2) + " asientos"}}
-  });
-  $("metricas").innerHTML = m.map((x) => {
-    const mejora = x["mejora_vs_pers+incremento_%"];
-    const esRef = x.modelo === "Persistencia + incremento mediano";
-    const esPura = String(x.modelo).startsWith("Persistencia (final");
-    return "<tr><td>" + esc(x.modelo) + (esRef ? ' <span class="badge text-bg-secondary">referencia</span>' : "") +
-      (x.modelo === DATOS.modelo ? ' <span class="badge text-bg-success">en uso</span>' : "") + "</td>" +
-      '<td class="text-end tabla-num">' + fmt(x.MAE, 2) + '</td><td class="text-end tabla-num">' + fmt(x.RMSE, 2) + "</td>" +
-      '<td class="text-end tabla-num">' + (esRef || esPura || mejora === undefined ? "-" : fmt(mejora, 1) + "%") + "</td></tr>";
-  }).join("");
+  renderEvaluacion();
+}
+
+function renderEvaluacion() {
+  const ev = DATOS.evaluacion || {};
+
+  const par = ev.prueba_pareada;
+  $("bloquePareada").hidden = !(par && par.length);
+  if (par && par.length) {
+    $("tbodyPareada").innerHTML = par.map((x) =>
+      "<tr><td>" + esc(x.A) + " vs " + esc(x.B) + "</td>" +
+      '<td class="text-end tabla-num">' + fmt(x["dif_MAE_(B-A)"], 2) + "</td>" +
+      '<td class="text-end tabla-num">[' + fmt(x.IC95_inf, 2) + "; " + fmt(x.IC95_sup, 2) + "]</td>" +
+      '<td class="text-end tabla-num">' + x.fechas_a_favor_de_A + " de " + x.fechas_total + "</td>" +
+      '<td class="text-end tabla-num">' + fmt(x.p_signos, 3) + "</td>" +
+      '<td class="small">' + esc(x.lectura) + "</td></tr>").join("");
+  }
+
+  const ed = ev.error_decision;
+  const principal = (ed || []).filter((x) => String(x.grupos).startsWith(">="));
+  $("bloqueDecision").hidden = !principal.length;
+  if (principal.length) {
+    const p = DATOS.parametros || {};
+    $("notaDecision").textContent = "Grupos con " + (p.min_servicios || 3) + " o más servicios (empresa + tipo, por fecha). " +
+      "Decisión correcta: la regla fija con los pasajeros observados (ocupación objetivo " + Math.round((p.ocupacion_objetivo || 0.85) * 100) +
+      " %). A = referencia + regla; B = XGBoost + regla; C = XGBoost + sistema difuso.";
+    $("tbodyDecision").innerHTML = principal.map((x) =>
+      "<tr><td>" + esc(x.configuracion) + '</td><td class="text-end tabla-num">' + x.n_grupos + "</td>" +
+      '<td class="text-end tabla-num">' + fmt(x["correctas_%"]) + "%</td>" +
+      '<td class="text-end tabla-num">' + fmt(x["exceso_%"]) + "%</td>" +
+      '<td class="text-end tabla-num">' + fmt(x["defecto_%"]) + "%</td>" +
+      '<td class="text-end tabla-num">' + fmt(x.error_medio_abs_buses, 3) + "</td></tr>").join("");
+    const cmp = ev.comparaciones_decision || {};
+    $("comparacionesDecision").innerHTML = Object.entries(cmp).map(([nombre, c]) =>
+      "<div><strong>" + esc(nombre) + ":</strong> mejora en " + c.grupos_mejora + " grupos, empeora en " + c.grupos_empeora +
+      ", igual en " + c.grupos_igual + " (prueba de signos p = " + fmt(c.p_signos, 3) + ")</div>").join("");
+  }
 }
 
 /* ---------- tema claro/oscuro ---------- */
