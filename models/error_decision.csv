@@ -1,25 +1,25 @@
 ocupacion_objetivo,grupos,configuracion,n_grupos,correctas_%,exceso_%,defecto_%,error_medio_abs_buses
-0.8,>= 3 servicios,A referencia + regla,17,41.2,0.0,58.8,0.647
-0.8,>= 3 servicios,B XGBoost + regla,17,52.9,0.0,47.1,0.471
-0.8,>= 3 servicios,C XGBoost + difuso (anclado al objetivo),17,41.2,17.6,41.2,0.588
-0.8,>= 3 servicios,C' XGBoost + difuso (percentiles),17,41.2,23.5,35.3,0.588
-0.8,todos los grupos,A referencia + regla,151,65.6,4.0,30.5,0.351
-0.8,todos los grupos,B XGBoost + regla,151,66.9,5.3,27.8,0.331
-0.8,todos los grupos,C XGBoost + difuso (anclado al objetivo),151,37.1,9.9,53.0,0.682
-0.8,todos los grupos,C' XGBoost + difuso (percentiles),151,41.7,15.9,42.4,0.642
-0.85,>= 3 servicios,A referencia + regla,17,17.6,0.0,82.4,0.882
-0.85,>= 3 servicios,B XGBoost + regla,17,64.7,0.0,35.3,0.353
-0.85,>= 3 servicios,C XGBoost + difuso (anclado al objetivo),17,70.6,0.0,29.4,0.294
-0.85,>= 3 servicios,C' XGBoost + difuso (percentiles),17,58.8,23.5,17.6,0.412
-0.85,todos los grupos,A referencia + regla,151,67.5,2.0,30.5,0.331
-0.85,todos los grupos,B XGBoost + regla,151,72.2,3.3,24.5,0.278
-0.85,todos los grupos,C XGBoost + difuso (anclado al objetivo),151,39.1,6.0,55.0,0.675
-0.85,todos los grupos,C' XGBoost + difuso (percentiles),151,38.4,21.2,40.4,0.669
-0.9,>= 3 servicios,A referencia + regla,17,11.8,0.0,88.2,0.882
-0.9,>= 3 servicios,B XGBoost + regla,17,41.2,0.0,58.8,0.588
-0.9,>= 3 servicios,C XGBoost + difuso (anclado al objetivo),17,58.8,0.0,41.2,0.412
-0.9,>= 3 servicios,C' XGBoost + difuso (percentiles),17,64.7,23.5,11.8,0.353
-0.9,todos los grupos,A referencia + regla,151,74.8,2.0,23.2,0.252
-0.9,todos los grupos,B XGBoost + regla,151,76.8,2.0,21.2,0.232
-0.9,todos los grupos,C XGBoost + difuso (anclado al objetivo),151,32.5,4.0,63.6,0.709
-0.9,todos los grupos,C' XGBoost + difuso (percentiles),151,41.1,23.8,35.1,0.616
+0.8,>= 3 servicios,A referencia + regla,19,10.5,0.0,89.5,1.105
+0.8,>= 3 servicios,B XGBoost + regla,19,31.6,0.0,68.4,0.684
+0.8,>= 3 servicios,C XGBoost + difuso (anclado al objetivo),19,52.6,0.0,47.4,0.526
+0.8,>= 3 servicios,C' XGBoost + difuso (percentiles),19,52.6,10.5,36.8,0.474
+0.8,todos los grupos,A referencia + regla,167,62.9,4.8,32.3,0.395
+0.8,todos los grupos,B XGBoost + regla,167,65.3,4.8,29.9,0.347
+0.8,todos los grupos,C XGBoost + difuso (anclado al objetivo),167,38.9,7.2,53.9,0.695
+0.8,todos los grupos,C' XGBoost + difuso (percentiles),167,41.3,13.2,45.5,0.641
+0.85,>= 3 servicios,A referencia + regla,19,15.8,0.0,84.2,0.842
+0.85,>= 3 servicios,B XGBoost + regla,19,42.1,0.0,57.9,0.579
+0.85,>= 3 servicios,C XGBoost + difuso (anclado al objetivo),19,57.9,5.3,36.8,0.421
+0.85,>= 3 servicios,C' XGBoost + difuso (percentiles),19,68.4,15.8,15.8,0.316
+0.85,todos los grupos,A referencia + regla,167,69.5,2.4,28.1,0.305
+0.85,todos los grupos,B XGBoost + regla,167,71.3,2.4,26.3,0.287
+0.85,todos los grupos,C XGBoost + difuso (anclado al objetivo),167,35.3,6.0,58.7,0.719
+0.85,todos los grupos,C' XGBoost + difuso (percentiles),167,41.9,17.4,40.7,0.623
+0.9,>= 3 servicios,A referencia + regla,19,26.3,0.0,73.7,0.789
+0.9,>= 3 servicios,B XGBoost + regla,19,52.6,0.0,47.4,0.474
+0.9,>= 3 servicios,C XGBoost + difuso (anclado al objetivo),19,57.9,10.5,31.6,0.421
+0.9,>= 3 servicios,C' XGBoost + difuso (percentiles),19,78.9,21.1,0.0,0.211
+0.9,todos los grupos,A referencia + regla,167,77.2,2.4,20.4,0.234
+0.9,todos los grupos,B XGBoost + regla,167,79.6,1.8,18.6,0.204
+0.9,todos los grupos,C XGBoost + difuso (anclado al objetivo),167,32.3,4.8,62.9,0.707
+0.9,todos los grupos,C' XGBoost + difuso (percentiles),167,48.5,18.6,32.9,0.539

@@ -5,7 +5,7 @@ import pandas as pd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 
-from membership import trimf
+from legacy.membership import trimf
 
 # =====================================================================
 # feature_calendar.py

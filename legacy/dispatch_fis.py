@@ -22,7 +22,7 @@ Ejecucion: python src/dispatch_fis.py
 """
 
 import numpy as np
-from membership import trimf, interp_membership
+from legacy.membership import trimf, interp_membership
 
 
 class DispatchFuzzySystem:

@@ -12,7 +12,7 @@ import os
 sys.path.insert(0, os.path.dirname(__file__))
 
 import pytest
-from dispatch_fis import DispatchFuzzySystem
+from legacy.dispatch_fis import DispatchFuzzySystem
 
 
 @pytest.fixture
