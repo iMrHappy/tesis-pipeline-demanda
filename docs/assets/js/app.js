@@ -30,6 +30,7 @@ let MAXN = 0;
 let SOLO_DEC = true;
 let GRUPO_SEL = null;
 let SORT = {key: "hora_salida", dir: 1};
+let HIST_FECHA_IDX = 0;
 const charts = {};
 
 /* ---------- utilidades ---------- */
@@ -207,17 +208,26 @@ function enlazarEventos() {
       if (r) renderTabla(filtrados(r));
     }));
   $("btnTema").addEventListener("click", () => aplicarTema(tema() === "dark" ? "light" : "dark"));
+
+  const selFechaHist = $("selFechaHist");
+  if (selFechaHist) {
+    selFechaHist.addEventListener("change", (e) => {
+      HIST_FECHA_IDX = Number(e.target.value);
+      renderHistorialDia();
+    });
+  }
 }
 
 /* ---------- paneles ---------- */
 function renderPanel(nombre) {
   PANEL = nombre;
   const r = resultadoActual();
-  if (!r) return;
+  if (!r && nombre !== "historial" && nombre !== "acerca") return;
   if (nombre === "resumen") renderResumen(r);
   else if (nombre === "servicios") renderServicios(r);
   else if (nombre === "fis") renderFis(r);
   else if (nombre === "modelo") renderModelo();
+  else if (nombre === "historial") renderHistorial();
 }
 
 function kpi(icono, color, valor, titulo) {
@@ -513,6 +523,90 @@ function renderEvaluacion() {
   }
 }
 
+/* ---------- historial ---------- */
+function renderHistorial() {
+  const hist = DATOS.historial || [];
+  if (!hist.length) {
+    $("selFechaHist").innerHTML = '<option value="">Sin historial disponible</option>';
+    $("tbodyHistGrupos").innerHTML = '<tr><td colspan="9" class="text-center text-secondary py-3">Ejecuta python src/predict_and_recommend.py para generar el historial.</td></tr>';
+    $("kpisHistorial").innerHTML = "";
+    $("tbodyHistServicios").innerHTML = "";
+    return;
+  }
+  if ($("selFechaHist").options.length === 0 || $("selFechaHist").options.length !== hist.length) {
+    $("selFechaHist").innerHTML = hist.map((item, idx) =>
+      '<option value="' + idx + '">' + esc(item.fecha_viaje) + ' (' + item.n_servicios + ' serv. &middot; MAE ' + item.mae_dia + ')</option>'
+    ).join("");
+  }
+
+  const ordenado = [...hist].reverse();
+  const categorias = ordenado.map((d) => fechaCorta(d.fecha_viaje));
+  const seriePred = ordenado.map((d) => d.ocupacion_predicha_pct);
+  const serieReal = ordenado.map((d) => d.ocupacion_real_pct);
+
+  dibujar("histEvol", "#chartHistEvol", {
+    chart: {type: "line", height: 280, toolbar: {show: false}},
+    series: [
+      {name: "Ocup. Predicha (D+3)", data: seriePred},
+      {name: "Ocup. Real (D+0)", data: serieReal}
+    ],
+    colors: ["#3b82f6", "#10b981"],
+    stroke: {width: [3, 3], curve: "smooth", dashArray: [4, 0]},
+    markers: {size: 4},
+    xaxis: {categories: categorias},
+    yaxis: {min: 0, max: 100, labels: {formatter: (v) => fmt(v, 0) + "%"}},
+    tooltip: {y: {formatter: (v) => fmt(v, 1) + "%"}},
+    legend: {position: "top"}
+  });
+
+  renderHistorialDia();
+}
+
+function renderHistorialDia() {
+  const hist = DATOS.historial || [];
+  const dia = hist[HIST_FECHA_IDX];
+  if (!dia) return;
+
+  const pctAcierto = dia.grupos_decisorios > 0 ? Math.round((dia.aciertos_decisorios / dia.grupos_decisorios) * 100) + "%" : "Sin grupos";
+
+  $("kpisHistorial").innerHTML =
+    kpi("bi-people", "primary", fmt(dia.pasajeros_previstos, 0) + " / " + fmt(dia.pasajeros_reales, 0), "Pasajeros (Pred. / Real)") +
+    kpi("bi-speedometer2", "success", fmt(dia.ocupacion_predicha_pct) + "% vs " + fmt(dia.ocupacion_real_pct) + "%", "Ocupación media") +
+    kpi("bi-bullseye", "warning", fmt(dia.mae_dia, 2), "MAE del día (asientos/bus)") +
+    kpi("bi-check2-circle", "info", dia.aciertos_decisorios + "/" + dia.grupos_decisorios + " (" + pctAcierto + ")", "Acierto (n &ge; 3)");
+
+  $("tbodyHistGrupos").innerHTML = dia.grupos.map((g) => {
+    let badgeEstado = '<span class="badge bg-secondary-subtle text-secondary">Informativo</span>';
+    if (g.decide) {
+      if (g.error_decision === 0) badgeEstado = '<span class="badge bg-success-subtle text-success">Exacta (0)</span>';
+      else if (g.error_decision > 0) badgeEstado = '<span class="badge bg-warning-subtle text-warning">Exceso (+' + g.error_decision + ')</span>';
+      else badgeEstado = '<span class="badge bg-danger-subtle text-danger">Defecto (' + g.error_decision + ')</span>';
+    }
+    return "<tr>" +
+      "<td>" + esc(g.operador) + "</td><td>" + esc(g.tipo_bus) + "</td>" +
+      '<td class="text-center tabla-num">' + g.n_servicios + "</td>" +
+      '<td class="text-end tabla-num">' + fmt(g.ocupacion_predicha_pct) + "%</td>" +
+      '<td class="text-end tabla-num fw-semibold">' + fmt(g.ocupacion_real_pct) + "%</td>" +
+      '<td class="text-center fw-bold">' + fmtDelta(g.delta_buses) + "</td>" +
+      '<td class="text-center">' + fmtDelta(g.delta_regla) + "</td>" +
+      '<td class="text-center text-info">' + fmtDelta(g.delta_correcto) + "</td>" +
+      '<td class="text-center">' + badgeEstado + "</td>" +
+      "</tr>";
+  }).join("");
+
+  $("tbodyHistServicios").innerHTML = dia.servicios.map((s) =>
+    "<tr>" +
+      '<td class="fw-semibold">' + esc(s.hora_salida) + "</td>" +
+      "<td>" + esc(s.operador) + "</td><td>" + esc(s.tipo_bus) + "</td>" +
+      '<td class="text-end tabla-num">' + s.asientos_totales + "</td>" +
+      '<td class="text-end text-secondary tabla-num">' + s.ocupacion_d3 + "</td>" +
+      '<td class="text-end tabla-num">' + fmt(s.ocupacion_predicha, 0) + ' <small class="text-secondary">(' + fmt(s.ocupacion_predicha_pct) + "%)</small></td>" +
+      '<td class="text-end fw-semibold tabla-num">' + fmt(s.ocupacion_real, 0) + ' <small class="text-secondary">(' + fmt(s.ocupacion_real_pct) + "%)</small></td>" +
+      '<td class="text-end tabla-num ' + (s.error_abs >= 10 ? 'text-warning fw-semibold' : '') + '">' + s.error_abs + "</td>" +
+    "</tr>"
+  ).join("");
+}
+
 /* ---------- tema claro/oscuro ---------- */
 function aplicarTema(t) {
   document.documentElement.setAttribute("data-bs-theme", t);
@@ -531,3 +625,9 @@ function temaInicial() {
 
 aplicarTema(temaInicial());
 cargar();
+
+(function () {
+  const s = document.createElement("script");
+  s.src = "assets/js/calendario.js?v=4";
+  document.body.appendChild(s);
+})();

@@ -1,0 +1,31 @@
+,importancia
+ocupacion_d3,0.16531
+tipo_bus_BUS CAMA,0.11406843
+asientos_totales,0.09981828
+tipo_bus_Super Cama,0.069242366
+operador_Ronco Perú,0.052661628
+operador_Transportes Chiclayo,0.043563653
+tipo_bus_DOBLE VIP,0.039910354
+tipo_bus_GOLD,0.039723665
+hora_salida,0.031920664
+operador_Allinbus,0.03049027
+ocupacion_d3_pct,0.029776976
+operador_ITTSABUS,0.029670242
+asientos_disponibles_d3,0.026568135
+dia_semana,0.024056872
+operador_Turismo Dias,0.02362794
+es_fin_de_semana,0.021548083
+tarifa_d3,0.019717887
+operador_Sajybus,0.019641893
+tipo_bus_EJECUTIVO,0.019048752
+dias_para_quincena,0.018117618
+horas_antes_snapshot_feature,0.017729457
+proximidad_feriado,0.017536081
+operador_America Express,0.014251474
+tipo_bus_MASTER,0.012584393
+tipo_bus_SEMI CAMA,0.012480725
+operador_Turismo Cautivo,0.0069341226
+es_feriado,0.0
+operador_Vía Pacífico,0.0
+tipo_bus_Premium Plus,0.0
+tipo_bus_Oro,0.0
