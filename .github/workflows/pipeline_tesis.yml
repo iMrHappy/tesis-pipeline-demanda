@@ -1,14 +1,16 @@
+
 name: Pipeline Diario Lima-Chiclayo
 
 on:
   schedule:
-    # Principal: 16:17 UTC = 11:17 Lima (minuto impar para esquivar la hora en punto, la mas saturada)
+    # Principal: 16:17 UTC = 11:17 Lima
     - cron: '17 16 * * *'
-    # Respaldo: 21:47 UTC = 16:47 Lima. Solo captura si el principal no corrio o quedo incompleto
+
+    # Respaldo: 21:47 UTC = 16:47 Lima
     - cron: '47 21 * * *'
+
   workflow_dispatch:
 
-# Si el principal sigue corriendo cuando llega el respaldo, el respaldo espera su turno
 concurrency:
   group: pipeline-diario
   cancel-in-progress: false
@@ -20,11 +22,38 @@ jobs:
   pipeline:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
+
+      # Permitir que Python encuentre los módulos
+      # ubicados en la raíz del repositorio.
+      PYTHONPATH: ${{ github.workspace }}
+
     steps:
       - uses: actions/checkout@v4
+
+      - name: Verificar estructura del repositorio
+        run: |
+          echo "=== DIRECTORIO ACTUAL ==="
+          pwd
+
+          echo "=== ARCHIVOS DE LA RAIZ ==="
+          ls -la
+
+          echo "=== VERIFICAR LEGACY ==="
+
+          if [ -d legacy ]; then
+            echo "Carpeta legacy encontrada"
+            find legacy -maxdepth 2 -type f
+          else
+            echo "::error::No existe la carpeta legacy en la raiz"
+            exit 1
+          fi
+
+          echo "=== ARCHIVOS VERSIONADOS ==="
+          git ls-files legacy/
 
       - uses: actions/setup-python@v5
         with:
@@ -34,11 +63,15 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
+      - name: Verificar importacion de legacy
+        run: |
+          python -c "import sys; print('Python paths:', sys.path); from legacy.membership import trimf; print('Importacion correcta:', trimf)"
+
       - name: Guardia - ya se capturo redBus hoy?
         id: guardia
         run: python src/guardia_diaria.py
 
-      # DATO PRINCIPAL: va primero y con reintentos. Es la unica foto que no se puede recuperar despues.
+      # DATO PRINCIPAL: ingesta redBus con reintentos
       - name: Ingesta redBus (con reintentos)
         if: steps.guardia.outputs.ya_corrio != 'true' || github.event_name == 'workflow_dispatch'
         run: |
@@ -46,24 +79,27 @@ jobs:
             if python src/test_apify.py; then
               exit 0
             fi
+
             echo "::warning::Intento $intento de redBus fallido; reintentando en 120 s"
             sleep 120
           done
+
           exit 1
 
-      # CLIMA: unica fuente secundaria que se conserva. Si falla, el pipeline continua.
+      # CLIMA: fuente secundaria
       - name: Ingesta clima (secundaria)
         if: steps.guardia.outputs.ya_corrio != 'true' || github.event_name == 'workflow_dispatch'
         continue-on-error: true
         run: python src/ingest_weather.py
 
-      # TRANSFORMACIONES: siempre corren (son idempotentes), aunque la ingesta de clima haya fallado
+      # TRANSFORMACIONES
       - name: Transformaciones
         if: ${{ !cancelled() }}
         run: |
           python src/transform_weather.py
           python src/transform_staging.py
 
+      # FEATURES DE CALENDARIO
       - name: Actualizar features de calendario
         if: ${{ !cancelled() }}
         run: python src/feature_calendar.py

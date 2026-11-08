@@ -9,18 +9,10 @@ import pandas as pd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 
-# ============================================================
-# CONFIGURACIÓN DE RUTAS
-# ============================================================
-
-# Obtener la raíz del proyecto (directorio padre de src)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-# Agregar la raíz del proyecto al PYTHONPATH
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
+sys.path.insert(0, str(PROJECT_ROOT))
 
-# Importar función de pertenencia triangular
 from legacy.membership import trimf
 
 
