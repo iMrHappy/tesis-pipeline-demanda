@@ -1,0 +1,7 @@
+modelo,MAE,RMSE,n_pred,mejora_vs_persistencia_%,mejora_vs_pers+incremento_%
+Persistencia (final = D+3),22.96,25.952,734,0.0,-137.718
+Persistencia + incremento mediano,9.659,12.37,734,57.933,0.0
+Ridge,8.461,10.88,734,63.148,12.396
+Random Forest,8.505,10.878,734,62.957,11.942
+XGBoost,8.538,10.897,734,62.814,11.602
+XGBoost (objetivo incremento),8.281,10.719,734,63.932,14.259

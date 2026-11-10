@@ -1,10 +1,14 @@
 """
-transform_staging.py
+transform_staging.py (v3.1)
 raw.redbus_services_raw -> staging.fact_redbus_snapshots
 
-Capacidad corregida con staging.dim_capacity (llave: empresa, tipo, total_api).
-El valor original de redBus se conserva en total_seats_api.
-Combinaciones sin fila en dim_capacity usan el total de la API y se avisan.
+  - Capacidad real con staging.dim_capacity (llave: empresa, tipo, total_api); el total original
+    de redBus se conserva en total_seats_api.
+  - Identidad del bus: los listados "gemelos" (mismo bus, otro punto de embarque, patrones en
+    staging.dim_gemelos) reciben en departure_time_bus la hora del listado principal, pero SOLO
+    si ese listado principal existe el mismo dia. Se aplica despues del INSERT (si el principal
+    llega en una captura posterior, el gemelo se asigna en esa ejecucion).
+Requiere en Supabase: dim_capacity, dim_gemelos y las columnas total_seats_api y departure_time_bus.
 Requiere: DATABASE_URL
 """
 
@@ -19,16 +23,19 @@ load_dotenv()
 SQL_VERIFICAR = text("""
     SELECT
         (to_regclass('staging.dim_capacity') IS NOT NULL),
+        (to_regclass('staging.dim_gemelos') IS NOT NULL),
         EXISTS (SELECT 1 FROM information_schema.columns
-                WHERE table_schema = 'staging'
-                  AND table_name = 'fact_redbus_snapshots'
-                  AND column_name = 'total_seats_api')
+                WHERE table_schema = 'staging' AND table_name = 'fact_redbus_snapshots'
+                  AND column_name = 'total_seats_api'),
+        EXISTS (SELECT 1 FROM information_schema.columns
+                WHERE table_schema = 'staging' AND table_name = 'fact_redbus_snapshots'
+                  AND column_name = 'departure_time_bus')
 """)
 
 SQL_INSERTAR = text("""
     INSERT INTO staging.fact_redbus_snapshots (
         raw_id, extraction_timestamp, operator_name, bus_type,
-        source_city, destination_city, departure_time,
+        source_city, destination_city, departure_time, departure_time_bus,
         total_seats, total_seats_api, available_seats,
         occupied_seats_proxy, min_fare, lead_time_hours
     )
@@ -39,6 +46,7 @@ SQL_INSERTAR = text("""
         r.raw_data->>'busType',
         r.raw_data->>'source',
         r.raw_data->>'destination',
+        CAST(r.raw_data->>'departureTime' AS TIMESTAMP),
         CAST(r.raw_data->>'departureTime' AS TIMESTAMP),
         COALESCE(c.capacity_real, CAST(r.raw_data->>'totalSeats' AS INTEGER)),
         CAST(r.raw_data->>'totalSeats' AS INTEGER),
@@ -58,6 +66,24 @@ SQL_INSERTAR = text("""
     WHERE NOT EXISTS (
         SELECT 1 FROM staging.fact_redbus_snapshots s WHERE s.raw_id = r.id
     )
+""")
+
+SQL_ALIAS_GEMELOS = text("""
+    UPDATE staging.fact_redbus_snapshots f
+    SET departure_time_bus = f.departure_time::date + g.hora_principal
+    FROM staging.dim_gemelos g
+    WHERE g.activo
+      AND g.operator_name = f.operator_name
+      AND g.bus_type      = f.bus_type
+      AND g.hora_gemela   = f.departure_time::time
+      AND f.departure_time_bus = f.departure_time
+      AND f.departure_time >= (NOW() AT TIME ZONE 'America/Lima') - INTERVAL '10 days'
+      AND EXISTS (
+        SELECT 1 FROM staging.fact_redbus_snapshots p
+        WHERE p.operator_name = f.operator_name
+          AND p.bus_type      = f.bus_type
+          AND p.departure_time = f.departure_time::date + g.hora_principal
+      )
 """)
 
 SQL_SIN_CAPACIDAD = text("""
@@ -88,12 +114,16 @@ SQL_ANOMALIAS = text("""
 
 
 def verificar_esquema(conn):
-    tiene_dim, tiene_col = conn.execute(SQL_VERIFICAR).one()
+    tiene_cap, tiene_gem, col_api, col_bus = conn.execute(SQL_VERIFICAR).one()
     faltan = []
-    if not tiene_dim:
+    if not tiene_cap:
         faltan.append("tabla staging.dim_capacity")
-    if not tiene_col:
+    if not tiene_gem:
+        faltan.append("tabla staging.dim_gemelos (ejecuta sql/01_gemelos.sql)")
+    if not col_api:
         faltan.append("columna fact_redbus_snapshots.total_seats_api")
+    if not col_bus:
+        faltan.append("columna fact_redbus_snapshots.departure_time_bus (ejecuta sql/01_gemelos.sql)")
     if faltan:
         raise RuntimeError("Falta ejecutar el SQL de esquema en Supabase: " + ", ".join(faltan))
 
@@ -106,8 +136,11 @@ def main():
         verificar_esquema(conn)
 
         result = conn.execute(SQL_INSERTAR)
-        conn.commit()
         print(f"Se procesaron {result.rowcount} registros hacia la capa Staging.")
+
+        alias = conn.execute(SQL_ALIAS_GEMELOS)
+        print(f"Listados gemelos asignados a su bus principal: {alias.rowcount}")
+        conn.commit()
 
         sin_cap = conn.execute(SQL_SIN_CAPACIDAD).fetchall()
         if sin_cap:
