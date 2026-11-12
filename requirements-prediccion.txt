@@ -1,7 +1,7 @@
 pandas
 numpy
 SQLAlchemy
-psycopg2-binary
+psycopg[binary]
 python-dotenv
 joblib==1.6.0
 scikit-learn==1.9.1
