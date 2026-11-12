@@ -42,6 +42,7 @@ jobs:
             echo "Sin cambios"
           else
             git commit -m "Prediccion diaria $(date +%F)"
+            git restore .
             git pull --rebase origin main
             git push origin main
           fi
