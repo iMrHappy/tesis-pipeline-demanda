@@ -4,6 +4,9 @@ on:
   workflow_run:
     workflows: ["Pipeline Diario Lima-Chiclayo"]
     types: [completed]
+  push:
+    branches: [main]
+    paths: ["docs/**"]
   workflow_dispatch:
 
 permissions:
@@ -15,7 +18,7 @@ concurrency:
 
 jobs:
   predecir:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion != 'cancelled'
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion != 'cancelled'
     runs-on: ubuntu-latest
     env:
       TZ: America/Lima
@@ -42,3 +45,24 @@ jobs:
             git pull --rebase origin main
             git push origin main
           fi
+
+  publicar:
+    needs: predecir
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs
+      - id: deployment
+        uses: actions/deploy-pages@v4
