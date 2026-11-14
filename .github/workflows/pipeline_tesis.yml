@@ -1,5 +1,5 @@
-
 name: Pipeline Diario Lima-Chiclayo
+
 
 on:
   schedule:
@@ -10,13 +10,21 @@ on:
     - cron: '47 21 * * *'
 
   workflow_dispatch:
+    inputs:
+      forzar_captura:
+        description: "Forzar captura de redBus aunque hoy ya se haya hecho (GASTA crédito de Apify)"
+        type: boolean
+        default: false
+
 
 concurrency:
   group: pipeline-diario
   cancel-in-progress: false
 
+
 permissions:
   contents: read
+
 
 jobs:
   pipeline:
@@ -71,9 +79,11 @@ jobs:
         id: guardia
         run: python src/guardia_diaria.py
 
-      # DATO PRINCIPAL: ingesta redBus con reintentos
+      # DATO PRINCIPAL: ingesta redBus con reintentos.
+      # Solo corre si hoy no se capturó, o si se fuerza a mano con "forzar_captura".
       - name: Ingesta redBus (con reintentos)
-        if: steps.guardia.outputs.ya_corrio != 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.guardia.outputs.ya_corrio != 'true' || github.event.inputs.forzar_captura == 'true'
+        timeout-minutes: 20
         run: |
           for intento in 1 2 3; do
             if python src/test_apify.py; then
@@ -86,9 +96,10 @@ jobs:
 
           exit 1
 
-      # CLIMA: fuente secundaria
+      # CLIMA: fuente secundaria. Si se cuelga, se corta a los 3 minutos y el flujo sigue.
       - name: Ingesta clima (secundaria)
-        if: steps.guardia.outputs.ya_corrio != 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.guardia.outputs.ya_corrio != 'true' || github.event.inputs.forzar_captura == 'true'
+        timeout-minutes: 3
         continue-on-error: true
         run: python src/ingest_weather.py
 
