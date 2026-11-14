@@ -226,10 +226,10 @@
       "n_servicios": 27,
       "asientos_totales": 1461,
       "pasajeros_previstos": 663,
-      "pasajeros_reales": 711,
+      "pasajeros_reales": 688,
       "ocupacion_predicha_pct": 45.4,
-      "ocupacion_real_pct": 48.7,
-      "mae_dia": 7.7,
+      "ocupacion_real_pct": 47.1,
+      "mae_dia": 7.52,
       "grupos_decisorios": 2,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -242,9 +242,9 @@
           "n_servicios": 9,
           "asientos_totales": 508,
           "pasajeros_previstos": 253,
-          "pasajeros_reales": 255,
+          "pasajeros_reales": 232,
           "ocupacion_predicha_pct": 49.8,
-          "ocupacion_real_pct": 50.2,
+          "ocupacion_real_pct": 45.7,
           "delta_buses": -1,
           "delta_regla": -2,
           "delta_correcto": -2,
@@ -523,7 +523,7 @@
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
-          "ocupacion_d3": 1,
+          "ocupacion_d3": 6,
           "ocupacion_predicha": 33,
           "ocupacion_predicha_pct": 55.0,
           "ocupacion_real": 16,
@@ -715,12 +715,12 @@
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
-          "ocupacion_d3": 5,
+          "ocupacion_d3": 1,
           "ocupacion_predicha": 26,
           "ocupacion_predicha_pct": 43.3,
-          "ocupacion_real": 40,
-          "ocupacion_real_pct": 66.7,
-          "error_abs": 14
+          "ocupacion_real": 17,
+          "ocupacion_real_pct": 28.3,
+          "error_abs": 9
         },
         {
           "hora_salida": "21:45",
@@ -777,10 +777,10 @@
       "n_servicios": 34,
       "asientos_totales": 1832,
       "pasajeros_previstos": 1183,
-      "pasajeros_reales": 853,
+      "pasajeros_reales": 821,
       "ocupacion_predicha_pct": 64.6,
-      "ocupacion_real_pct": 46.6,
-      "mae_dia": 10.29,
+      "ocupacion_real_pct": 44.8,
+      "mae_dia": 11.24,
       "grupos_decisorios": 3,
       "aciertos_decisorios": 0,
       "origen_pred": {
@@ -793,9 +793,9 @@
           "n_servicios": 11,
           "asientos_totales": 628,
           "pasajeros_previstos": 418,
-          "pasajeros_reales": 306,
+          "pasajeros_reales": 274,
           "ocupacion_predicha_pct": 66.6,
-          "ocupacion_real_pct": 48.7,
+          "ocupacion_real_pct": 43.6,
           "delta_buses": 0,
           "delta_regla": -2,
           "delta_correcto": -2,
@@ -1193,9 +1193,9 @@
           "ocupacion_d3": 2,
           "ocupacion_predicha": 42,
           "ocupacion_predicha_pct": 70.0,
-          "ocupacion_real": 34,
-          "ocupacion_real_pct": 56.7,
-          "error_abs": 8
+          "ocupacion_real": 21,
+          "ocupacion_real_pct": 35.0,
+          "error_abs": 21
         },
         {
           "hora_salida": "19:30",
@@ -1397,9 +1397,9 @@
           "ocupacion_d3": 1,
           "ocupacion_predicha": 40,
           "ocupacion_predicha_pct": 66.7,
-          "ocupacion_real": 27,
-          "ocupacion_real_pct": 45.0,
-          "error_abs": 13
+          "ocupacion_real": 8,
+          "ocupacion_real_pct": 13.3,
+          "error_abs": 32
         },
         {
           "hora_salida": "21:45",
@@ -2143,10 +2143,10 @@
       "n_servicios": 45,
       "asientos_totales": 2501,
       "pasajeros_previstos": 1507,
-      "pasajeros_reales": 1022,
+      "pasajeros_reales": 1017,
       "ocupacion_predicha_pct": 60.3,
-      "ocupacion_real_pct": 40.9,
-      "mae_dia": 16.33,
+      "ocupacion_real_pct": 40.7,
+      "mae_dia": 16.22,
       "grupos_decisorios": 4,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -2159,9 +2159,9 @@
           "n_servicios": 17,
           "asientos_totales": 988,
           "pasajeros_previstos": 617,
-          "pasajeros_reales": 452,
+          "pasajeros_reales": 447,
           "ocupacion_predicha_pct": 62.4,
-          "ocupacion_real_pct": 45.7,
+          "ocupacion_real_pct": 45.2,
           "delta_buses": -1,
           "delta_regla": -2,
           "delta_correcto": -2,
@@ -2719,9 +2719,9 @@
           "ocupacion_d3": 4,
           "ocupacion_predicha": 20,
           "ocupacion_predicha_pct": 33.3,
-          "ocupacion_real": 30,
-          "ocupacion_real_pct": 50.0,
-          "error_abs": 10
+          "ocupacion_real": 25,
+          "ocupacion_real_pct": 41.7,
+          "error_abs": 5
         },
         {
           "hora_salida": "19:30",
@@ -2896,7 +2896,7 @@
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
-          "ocupacion_d3": 4,
+          "ocupacion_d3": 15,
           "ocupacion_predicha": 52,
           "ocupacion_predicha_pct": 86.7,
           "ocupacion_real": 9,
@@ -2958,10 +2958,10 @@
       "n_servicios": 36,
       "asientos_totales": 1981,
       "pasajeros_previstos": 1114,
-      "pasajeros_reales": 1330,
+      "pasajeros_reales": 1316,
       "ocupacion_predicha_pct": 56.2,
-      "ocupacion_real_pct": 67.1,
-      "mae_dia": 15.5,
+      "ocupacion_real_pct": 66.4,
+      "mae_dia": 15.11,
       "grupos_decisorios": 3,
       "aciertos_decisorios": 0,
       "origen_pred": {
@@ -2974,13 +2974,13 @@
           "n_servicios": 13,
           "asientos_totales": 748,
           "pasajeros_previstos": 417,
-          "pasajeros_reales": 642,
+          "pasajeros_reales": 628,
           "ocupacion_predicha_pct": 55.7,
-          "ocupacion_real_pct": 85.8,
+          "ocupacion_real_pct": 84.0,
           "delta_buses": -1,
           "delta_regla": -2,
-          "delta_correcto": 1,
-          "error_decision": -2,
+          "delta_correcto": 0,
+          "error_decision": -1,
           "etiqueta": "Reducir",
           "decide": true
         },
@@ -3606,9 +3606,9 @@
           "ocupacion_d3": 5,
           "ocupacion_predicha": 13,
           "ocupacion_predicha_pct": 21.7,
-          "ocupacion_real": 59,
-          "ocupacion_real_pct": 98.3,
-          "error_abs": 46
+          "ocupacion_real": 45,
+          "ocupacion_real_pct": 75.0,
+          "error_abs": 32
         },
         {
           "hora_salida": "21:45",
@@ -3665,10 +3665,10 @@
       "n_servicios": 36,
       "asientos_totales": 1881,
       "pasajeros_previstos": 1189,
-      "pasajeros_reales": 1035,
+      "pasajeros_reales": 1036,
       "ocupacion_predicha_pct": 63.2,
-      "ocupacion_real_pct": 55.0,
-      "mae_dia": 14.39,
+      "ocupacion_real_pct": 55.1,
+      "mae_dia": 14.36,
       "grupos_decisorios": 2,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -3745,9 +3745,9 @@
           "n_servicios": 2,
           "asientos_totales": 120,
           "pasajeros_previstos": 77,
-          "pasajeros_reales": 48,
+          "pasajeros_reales": 49,
           "ocupacion_predicha_pct": 64.2,
-          "ocupacion_real_pct": 40.0,
+          "ocupacion_real_pct": 40.8,
           "delta_buses": 0,
           "delta_regla": 0,
           "delta_correcto": -1,
@@ -4005,9 +4005,9 @@
           "ocupacion_d3": 0,
           "ocupacion_predicha": 44,
           "ocupacion_predicha_pct": 73.3,
-          "ocupacion_real": 24,
-          "ocupacion_real_pct": 40.0,
-          "error_abs": 20
+          "ocupacion_real": 25,
+          "ocupacion_real_pct": 41.7,
+          "error_abs": 19
         },
         {
           "hora_salida": "18:30",
@@ -4326,7 +4326,7 @@
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
-          "ocupacion_d3": 5,
+          "ocupacion_d3": 0,
           "ocupacion_predicha": 38,
           "ocupacion_predicha_pct": 63.3,
           "ocupacion_real": 21,
@@ -4388,10 +4388,10 @@
       "n_servicios": 32,
       "asientos_totales": 1697,
       "pasajeros_previstos": 1001,
-      "pasajeros_reales": 667,
+      "pasajeros_reales": 673,
       "ocupacion_predicha_pct": 59.0,
-      "ocupacion_real_pct": 39.3,
-      "mae_dia": 12.19,
+      "ocupacion_real_pct": 39.7,
+      "mae_dia": 12.06,
       "grupos_decisorios": 2,
       "aciertos_decisorios": 0,
       "origen_pred": {
@@ -4404,9 +4404,9 @@
           "n_servicios": 11,
           "asientos_totales": 628,
           "pasajeros_previstos": 311,
-          "pasajeros_reales": 208,
+          "pasajeros_reales": 230,
           "ocupacion_predicha_pct": 49.5,
-          "ocupacion_real_pct": 33.1,
+          "ocupacion_real_pct": 36.6,
           "delta_buses": -1,
           "delta_regla": -2,
           "delta_correcto": -2,
@@ -4436,9 +4436,9 @@
           "n_servicios": 2,
           "asientos_totales": 120,
           "pasajeros_previstos": 61,
-          "pasajeros_reales": 31,
+          "pasajeros_reales": 15,
           "ocupacion_predicha_pct": 50.8,
-          "ocupacion_real_pct": 25.8,
+          "ocupacion_real_pct": 12.5,
           "delta_buses": -1,
           "delta_regla": 0,
           "delta_correcto": -1,
@@ -4688,9 +4688,9 @@
           "ocupacion_d3": 0,
           "ocupacion_predicha": 42,
           "ocupacion_predicha_pct": 70.0,
-          "ocupacion_real": 16,
-          "ocupacion_real_pct": 26.7,
-          "error_abs": 26
+          "ocupacion_real": 0,
+          "ocupacion_real_pct": 0.0,
+          "error_abs": 42
         },
         {
           "hora_salida": "18:00",
@@ -4868,9 +4868,9 @@
           "ocupacion_d3": 2,
           "ocupacion_predicha": 37,
           "ocupacion_predicha_pct": 61.7,
-          "ocupacion_real": 17,
-          "ocupacion_real_pct": 28.3,
-          "error_abs": 20
+          "ocupacion_real": 26,
+          "ocupacion_real_pct": 43.3,
+          "error_abs": 11
         },
         {
           "hora_salida": "19:30",
@@ -4985,12 +4985,12 @@
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
-          "ocupacion_d3": 2,
+          "ocupacion_d3": 5,
           "ocupacion_predicha": 29,
           "ocupacion_predicha_pct": 48.3,
-          "ocupacion_real": 17,
-          "ocupacion_real_pct": 28.3,
-          "error_abs": 12
+          "ocupacion_real": 30,
+          "ocupacion_real_pct": 50.0,
+          "error_abs": 1
         },
         {
           "hora_salida": "21:45",
@@ -5047,10 +5047,10 @@
       "n_servicios": 36,
       "asientos_totales": 1881,
       "pasajeros_previstos": 1040,
-      "pasajeros_reales": 757,
+      "pasajeros_reales": 725,
       "ocupacion_predicha_pct": 55.3,
-      "ocupacion_real_pct": 40.2,
-      "mae_dia": 13.64,
+      "ocupacion_real_pct": 38.5,
+      "mae_dia": 12.92,
       "grupos_decisorios": 2,
       "aciertos_decisorios": 0,
       "origen_pred": {
@@ -5063,9 +5063,9 @@
           "n_servicios": 12,
           "asientos_totales": 688,
           "pasajeros_previstos": 351,
-          "pasajeros_reales": 293,
+          "pasajeros_reales": 261,
           "ocupacion_predicha_pct": 51.0,
-          "ocupacion_real_pct": 42.6,
+          "ocupacion_real_pct": 37.9,
           "delta_buses": -1,
           "delta_regla": -2,
           "delta_correcto": -2,
@@ -5579,9 +5579,9 @@
           "ocupacion_d3": 0,
           "ocupacion_predicha": 26,
           "ocupacion_predicha_pct": 43.3,
-          "ocupacion_real": 55,
-          "ocupacion_real_pct": 91.7,
-          "error_abs": 29
+          "ocupacion_real": 23,
+          "ocupacion_real_pct": 38.3,
+          "error_abs": 3
         },
         {
           "hora_salida": "19:30",
@@ -6125,10 +6125,10 @@
       "n_servicios": 34,
       "asientos_totales": 1880,
       "pasajeros_previstos": 1107,
-      "pasajeros_reales": 1273,
+      "pasajeros_reales": 1261,
       "ocupacion_predicha_pct": 58.9,
-      "ocupacion_real_pct": 67.7,
-      "mae_dia": 9.53,
+      "ocupacion_real_pct": 67.1,
+      "mae_dia": 9.76,
       "grupos_decisorios": 3,
       "aciertos_decisorios": 0,
       "origen_pred": {
@@ -6141,9 +6141,9 @@
           "n_servicios": 14,
           "asientos_totales": 808,
           "pasajeros_previstos": 462,
-          "pasajeros_reales": 552,
+          "pasajeros_reales": 540,
           "ocupacion_predicha_pct": 57.2,
-          "ocupacion_real_pct": 68.3,
+          "ocupacion_real_pct": 66.8,
           "delta_buses": 0,
           "delta_regla": -2,
           "delta_correcto": -2,
@@ -6713,9 +6713,9 @@
           "ocupacion_d3": 4,
           "ocupacion_predicha": 44,
           "ocupacion_predicha_pct": 73.3,
-          "ocupacion_real": 46,
-          "ocupacion_real_pct": 76.7,
-          "error_abs": 2
+          "ocupacion_real": 34,
+          "ocupacion_real_pct": 56.7,
+          "error_abs": 10
         },
         {
           "hora_salida": "21:45",
@@ -7631,10 +7631,10 @@
       "n_servicios": 31,
       "asientos_totales": 1714,
       "pasajeros_previstos": 800,
-      "pasajeros_reales": 1204,
+      "pasajeros_reales": 1197,
       "ocupacion_predicha_pct": 46.7,
-      "ocupacion_real_pct": 70.2,
-      "mae_dia": 15.03,
+      "ocupacion_real_pct": 69.8,
+      "mae_dia": 15.0,
       "grupos_decisorios": 1,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -7647,9 +7647,9 @@
           "n_servicios": 12,
           "asientos_totales": 688,
           "pasajeros_previstos": 307,
-          "pasajeros_reales": 496,
+          "pasajeros_reales": 492,
           "ocupacion_predicha_pct": 44.6,
-          "ocupacion_real_pct": 72.1,
+          "ocupacion_real_pct": 71.5,
           "delta_buses": -1,
           "delta_regla": -2,
           "delta_correcto": -1,
@@ -7711,9 +7711,9 @@
           "n_servicios": 2,
           "asientos_totales": 120,
           "pasajeros_previstos": 50,
-          "pasajeros_reales": 47,
+          "pasajeros_reales": 44,
           "ocupacion_predicha_pct": 41.7,
-          "ocupacion_real_pct": 39.2,
+          "ocupacion_real_pct": 36.7,
           "delta_buses": -1,
           "delta_regla": -1,
           "delta_correcto": -1,
@@ -7935,9 +7935,9 @@
           "ocupacion_d3": 3,
           "ocupacion_predicha": 22,
           "ocupacion_predicha_pct": 36.7,
-          "ocupacion_real": 20,
-          "ocupacion_real_pct": 33.3,
-          "error_abs": 2
+          "ocupacion_real": 17,
+          "ocupacion_real_pct": 28.3,
+          "error_abs": 5
         },
         {
           "hora_salida": "18:00",
@@ -8052,7 +8052,7 @@
           "operador": "Sajybus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
-          "ocupacion_d3": 14,
+          "ocupacion_d3": 20,
           "ocupacion_predicha": 22,
           "ocupacion_predicha_pct": 36.7,
           "ocupacion_real": 51,
@@ -8196,12 +8196,12 @@
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
-          "ocupacion_d3": 6,
+          "ocupacion_d3": 7,
           "ocupacion_predicha": 21,
           "ocupacion_predicha_pct": 35.0,
-          "ocupacion_real": 40,
-          "ocupacion_real_pct": 66.7,
-          "error_abs": 19
+          "ocupacion_real": 36,
+          "ocupacion_real_pct": 60.0,
+          "error_abs": 15
         },
         {
           "hora_salida": "21:45",
@@ -8245,11 +8245,11 @@
       "fecha_viaje": "2026-10-29",
       "n_servicios": 40,
       "asientos_totales": 2128,
-      "pasajeros_previstos": 1119,
-      "pasajeros_reales": 1273,
-      "ocupacion_predicha_pct": 52.6,
-      "ocupacion_real_pct": 59.8,
-      "mae_dia": 10.8,
+      "pasajeros_previstos": 1117,
+      "pasajeros_reales": 1310,
+      "ocupacion_predicha_pct": 52.5,
+      "ocupacion_real_pct": 61.6,
+      "mae_dia": 10.93,
       "grupos_decisorios": 3,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -8261,10 +8261,10 @@
           "tipo_bus": "BUS CAMA",
           "n_servicios": 14,
           "asientos_totales": 808,
-          "pasajeros_previstos": 360,
-          "pasajeros_reales": 472,
-          "ocupacion_predicha_pct": 44.6,
-          "ocupacion_real_pct": 58.4,
+          "pasajeros_previstos": 358,
+          "pasajeros_reales": 509,
+          "ocupacion_predicha_pct": 44.3,
+          "ocupacion_real_pct": 63.0,
           "delta_buses": -1,
           "delta_regla": -2,
           "delta_correcto": -2,
@@ -8818,9 +8818,9 @@
           "ocupacion_d3": 1,
           "ocupacion_predicha": 42,
           "ocupacion_predicha_pct": 70.0,
-          "ocupacion_real": 25,
-          "ocupacion_real_pct": 41.7,
-          "error_abs": 17
+          "ocupacion_real": 47,
+          "ocupacion_real_pct": 78.3,
+          "error_abs": 5
         },
         {
           "hora_salida": "19:30",
@@ -8876,11 +8876,11 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
           "ocupacion_d3": 1,
-          "ocupacion_predicha": 23,
-          "ocupacion_predicha_pct": 38.3,
+          "ocupacion_predicha": 21,
+          "ocupacion_predicha_pct": 35.0,
           "ocupacion_real": 25,
           "ocupacion_real_pct": 41.7,
-          "error_abs": 2
+          "error_abs": 4
         },
         {
           "hora_salida": "20:15",
@@ -8986,9 +8986,9 @@
           "ocupacion_d3": 1,
           "ocupacion_predicha": 14,
           "ocupacion_predicha_pct": 23.3,
-          "ocupacion_real": 16,
-          "ocupacion_real_pct": 26.7,
-          "error_abs": 2
+          "ocupacion_real": 31,
+          "ocupacion_real_pct": 51.7,
+          "error_abs": 17
         },
         {
           "hora_salida": "21:45",
@@ -9032,11 +9032,11 @@
       "fecha_viaje": "2026-10-28",
       "n_servicios": 38,
       "asientos_totales": 2043,
-      "pasajeros_previstos": 1273,
+      "pasajeros_previstos": 1274,
       "pasajeros_reales": 835,
-      "ocupacion_predicha_pct": 62.3,
+      "ocupacion_predicha_pct": 62.4,
       "ocupacion_real_pct": 40.9,
-      "mae_dia": 13.05,
+      "mae_dia": 13.08,
       "grupos_decisorios": 2,
       "aciertos_decisorios": 0,
       "origen_pred": {
@@ -9048,9 +9048,9 @@
           "tipo_bus": "BUS CAMA",
           "n_servicios": 14,
           "asientos_totales": 808,
-          "pasajeros_previstos": 450,
+          "pasajeros_previstos": 451,
           "pasajeros_reales": 302,
-          "ocupacion_predicha_pct": 55.7,
+          "ocupacion_predicha_pct": 55.8,
           "ocupacion_real_pct": 37.4,
           "delta_buses": -1,
           "delta_regla": -2,
@@ -9347,11 +9347,11 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
           "ocupacion_d3": 2,
-          "ocupacion_predicha": 50,
-          "ocupacion_predicha_pct": 83.3,
+          "ocupacion_predicha": 51,
+          "ocupacion_predicha_pct": 85.0,
           "ocupacion_real": 26,
           "ocupacion_real_pct": 43.3,
-          "error_abs": 24
+          "error_abs": 25
         },
         {
           "hora_salida": "17:30",
@@ -9742,7 +9742,7 @@
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
-          "ocupacion_d3": 0,
+          "ocupacion_d3": 2,
           "ocupacion_predicha": 30,
           "ocupacion_predicha_pct": 50.0,
           "ocupacion_real": 21,
@@ -9779,11 +9779,11 @@
       "fecha_viaje": "2026-10-27",
       "n_servicios": 37,
       "asientos_totales": 1975,
-      "pasajeros_previstos": 1206,
+      "pasajeros_previstos": 1208,
       "pasajeros_reales": 833,
-      "ocupacion_predicha_pct": 61.1,
+      "ocupacion_predicha_pct": 61.2,
       "ocupacion_real_pct": 42.2,
-      "mae_dia": 16.03,
+      "mae_dia": 16.08,
       "grupos_decisorios": 3,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -9795,9 +9795,9 @@
           "tipo_bus": "BUS CAMA",
           "n_servicios": 13,
           "asientos_totales": 748,
-          "pasajeros_previstos": 458,
+          "pasajeros_previstos": 460,
           "pasajeros_reales": 327,
-          "ocupacion_predicha_pct": 61.2,
+          "ocupacion_predicha_pct": 61.5,
           "ocupacion_real_pct": 43.7,
           "delta_buses": -1,
           "delta_regla": -2,
@@ -10438,11 +10438,11 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
           "ocupacion_d3": 2,
-          "ocupacion_predicha": 39,
-          "ocupacion_predicha_pct": 65.0,
+          "ocupacion_predicha": 41,
+          "ocupacion_predicha_pct": 68.3,
           "ocupacion_real": 26,
           "ocupacion_real_pct": 43.3,
-          "error_abs": 13
+          "error_abs": 15
         },
         {
           "hora_salida": "20:45",
@@ -11529,10 +11529,10 @@
       "n_servicios": 10,
       "asientos_totales": 513,
       "pasajeros_previstos": 348,
-      "pasajeros_reales": 378,
+      "pasajeros_reales": 372,
       "ocupacion_predicha_pct": 67.8,
-      "ocupacion_real_pct": 73.7,
-      "mae_dia": 9.2,
+      "ocupacion_real_pct": 72.5,
+      "mae_dia": 8.6,
       "grupos_decisorios": 1,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -11609,9 +11609,9 @@
           "n_servicios": 1,
           "asientos_totales": 60,
           "pasajeros_previstos": 36,
-          "pasajeros_reales": 51,
+          "pasajeros_reales": 45,
           "ocupacion_predicha_pct": 60.0,
-          "ocupacion_real_pct": 85.0,
+          "ocupacion_real_pct": 75.0,
           "delta_buses": -1,
           "delta_regla": 0,
           "delta_correcto": 0,
@@ -11713,9 +11713,9 @@
           "ocupacion_d3": 15,
           "ocupacion_predicha": 36,
           "ocupacion_predicha_pct": 60.0,
-          "ocupacion_real": 51,
-          "ocupacion_real_pct": 85.0,
-          "error_abs": 15
+          "ocupacion_real": 45,
+          "ocupacion_real_pct": 75.0,
+          "error_abs": 9
         },
         {
           "hora_salida": "19:45",
@@ -13557,11 +13557,11 @@
       "fecha_viaje": "2026-10-13",
       "n_servicios": 14,
       "asientos_totales": 716,
-      "pasajeros_previstos": 337,
+      "pasajeros_previstos": 340,
       "pasajeros_reales": 416,
-      "ocupacion_predicha_pct": 47.1,
+      "ocupacion_predicha_pct": 47.5,
       "ocupacion_real_pct": 58.1,
-      "mae_dia": 10.93,
+      "mae_dia": 10.71,
       "grupos_decisorios": 1,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -13589,15 +13589,15 @@
           "tipo_bus": "GOLD",
           "n_servicios": 1,
           "asientos_totales": 43,
-          "pasajeros_previstos": 25,
+          "pasajeros_previstos": 28,
           "pasajeros_reales": 30,
-          "ocupacion_predicha_pct": 58.1,
+          "ocupacion_predicha_pct": 65.1,
           "ocupacion_real_pct": 69.8,
-          "delta_buses": -1,
+          "delta_buses": 0,
           "delta_regla": 0,
           "delta_correcto": 0,
-          "error_decision": -1,
-          "etiqueta": "Reducir",
+          "error_decision": 0,
+          "etiqueta": "Mantener",
           "decide": false
         },
         {
@@ -13832,11 +13832,11 @@
           "tipo_bus": "GOLD",
           "asientos_totales": 43,
           "ocupacion_d3": 9,
-          "ocupacion_predicha": 25,
-          "ocupacion_predicha_pct": 58.1,
+          "ocupacion_predicha": 28,
+          "ocupacion_predicha_pct": 65.1,
           "ocupacion_real": 30,
           "ocupacion_real_pct": 69.8,
-          "error_abs": 5
+          "error_abs": 2
         },
         {
           "hora_salida": "20:30",
@@ -14625,11 +14625,11 @@
       "fecha_viaje": "2026-10-08",
       "n_servicios": 11,
       "asientos_totales": 564,
-      "pasajeros_previstos": 352,
+      "pasajeros_previstos": 350,
       "pasajeros_reales": 405,
-      "ocupacion_predicha_pct": 62.4,
+      "ocupacion_predicha_pct": 62.1,
       "ocupacion_real_pct": 71.8,
-      "mae_dia": 11.0,
+      "mae_dia": 11.18,
       "grupos_decisorios": 1,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -14641,12 +14641,12 @@
           "tipo_bus": "BUS CAMA",
           "n_servicios": 3,
           "asientos_totales": 164,
-          "pasajeros_previstos": 94,
+          "pasajeros_previstos": 92,
           "pasajeros_reales": 118,
-          "ocupacion_predicha_pct": 57.3,
+          "ocupacion_predicha_pct": 56.1,
           "ocupacion_real_pct": 72.0,
           "delta_buses": 0,
-          "delta_regla": 0,
+          "delta_regla": -1,
           "delta_correcto": 0,
           "error_decision": 0,
           "etiqueta": "Mantener",
@@ -14868,11 +14868,11 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
           "ocupacion_d3": 12,
-          "ocupacion_predicha": 34,
-          "ocupacion_predicha_pct": 56.7,
+          "ocupacion_predicha": 32,
+          "ocupacion_predicha_pct": 53.3,
           "ocupacion_real": 46,
           "ocupacion_real_pct": 76.7,
-          "error_abs": 12
+          "error_abs": 14
         },
         {
           "hora_salida": "20:30",
@@ -16634,11 +16634,11 @@
       "fecha_viaje": "2026-10-01",
       "n_servicios": 12,
       "asientos_totales": 607,
-      "pasajeros_previstos": 343,
+      "pasajeros_previstos": 351,
       "pasajeros_reales": 445,
-      "ocupacion_predicha_pct": 56.5,
+      "ocupacion_predicha_pct": 57.8,
       "ocupacion_real_pct": 73.3,
-      "mae_dia": 11.83,
+      "mae_dia": 11.17,
       "grupos_decisorios": 1,
       "aciertos_decisorios": 0,
       "origen_pred": {
@@ -16778,9 +16778,9 @@
           "tipo_bus": "MASTER",
           "n_servicios": 1,
           "asientos_totales": 60,
-          "pasajeros_previstos": 27,
+          "pasajeros_previstos": 35,
           "pasajeros_reales": 52,
-          "ocupacion_predicha_pct": 45.0,
+          "ocupacion_predicha_pct": 58.3,
           "ocupacion_real_pct": 86.7,
           "delta_buses": -1,
           "delta_regla": 0,
@@ -16869,11 +16869,11 @@
           "tipo_bus": "MASTER",
           "asientos_totales": 60,
           "ocupacion_d3": 26,
-          "ocupacion_predicha": 27,
-          "ocupacion_predicha_pct": 45.0,
+          "ocupacion_predicha": 35,
+          "ocupacion_predicha_pct": 58.3,
           "ocupacion_real": 52,
           "ocupacion_real_pct": 86.7,
-          "error_abs": 25
+          "error_abs": 17
         },
         {
           "hora_salida": "20:30",
@@ -18723,11 +18723,11 @@
       "fecha_viaje": "2026-09-22",
       "n_servicios": 13,
       "asientos_totales": 667,
-      "pasajeros_previstos": 315,
+      "pasajeros_previstos": 318,
       "pasajeros_reales": 305,
-      "ocupacion_predicha_pct": 47.2,
+      "ocupacion_predicha_pct": 47.7,
       "ocupacion_real_pct": 45.7,
-      "mae_dia": 12.15,
+      "mae_dia": 11.92,
       "grupos_decisorios": 1,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -18739,9 +18739,9 @@
           "tipo_bus": "BUS CAMA",
           "n_servicios": 5,
           "asientos_totales": 284,
-          "pasajeros_previstos": 122,
+          "pasajeros_previstos": 125,
           "pasajeros_reales": 147,
-          "ocupacion_predicha_pct": 43.0,
+          "ocupacion_predicha_pct": 44.0,
           "ocupacion_real_pct": 51.8,
           "delta_buses": -1,
           "delta_regla": -2,
@@ -18918,11 +18918,11 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
           "ocupacion_d3": 4,
-          "ocupacion_predicha": 29,
-          "ocupacion_predicha_pct": 48.3,
+          "ocupacion_predicha": 32,
+          "ocupacion_predicha_pct": 53.3,
           "ocupacion_real": 32,
           "ocupacion_real_pct": 53.3,
-          "error_abs": 3
+          "error_abs": 0
         },
         {
           "hora_salida": "19:00",
@@ -19026,11 +19026,11 @@
       "fecha_viaje": "2026-09-21",
       "n_servicios": 11,
       "asientos_totales": 547,
-      "pasajeros_previstos": 270,
+      "pasajeros_previstos": 267,
       "pasajeros_reales": 230,
-      "ocupacion_predicha_pct": 49.4,
+      "ocupacion_predicha_pct": 48.8,
       "ocupacion_real_pct": 42.0,
-      "mae_dia": 10.73,
+      "mae_dia": 11.0,
       "grupos_decisorios": 1,
       "aciertos_decisorios": 1,
       "origen_pred": {
@@ -19042,9 +19042,9 @@
           "tipo_bus": "BUS CAMA",
           "n_servicios": 4,
           "asientos_totales": 224,
-          "pasajeros_previstos": 107,
+          "pasajeros_previstos": 104,
           "pasajeros_reales": 109,
-          "ocupacion_predicha_pct": 47.8,
+          "ocupacion_predicha_pct": 46.4,
           "ocupacion_real_pct": 48.7,
           "delta_buses": -1,
           "delta_regla": -1,
@@ -19197,11 +19197,11 @@
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
           "ocupacion_d3": 8,
-          "ocupacion_predicha": 30,
-          "ocupacion_predicha_pct": 50.0,
+          "ocupacion_predicha": 27,
+          "ocupacion_predicha_pct": 45.0,
           "ocupacion_real": 43,
           "ocupacion_real_pct": 71.7,
-          "error_abs": 13
+          "error_abs": 16
         },
         {
           "hora_salida": "19:00",
@@ -19305,33 +19305,33 @@
   "resultados": [
     {
       "fecha_viaje": "2026-11-13",
-      "n_servicios": 43,
-      "ocupacion_predicha_pct": 68.1,
+      "n_servicios": 18,
+      "ocupacion_predicha_pct": 64.6,
       "dias_a_feriado": -5,
-      "recomendacion": "Mixto: reducir en 2 de 4 grupos",
+      "recomendacion": "Mantener",
       "resumen": {
         "aumentar": 0,
         "mantener": 2,
-        "reducir": 2,
-        "grupos_decisorios": 4,
-        "grupos": 18
+        "reducir": 0,
+        "grupos_decisorios": 2,
+        "grupos": 8
       },
       "grupos": [
         {
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
-          "n_servicios": 16,
-          "asientos_totales": 928,
-          "pasajeros_previstos": 664.0,
-          "ocupacion_predicha_pct": 71.6,
+          "n_servicios": 8,
+          "asientos_totales": 448,
+          "pasajeros_previstos": 300.2,
+          "ocupacion_predicha_pct": 67.0,
           "delta_buses": 0,
-          "delta_continuo": -0.138,
+          "delta_continuo": -0.337,
           "etiqueta": "Mantener",
-          "delta_regla": -2,
-          "soporte": 0.8956,
+          "delta_regla": -1,
+          "soporte": 0.6978,
           "activaciones": {
-            "R1_baja_lejos_reducir": 0.1044,
-            "R2_media_lejos_mantener": 0.8956,
+            "R1_baja_lejos_reducir": 0.3022,
+            "R2_media_lejos_mantener": 0.6978,
             "R3_alta_lejos_aumentar": 0.0,
             "R4_baja_feriado_mantener": 0.0,
             "R5_media_feriado_aumentar": 0.0,
@@ -19342,151 +19342,41 @@
         {
           "operador": "Allinbus",
           "tipo_bus": "GOLD",
-          "n_servicios": 5,
-          "asientos_totales": 215,
-          "pasajeros_previstos": 160.5,
-          "ocupacion_predicha_pct": 74.6,
+          "n_servicios": 3,
+          "asientos_totales": 129,
+          "pasajeros_previstos": 97.5,
+          "ocupacion_predicha_pct": 75.6,
           "delta_buses": 0,
-          "delta_continuo": 0.044,
+          "delta_continuo": 0.102,
           "etiqueta": "Mantener",
           "delta_regla": 0,
-          "soporte": 0.9693,
+          "soporte": 0.9251,
           "activaciones": {
             "R1_baja_lejos_reducir": 0.0,
-            "R2_media_lejos_mantener": 0.9693,
-            "R3_alta_lejos_aumentar": 0.0307,
+            "R2_media_lejos_mantener": 0.9251,
+            "R3_alta_lejos_aumentar": 0.0749,
             "R4_baja_feriado_mantener": 0.0,
             "R5_media_feriado_aumentar": 0.0,
             "R6_alta_feriado_urgente": 0.0
           },
           "decide": true
-        },
-        {
-          "operador": "Transportes Sagitario",
-          "tipo_bus": "EJECUTIVO PLUS",
-          "n_servicios": 3,
-          "asientos_totales": 207,
-          "pasajeros_previstos": 113.3,
-          "ocupacion_predicha_pct": 54.7,
-          "delta_buses": -1,
-          "delta_continuo": -0.796,
-          "etiqueta": "Reducir",
-          "delta_regla": -1,
-          "soporte": 0.8368,
-          "activaciones": {
-            "R1_baja_lejos_reducir": 0.8368,
-            "R2_media_lejos_mantener": 0.1632,
-            "R3_alta_lejos_aumentar": 0.0,
-            "R4_baja_feriado_mantener": 0.0,
-            "R5_media_feriado_aumentar": 0.0,
-            "R6_alta_feriado_urgente": 0.0
-          },
-          "decide": true
-        },
-        {
-          "operador": "Turismo Cautivo",
-          "tipo_bus": "MASTER",
-          "n_servicios": 3,
-          "asientos_totales": 187,
-          "pasajeros_previstos": 110.8,
-          "ocupacion_predicha_pct": 59.3,
-          "delta_buses": -1,
-          "delta_continuo": -0.613,
-          "etiqueta": "Reducir",
-          "delta_regla": 0,
-          "soporte": 0.6395,
-          "activaciones": {
-            "R1_baja_lejos_reducir": 0.6395,
-            "R2_media_lejos_mantener": 0.3605,
-            "R3_alta_lejos_aumentar": 0.0,
-            "R4_baja_feriado_mantener": 0.0,
-            "R5_media_feriado_aumentar": 0.0,
-            "R6_alta_feriado_urgente": 0.0
-          },
-          "decide": true
-        },
-        {
-          "operador": "Sajybus",
-          "tipo_bus": "BUS CAMA",
-          "n_servicios": 2,
-          "asientos_totales": 120,
-          "pasajeros_previstos": 104.0,
-          "ocupacion_predicha_pct": 86.7,
-          "delta_buses": 1,
-          "delta_continuo": 0.561,
-          "etiqueta": "Aumentar",
-          "delta_regla": 1,
-          "soporte": 0.5763,
-          "activaciones": {
-            "R1_baja_lejos_reducir": 0.0,
-            "R2_media_lejos_mantener": 0.4237,
-            "R3_alta_lejos_aumentar": 0.5763,
-            "R4_baja_feriado_mantener": 0.0,
-            "R5_media_feriado_aumentar": 0.0,
-            "R6_alta_feriado_urgente": 0.0
-          },
-          "decide": false
-        },
-        {
-          "operador": "America Express",
-          "tipo_bus": "Premium Plus",
-          "n_servicios": 1,
-          "asientos_totales": 43,
-          "pasajeros_previstos": 39.5,
-          "ocupacion_predicha_pct": 91.8,
-          "delta_buses": 1,
-          "delta_continuo": 0.766,
-          "etiqueta": "Aumentar",
-          "delta_regla": 1,
-          "soporte": 0.8077,
-          "activaciones": {
-            "R1_baja_lejos_reducir": 0.0,
-            "R2_media_lejos_mantener": 0.1923,
-            "R3_alta_lejos_aumentar": 0.8077,
-            "R4_baja_feriado_mantener": 0.0,
-            "R5_media_feriado_aumentar": 0.0,
-            "R6_alta_feriado_urgente": 0.0
-          },
-          "decide": false
-        },
-        {
-          "operador": "Linea",
-          "tipo_bus": "ECONOMICO",
-          "n_servicios": 1,
-          "asientos_totales": 22,
-          "pasajeros_previstos": 21.9,
-          "ocupacion_predicha_pct": 99.3,
-          "delta_buses": 1,
-          "delta_continuo": 1.0,
-          "etiqueta": "Aumentar",
-          "delta_regla": 1,
-          "soporte": 1.0,
-          "activaciones": {
-            "R1_baja_lejos_reducir": 0.0,
-            "R2_media_lejos_mantener": 0.0,
-            "R3_alta_lejos_aumentar": 1.0,
-            "R4_baja_feriado_mantener": 0.0,
-            "R5_media_feriado_aumentar": 0.0,
-            "R6_alta_feriado_urgente": 0.0
-          },
-          "decide": false
         },
         {
           "operador": "Turismo Dias",
           "tipo_bus": "Oro",
           "n_servicios": 1,
           "asientos_totales": 43,
-          "pasajeros_previstos": 38.0,
-          "ocupacion_predicha_pct": 88.4,
+          "pasajeros_previstos": 36.7,
+          "ocupacion_predicha_pct": 85.4,
           "delta_buses": 1,
-          "delta_continuo": 0.624,
+          "delta_continuo": 0.516,
           "etiqueta": "Aumentar",
           "delta_regla": 1,
-          "soporte": 0.6519,
+          "soporte": 0.5198,
           "activaciones": {
             "R1_baja_lejos_reducir": 0.0,
-            "R2_media_lejos_mantener": 0.3481,
-            "R3_alta_lejos_aumentar": 0.6519,
+            "R2_media_lejos_mantener": 0.4802,
+            "R3_alta_lejos_aumentar": 0.5198,
             "R4_baja_feriado_mantener": 0.0,
             "R5_media_feriado_aumentar": 0.0,
             "R6_alta_feriado_urgente": 0.0
@@ -19494,65 +19384,21 @@
           "decide": false
         },
         {
-          "operador": "ITTSABUS",
-          "tipo_bus": "SEMI CAMA",
-          "n_servicios": 1,
-          "asientos_totales": 56,
-          "pasajeros_previstos": 43.2,
-          "ocupacion_predicha_pct": 77.1,
-          "delta_buses": 0,
-          "delta_continuo": 0.184,
-          "etiqueta": "Mantener",
-          "delta_regla": 0,
-          "soporte": 0.8554,
-          "activaciones": {
-            "R1_baja_lejos_reducir": 0.0,
-            "R2_media_lejos_mantener": 0.8554,
-            "R3_alta_lejos_aumentar": 0.1446,
-            "R4_baja_feriado_mantener": 0.0,
-            "R5_media_feriado_aumentar": 0.0,
-            "R6_alta_feriado_urgente": 0.0
-          },
-          "decide": false
-        },
-        {
-          "operador": "ITTSABUS",
-          "tipo_bus": "Super Cama",
-          "n_servicios": 1,
-          "asientos_totales": 32,
-          "pasajeros_previstos": 24.2,
-          "ocupacion_predicha_pct": 75.6,
-          "delta_buses": 0,
-          "delta_continuo": 0.103,
-          "etiqueta": "Mantener",
-          "delta_regla": 0,
-          "soporte": 0.925,
-          "activaciones": {
-            "R1_baja_lejos_reducir": 0.0,
-            "R2_media_lejos_mantener": 0.925,
-            "R3_alta_lejos_aumentar": 0.075,
-            "R4_baja_feriado_mantener": 0.0,
-            "R5_media_feriado_aumentar": 0.0,
-            "R6_alta_feriado_urgente": 0.0
-          },
-          "decide": false
-        },
-        {
-          "operador": "Transportes Chiclayo",
+          "operador": "Sajybus",
           "tipo_bus": "BUS CAMA",
           "n_servicios": 1,
-          "asientos_totales": 52,
-          "pasajeros_previstos": 43.8,
-          "ocupacion_predicha_pct": 84.3,
+          "asientos_totales": 60,
+          "pasajeros_previstos": 48.3,
+          "ocupacion_predicha_pct": 80.4,
           "delta_buses": 0,
-          "delta_continuo": 0.473,
+          "delta_continuo": 0.329,
           "etiqueta": "Mantener",
           "delta_regla": 0,
-          "soporte": 0.5335,
+          "soporte": 0.7059,
           "activaciones": {
             "R1_baja_lejos_reducir": 0.0,
-            "R2_media_lejos_mantener": 0.5335,
-            "R3_alta_lejos_aumentar": 0.4665,
+            "R2_media_lejos_mantener": 0.7059,
+            "R3_alta_lejos_aumentar": 0.2941,
             "R4_baja_feriado_mantener": 0.0,
             "R5_media_feriado_aumentar": 0.0,
             "R6_alta_feriado_urgente": 0.0
@@ -19561,41 +19407,19 @@
         },
         {
           "operador": "Turismo Cautivo",
-          "tipo_bus": "EJECUTIVO VIP",
-          "n_servicios": 1,
-          "asientos_totales": 44,
-          "pasajeros_previstos": 36.4,
-          "ocupacion_predicha_pct": 82.6,
-          "delta_buses": 0,
-          "delta_continuo": 0.413,
-          "etiqueta": "Mantener",
+          "tipo_bus": "MASTER",
+          "n_servicios": 2,
+          "asientos_totales": 127,
+          "pasajeros_previstos": 68.2,
+          "ocupacion_predicha_pct": 53.7,
+          "delta_buses": -1,
+          "delta_continuo": -0.845,
+          "etiqueta": "Reducir",
           "delta_regla": 0,
-          "soporte": 0.6078,
+          "soporte": 0.8813,
           "activaciones": {
-            "R1_baja_lejos_reducir": 0.0,
-            "R2_media_lejos_mantener": 0.6078,
-            "R3_alta_lejos_aumentar": 0.3922,
-            "R4_baja_feriado_mantener": 0.0,
-            "R5_media_feriado_aumentar": 0.0,
-            "R6_alta_feriado_urgente": 0.0
-          },
-          "decide": false
-        },
-        {
-          "operador": "Turismo Cautivo",
-          "tipo_bus": "PREMIUM",
-          "n_servicios": 1,
-          "asientos_totales": 49,
-          "pasajeros_previstos": 33.8,
-          "ocupacion_predicha_pct": 69.0,
-          "delta_buses": 0,
-          "delta_continuo": -0.255,
-          "etiqueta": "Mantener",
-          "delta_regla": 0,
-          "soporte": 0.7864,
-          "activaciones": {
-            "R1_baja_lejos_reducir": 0.2136,
-            "R2_media_lejos_mantener": 0.7864,
+            "R1_baja_lejos_reducir": 0.8813,
+            "R2_media_lejos_mantener": 0.1187,
             "R3_alta_lejos_aumentar": 0.0,
             "R4_baja_feriado_mantener": 0.0,
             "R5_media_feriado_aumentar": 0.0,
@@ -19606,10 +19430,10 @@
         {
           "operador": "Ronco Perú",
           "tipo_bus": "COMERCIAL",
-          "n_servicios": 2,
-          "asientos_totales": 120,
-          "pasajeros_previstos": 51.5,
-          "ocupacion_predicha_pct": 42.9,
+          "n_servicios": 1,
+          "asientos_totales": 60,
+          "pasajeros_previstos": 23.9,
+          "ocupacion_predicha_pct": 39.8,
           "delta_buses": -1,
           "delta_continuo": -1.0,
           "etiqueta": "Reducir",
@@ -19618,28 +19442,6 @@
           "activaciones": {
             "R1_baja_lejos_reducir": 1.0,
             "R2_media_lejos_mantener": 0.0,
-            "R3_alta_lejos_aumentar": 0.0,
-            "R4_baja_feriado_mantener": 0.0,
-            "R5_media_feriado_aumentar": 0.0,
-            "R6_alta_feriado_urgente": 0.0
-          },
-          "decide": false
-        },
-        {
-          "operador": "Expreso Jireh",
-          "tipo_bus": "BUS CAMA",
-          "n_servicios": 1,
-          "asientos_totales": 74,
-          "pasajeros_previstos": 44.4,
-          "ocupacion_predicha_pct": 60.0,
-          "delta_buses": -1,
-          "delta_continuo": -0.588,
-          "etiqueta": "Reducir",
-          "delta_regla": 0,
-          "soporte": 0.6095,
-          "activaciones": {
-            "R1_baja_lejos_reducir": 0.6095,
-            "R2_media_lejos_mantener": 0.3905,
             "R3_alta_lejos_aumentar": 0.0,
             "R4_baja_feriado_mantener": 0.0,
             "R5_media_feriado_aumentar": 0.0,
@@ -19670,42 +19472,20 @@
           "decide": false
         },
         {
-          "operador": "Transportes Crucero",
-          "tipo_bus": "Golden Class",
+          "operador": "Transportes Sagitario",
+          "tipo_bus": "EJECUTIVO PLUS",
           "n_servicios": 1,
-          "asientos_totales": 64,
-          "pasajeros_previstos": 23.1,
-          "ocupacion_predicha_pct": 36.1,
+          "asientos_totales": 69,
+          "pasajeros_previstos": 36.9,
+          "ocupacion_predicha_pct": 53.5,
           "delta_buses": -1,
-          "delta_continuo": -1.0,
+          "delta_continuo": -0.857,
           "etiqueta": "Reducir",
           "delta_regla": 0,
-          "soporte": 1.0,
+          "soporte": 0.8912,
           "activaciones": {
-            "R1_baja_lejos_reducir": 1.0,
-            "R2_media_lejos_mantener": 0.0,
-            "R3_alta_lejos_aumentar": 0.0,
-            "R4_baja_feriado_mantener": 0.0,
-            "R5_media_feriado_aumentar": 0.0,
-            "R6_alta_feriado_urgente": 0.0
-          },
-          "decide": false
-        },
-        {
-          "operador": "Turismo Cautivo",
-          "tipo_bus": "EJECUTIVO",
-          "n_servicios": 1,
-          "asientos_totales": 46,
-          "pasajeros_previstos": 23.1,
-          "ocupacion_predicha_pct": 50.3,
-          "delta_buses": -1,
-          "delta_continuo": -1.0,
-          "etiqueta": "Reducir",
-          "delta_regla": 0,
-          "soporte": 1.0,
-          "activaciones": {
-            "R1_baja_lejos_reducir": 1.0,
-            "R2_media_lejos_mantener": 0.0,
+            "R1_baja_lejos_reducir": 0.8912,
+            "R2_media_lejos_mantener": 0.1088,
             "R3_alta_lejos_aumentar": 0.0,
             "R4_baja_feriado_mantener": 0.0,
             "R5_media_feriado_aumentar": 0.0,
@@ -19716,238 +19496,13 @@
       ],
       "servicios": [
         {
-          "hora_salida": "17:15",
-          "operador": "Allinbus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 60,
-          "ocupacion_d3": 12,
-          "ocupacion_predicha": 48.6,
-          "ocupacion_predicha_pct": 81.0
-        },
-        {
-          "hora_salida": "17:30",
-          "operador": "Turismo Cautivo",
-          "tipo_bus": "MASTER",
-          "asientos_totales": 60,
-          "ocupacion_d3": 21,
-          "ocupacion_predicha": 42.6,
-          "ocupacion_predicha_pct": 71.0
-        },
-        {
-          "hora_salida": "17:30",
-          "operador": "Allinbus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 60,
-          "ocupacion_d3": 10,
-          "ocupacion_predicha": 48.0,
-          "ocupacion_predicha_pct": 80.0
-        },
-        {
-          "hora_salida": "17:30",
-          "operador": "Sajybus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 60,
-          "ocupacion_d3": 26,
-          "ocupacion_predicha": 54.4,
-          "ocupacion_predicha_pct": 90.6
-        },
-        {
-          "hora_salida": "17:45",
-          "operador": "Allinbus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 60,
-          "ocupacion_d3": 5,
-          "ocupacion_predicha": 45.7,
-          "ocupacion_predicha_pct": 76.1
-        },
-        {
-          "hora_salida": "17:50",
-          "operador": "Allinbus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 60,
-          "ocupacion_d3": 12,
-          "ocupacion_predicha": 46.7,
-          "ocupacion_predicha_pct": 77.8
-        },
-        {
-          "hora_salida": "18:00",
-          "operador": "Transportes Sagitario",
-          "tipo_bus": "EJECUTIVO PLUS",
-          "asientos_totales": 69,
-          "ocupacion_d3": 11,
-          "ocupacion_predicha": 38.4,
-          "ocupacion_predicha_pct": 55.7
-        },
-        {
-          "hora_salida": "18:00",
-          "operador": "Allinbus",
-          "tipo_bus": "GOLD",
-          "asientos_totales": 43,
-          "ocupacion_d3": 8,
-          "ocupacion_predicha": 31.8,
-          "ocupacion_predicha_pct": 73.9
-        },
-        {
-          "hora_salida": "18:00",
-          "operador": "Ronco Perú",
-          "tipo_bus": "COMERCIAL",
-          "asientos_totales": 60,
-          "ocupacion_d3": 4,
-          "ocupacion_predicha": 26.2,
-          "ocupacion_predicha_pct": 43.6
-        },
-        {
-          "hora_salida": "18:00",
-          "operador": "Expreso Jireh",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 74,
-          "ocupacion_d3": 18,
-          "ocupacion_predicha": 44.4,
-          "ocupacion_predicha_pct": 60.0
-        },
-        {
-          "hora_salida": "18:30",
-          "operador": "Transportes Crucero",
-          "tipo_bus": "Golden Class",
-          "asientos_totales": 64,
-          "ocupacion_d3": 4,
-          "ocupacion_predicha": 23.1,
-          "ocupacion_predicha_pct": 36.1
-        },
-        {
-          "hora_salida": "18:30",
-          "operador": "Allinbus",
-          "tipo_bus": "GOLD",
-          "asientos_totales": 43,
-          "ocupacion_d3": 6,
-          "ocupacion_predicha": 31.1,
-          "ocupacion_predicha_pct": 72.4
-        },
-        {
-          "hora_salida": "18:30",
-          "operador": "Turismo Cautivo",
-          "tipo_bus": "PREMIUM",
-          "asientos_totales": 49,
-          "ocupacion_d3": 18,
-          "ocupacion_predicha": 33.8,
-          "ocupacion_predicha_pct": 69.0
-        },
-        {
-          "hora_salida": "18:30",
-          "operador": "Transportes Chiclayo",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 52,
-          "ocupacion_d3": 35,
-          "ocupacion_predicha": 43.8,
-          "ocupacion_predicha_pct": 84.3
-        },
-        {
-          "hora_salida": "18:30",
-          "operador": "Linea",
-          "tipo_bus": "ECONOMICO",
-          "asientos_totales": 22,
-          "ocupacion_d3": 8,
-          "ocupacion_predicha": 21.9,
-          "ocupacion_predicha_pct": 99.3
-        },
-        {
-          "hora_salida": "18:30",
-          "operador": "Allinbus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 60,
-          "ocupacion_d3": 14,
-          "ocupacion_predicha": 44.9,
-          "ocupacion_predicha_pct": 74.8
-        },
-        {
-          "hora_salida": "18:35",
-          "operador": "Allinbus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 60,
-          "ocupacion_d3": 5,
-          "ocupacion_predicha": 42.5,
-          "ocupacion_predicha_pct": 70.9
-        },
-        {
-          "hora_salida": "19:00",
-          "operador": "America Express",
-          "tipo_bus": "Premium Plus",
-          "asientos_totales": 43,
-          "ocupacion_d3": 16,
-          "ocupacion_predicha": 39.5,
-          "ocupacion_predicha_pct": 91.8
-        },
-        {
-          "hora_salida": "19:00",
-          "operador": "ITTSABUS",
-          "tipo_bus": "SEMI CAMA",
-          "asientos_totales": 56,
-          "ocupacion_d3": 37,
-          "ocupacion_predicha": 43.2,
-          "ocupacion_predicha_pct": 77.1
-        },
-        {
-          "hora_salida": "19:00",
-          "operador": "Allinbus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 60,
-          "ocupacion_d3": 10,
-          "ocupacion_predicha": 47.9,
-          "ocupacion_predicha_pct": 79.8
-        },
-        {
-          "hora_salida": "19:30",
-          "operador": "Allinbus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 60,
-          "ocupacion_d3": 5,
-          "ocupacion_predicha": 40.9,
-          "ocupacion_predicha_pct": 68.2
-        },
-        {
-          "hora_salida": "19:30",
-          "operador": "Turismo Cautivo",
-          "tipo_bus": "EJECUTIVO",
-          "asientos_totales": 46,
-          "ocupacion_d3": 0,
-          "ocupacion_predicha": 23.1,
-          "ocupacion_predicha_pct": 50.3
-        },
-        {
-          "hora_salida": "19:30",
-          "operador": "Transportes Sagitario",
-          "tipo_bus": "EJECUTIVO PLUS",
-          "asientos_totales": 69,
-          "ocupacion_d3": 11,
-          "ocupacion_predicha": 38.0,
-          "ocupacion_predicha_pct": 55.1
-        },
-        {
-          "hora_salida": "19:30",
-          "operador": "Sajybus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 60,
-          "ocupacion_d3": 24,
-          "ocupacion_predicha": 49.6,
-          "ocupacion_predicha_pct": 82.7
-        },
-        {
           "hora_salida": "19:30",
           "operador": "Ronco Perú",
           "tipo_bus": "COMERCIAL",
           "asientos_totales": 60,
           "ocupacion_d3": 2,
-          "ocupacion_predicha": 25.3,
-          "ocupacion_predicha_pct": 42.2
-        },
-        {
-          "hora_salida": "19:30",
-          "operador": "ITTSABUS",
-          "tipo_bus": "Super Cama",
-          "asientos_totales": 32,
-          "ocupacion_d3": 5,
-          "ocupacion_predicha": 24.2,
-          "ocupacion_predicha_pct": 75.6
+          "ocupacion_predicha": 23.9,
+          "ocupacion_predicha_pct": 39.8
         },
         {
           "hora_salida": "19:30",
@@ -19955,17 +19510,17 @@
           "tipo_bus": "Oro",
           "asientos_totales": 43,
           "ocupacion_d3": 30,
-          "ocupacion_predicha": 38.0,
-          "ocupacion_predicha_pct": 88.4
+          "ocupacion_predicha": 36.7,
+          "ocupacion_predicha_pct": 85.4
         },
         {
-          "hora_salida": "19:45",
-          "operador": "Turismo Cautivo",
-          "tipo_bus": "EJECUTIVO VIP",
-          "asientos_totales": 44,
-          "ocupacion_d3": 13,
-          "ocupacion_predicha": 36.4,
-          "ocupacion_predicha_pct": 82.6
+          "hora_salida": "19:30",
+          "operador": "Sajybus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 24,
+          "ocupacion_predicha": 48.3,
+          "ocupacion_predicha_pct": 80.4
         },
         {
           "hora_salida": "20:00",
@@ -19988,15 +19543,6 @@
         {
           "hora_salida": "20:15",
           "operador": "Allinbus",
-          "tipo_bus": "GOLD",
-          "asientos_totales": 43,
-          "ocupacion_d3": 8,
-          "ocupacion_predicha": 32.8,
-          "ocupacion_predicha_pct": 76.2
-        },
-        {
-          "hora_salida": "20:15",
-          "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 44,
           "ocupacion_d3": 2,
@@ -20004,13 +19550,22 @@
           "ocupacion_predicha_pct": 64.4
         },
         {
+          "hora_salida": "20:15",
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 43,
+          "ocupacion_d3": 8,
+          "ocupacion_predicha": 32.8,
+          "ocupacion_predicha_pct": 76.2
+        },
+        {
           "hora_salida": "20:30",
-          "operador": "Turismo Cautivo",
-          "tipo_bus": "MASTER",
-          "asientos_totales": 60,
-          "ocupacion_d3": 14,
-          "ocupacion_predicha": 37.1,
-          "ocupacion_predicha_pct": 61.9
+          "operador": "Transportes Sagitario",
+          "tipo_bus": "EJECUTIVO PLUS",
+          "asientos_totales": 69,
+          "ocupacion_d3": 11,
+          "ocupacion_predicha": 36.9,
+          "ocupacion_predicha_pct": 53.5
         },
         {
           "hora_salida": "20:30",
@@ -20023,12 +19578,12 @@
         },
         {
           "hora_salida": "20:30",
-          "operador": "Transportes Sagitario",
-          "tipo_bus": "EJECUTIVO PLUS",
-          "asientos_totales": 69,
-          "ocupacion_d3": 11,
-          "ocupacion_predicha": 36.9,
-          "ocupacion_predicha_pct": 53.5
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 60,
+          "ocupacion_d3": 14,
+          "ocupacion_predicha": 37.1,
+          "ocupacion_predicha_pct": 61.9
         },
         {
           "hora_salida": "20:45",
@@ -20053,9 +19608,9 @@
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
-          "ocupacion_d3": 6,
-          "ocupacion_predicha": 39.3,
-          "ocupacion_predicha_pct": 65.5
+          "ocupacion_d3": 7,
+          "ocupacion_predicha": 40.6,
+          "ocupacion_predicha_pct": 67.7
         },
         {
           "hora_salida": "21:15",
@@ -20563,15 +20118,6 @@
         },
         {
           "hora_salida": "17:00",
-          "operador": "Expreso Jireh",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 66,
-          "ocupacion_d3": 6,
-          "ocupacion_predicha": 42.6,
-          "ocupacion_predicha_pct": 64.5
-        },
-        {
-          "hora_salida": "17:00",
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
@@ -20587,6 +20133,15 @@
           "ocupacion_d3": 10,
           "ocupacion_predicha": 36.6,
           "ocupacion_predicha_pct": 61.0
+        },
+        {
+          "hora_salida": "17:00",
+          "operador": "Expreso Jireh",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 66,
+          "ocupacion_d3": 6,
+          "ocupacion_predicha": 42.6,
+          "ocupacion_predicha_pct": 64.5
         },
         {
           "hora_salida": "17:05",
@@ -20608,21 +20163,21 @@
         },
         {
           "hora_salida": "17:30",
-          "operador": "Turismo Cautivo",
-          "tipo_bus": "MASTER",
-          "asientos_totales": 60,
-          "ocupacion_d3": 6,
-          "ocupacion_predicha": 24.8,
-          "ocupacion_predicha_pct": 41.4
-        },
-        {
-          "hora_salida": "17:30",
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
           "ocupacion_d3": 6,
           "ocupacion_predicha": 34.8,
           "ocupacion_predicha_pct": 58.0
+        },
+        {
+          "hora_salida": "17:30",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 60,
+          "ocupacion_d3": 6,
+          "ocupacion_predicha": 24.8,
+          "ocupacion_predicha_pct": 41.4
         },
         {
           "hora_salida": "17:30",
@@ -20662,12 +20217,12 @@
         },
         {
           "hora_salida": "18:00",
-          "operador": "Allinbus",
-          "tipo_bus": "GOLD",
-          "asientos_totales": 43,
-          "ocupacion_d3": 3,
-          "ocupacion_predicha": 21.7,
-          "ocupacion_predicha_pct": 50.5
+          "operador": "Transportes Sagitario",
+          "tipo_bus": "EJECUTIVO PLUS",
+          "asientos_totales": 69,
+          "ocupacion_d3": 9,
+          "ocupacion_predicha": 12.7,
+          "ocupacion_predicha_pct": 18.4
         },
         {
           "hora_salida": "18:00",
@@ -20680,21 +20235,12 @@
         },
         {
           "hora_salida": "18:00",
-          "operador": "Transportes Sagitario",
-          "tipo_bus": "EJECUTIVO PLUS",
-          "asientos_totales": 69,
-          "ocupacion_d3": 9,
-          "ocupacion_predicha": 12.7,
-          "ocupacion_predicha_pct": 18.4
-        },
-        {
-          "hora_salida": "18:30",
-          "operador": "Transportes Chiclayo",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 52,
-          "ocupacion_d3": 14,
-          "ocupacion_predicha": 37.7,
-          "ocupacion_predicha_pct": 72.5
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 43,
+          "ocupacion_d3": 3,
+          "ocupacion_predicha": 21.7,
+          "ocupacion_predicha_pct": 50.5
         },
         {
           "hora_salida": "18:30",
@@ -20707,12 +20253,12 @@
         },
         {
           "hora_salida": "18:30",
-          "operador": "Transportes Crucero",
-          "tipo_bus": "Golden Class",
-          "asientos_totales": 64,
-          "ocupacion_d3": 4,
-          "ocupacion_predicha": 13.8,
-          "ocupacion_predicha_pct": 21.5
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 43,
+          "ocupacion_d3": 1,
+          "ocupacion_predicha": 18.3,
+          "ocupacion_predicha_pct": 42.5
         },
         {
           "hora_salida": "18:30",
@@ -20726,20 +20272,29 @@
         {
           "hora_salida": "18:30",
           "operador": "Allinbus",
-          "tipo_bus": "GOLD",
-          "asientos_totales": 43,
-          "ocupacion_d3": 1,
-          "ocupacion_predicha": 18.3,
-          "ocupacion_predicha_pct": 42.5
-        },
-        {
-          "hora_salida": "18:30",
-          "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
           "ocupacion_d3": 3,
           "ocupacion_predicha": 26.8,
           "ocupacion_predicha_pct": 44.6
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Transportes Crucero",
+          "tipo_bus": "Golden Class",
+          "asientos_totales": 64,
+          "ocupacion_d3": 4,
+          "ocupacion_predicha": 13.8,
+          "ocupacion_predicha_pct": 21.5
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Transportes Chiclayo",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 52,
+          "ocupacion_d3": 14,
+          "ocupacion_predicha": 37.7,
+          "ocupacion_predicha_pct": 72.5
         },
         {
           "hora_salida": "18:35",
@@ -20770,21 +20325,12 @@
         },
         {
           "hora_salida": "19:30",
-          "operador": "Turismo Cautivo",
-          "tipo_bus": "EJECUTIVO",
-          "asientos_totales": 46,
-          "ocupacion_d3": 1,
-          "ocupacion_predicha": 13.0,
-          "ocupacion_predicha_pct": 28.3
-        },
-        {
-          "hora_salida": "19:30",
-          "operador": "Transportes Sagitario",
-          "tipo_bus": "EJECUTIVO PLUS",
-          "asientos_totales": 69,
-          "ocupacion_d3": 9,
-          "ocupacion_predicha": 13.6,
-          "ocupacion_predicha_pct": 19.7
+          "operador": "Ronco Perú",
+          "tipo_bus": "COMERCIAL",
+          "asientos_totales": 60,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 16.6,
+          "ocupacion_predicha_pct": 27.6
         },
         {
           "hora_salida": "19:30",
@@ -20797,6 +20343,15 @@
         },
         {
           "hora_salida": "19:30",
+          "operador": "Transportes Sagitario",
+          "tipo_bus": "EJECUTIVO PLUS",
+          "asientos_totales": 69,
+          "ocupacion_d3": 9,
+          "ocupacion_predicha": 13.6,
+          "ocupacion_predicha_pct": 19.7
+        },
+        {
+          "hora_salida": "19:30",
           "operador": "Allinbus",
           "tipo_bus": "BUS CAMA",
           "asientos_totales": 60,
@@ -20806,12 +20361,12 @@
         },
         {
           "hora_salida": "19:30",
-          "operador": "Ronco Perú",
-          "tipo_bus": "COMERCIAL",
-          "asientos_totales": 60,
-          "ocupacion_d3": 2,
-          "ocupacion_predicha": 16.6,
-          "ocupacion_predicha_pct": 27.6
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "EJECUTIVO",
+          "asientos_totales": 46,
+          "ocupacion_d3": 1,
+          "ocupacion_predicha": 13.0,
+          "ocupacion_predicha_pct": 28.3
         },
         {
           "hora_salida": "19:30",
@@ -20852,20 +20407,20 @@
         {
           "hora_salida": "20:15",
           "operador": "Allinbus",
-          "tipo_bus": "BUS CAMA",
-          "asientos_totales": 44,
-          "ocupacion_d3": 8,
-          "ocupacion_predicha": 31.2,
-          "ocupacion_predicha_pct": 70.8
-        },
-        {
-          "hora_salida": "20:15",
-          "operador": "Allinbus",
           "tipo_bus": "GOLD",
           "asientos_totales": 43,
           "ocupacion_d3": 3,
           "ocupacion_predicha": 23.5,
           "ocupacion_predicha_pct": 54.6
+        },
+        {
+          "hora_salida": "20:15",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 44,
+          "ocupacion_d3": 8,
+          "ocupacion_predicha": 31.2,
+          "ocupacion_predicha_pct": 70.8
         },
         {
           "hora_salida": "20:30",
@@ -20878,21 +20433,21 @@
         },
         {
           "hora_salida": "20:30",
-          "operador": "Transportes Sagitario",
-          "tipo_bus": "EJECUTIVO PLUS",
-          "asientos_totales": 69,
-          "ocupacion_d3": 9,
-          "ocupacion_predicha": 13.0,
-          "ocupacion_predicha_pct": 18.8
-        },
-        {
-          "hora_salida": "20:30",
           "operador": "Turismo Cautivo",
           "tipo_bus": "MASTER",
           "asientos_totales": 60,
           "ocupacion_d3": 9,
           "ocupacion_predicha": 25.8,
           "ocupacion_predicha_pct": 43.1
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Transportes Sagitario",
+          "tipo_bus": "EJECUTIVO PLUS",
+          "asientos_totales": 69,
+          "ocupacion_d3": 9,
+          "ocupacion_predicha": 13.0,
+          "ocupacion_predicha_pct": 18.8
         },
         {
           "hora_salida": "20:45",
@@ -20965,6 +20520,892 @@
           "ocupacion_d3": 1,
           "ocupacion_predicha": 20.6,
           "ocupacion_predicha_pct": 47.8
+        }
+      ]
+    },
+    {
+      "fecha_viaje": "2026-11-16",
+      "n_servicios": 50,
+      "ocupacion_predicha_pct": 62.5,
+      "dias_a_feriado": -5,
+      "recomendacion": "Mixto: reducir en 2 de 4 grupos",
+      "resumen": {
+        "aumentar": 0,
+        "mantener": 2,
+        "reducir": 2,
+        "grupos_decisorios": 4,
+        "grupos": 19
+      },
+      "grupos": [
+        {
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "n_servicios": 19,
+          "asientos_totales": 1108,
+          "pasajeros_previstos": 750.3,
+          "ocupacion_predicha_pct": 67.7,
+          "delta_buses": 0,
+          "delta_continuo": -0.309,
+          "etiqueta": "Mantener",
+          "delta_regla": -2,
+          "soporte": 0.7284,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.2716,
+            "R2_media_lejos_mantener": 0.7284,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": true
+        },
+        {
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "n_servicios": 5,
+          "asientos_totales": 215,
+          "pasajeros_previstos": 152.1,
+          "ocupacion_predicha_pct": 70.8,
+          "delta_buses": 0,
+          "delta_continuo": -0.177,
+          "etiqueta": "Mantener",
+          "delta_regla": 0,
+          "soporte": 0.8613,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.1387,
+            "R2_media_lejos_mantener": 0.8613,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": true
+        },
+        {
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "n_servicios": 5,
+          "asientos_totales": 300,
+          "pasajeros_previstos": 161.6,
+          "ocupacion_predicha_pct": 53.9,
+          "delta_buses": -1,
+          "delta_continuo": -0.839,
+          "etiqueta": "Reducir",
+          "delta_regla": -1,
+          "soporte": 0.8755,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.8755,
+            "R2_media_lejos_mantener": 0.1245,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": true
+        },
+        {
+          "operador": "Transportes Sagitario",
+          "tipo_bus": "EJECUTIVO PLUS",
+          "n_servicios": 3,
+          "asientos_totales": 207,
+          "pasajeros_previstos": 83.6,
+          "ocupacion_predicha_pct": 40.4,
+          "delta_buses": -1,
+          "delta_continuo": -1.0,
+          "etiqueta": "Reducir",
+          "delta_regla": -1,
+          "soporte": 1.0,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 1.0,
+            "R2_media_lejos_mantener": 0.0,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": true
+        },
+        {
+          "operador": "Linea",
+          "tipo_bus": "ECONOMICO",
+          "n_servicios": 1,
+          "asientos_totales": 22,
+          "pasajeros_previstos": 19.7,
+          "ocupacion_predicha_pct": 89.6,
+          "delta_buses": 1,
+          "delta_continuo": 0.673,
+          "etiqueta": "Aumentar",
+          "delta_regla": 1,
+          "soporte": 0.7087,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.0,
+            "R2_media_lejos_mantener": 0.2913,
+            "R3_alta_lejos_aumentar": 0.7087,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Sajybus",
+          "tipo_bus": "BUS CAMA",
+          "n_servicios": 2,
+          "asientos_totales": 120,
+          "pasajeros_previstos": 93.3,
+          "ocupacion_predicha_pct": 77.7,
+          "delta_buses": 0,
+          "delta_continuo": 0.212,
+          "etiqueta": "Mantener",
+          "delta_regla": 0,
+          "soporte": 0.8291,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.0,
+            "R2_media_lejos_mantener": 0.8291,
+            "R3_alta_lejos_aumentar": 0.1709,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "America Express",
+          "tipo_bus": "Premium Plus",
+          "n_servicios": 1,
+          "asientos_totales": 43,
+          "pasajeros_previstos": 30.4,
+          "ocupacion_predicha_pct": 70.6,
+          "delta_buses": 0,
+          "delta_continuo": -0.184,
+          "etiqueta": "Mantener",
+          "delta_regla": 0,
+          "soporte": 0.8547,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.1453,
+            "R2_media_lejos_mantener": 0.8547,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "ITTSABUS",
+          "tipo_bus": "SEMI CAMA",
+          "n_servicios": 1,
+          "asientos_totales": 56,
+          "pasajeros_previstos": 38.3,
+          "ocupacion_predicha_pct": 68.3,
+          "delta_buses": 0,
+          "delta_continuo": -0.284,
+          "etiqueta": "Mantener",
+          "delta_regla": 0,
+          "soporte": 0.7557,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.2443,
+            "R2_media_lejos_mantener": 0.7557,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "ITTSABUS",
+          "tipo_bus": "Super Cama",
+          "n_servicios": 1,
+          "asientos_totales": 32,
+          "pasajeros_previstos": 22.7,
+          "ocupacion_predicha_pct": 70.9,
+          "delta_buses": 0,
+          "delta_continuo": -0.173,
+          "etiqueta": "Mantener",
+          "delta_regla": 0,
+          "soporte": 0.8654,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.1346,
+            "R2_media_lejos_mantener": 0.8654,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Transportes Chiclayo",
+          "tipo_bus": "BUS CAMA",
+          "n_servicios": 1,
+          "asientos_totales": 52,
+          "pasajeros_previstos": 38.8,
+          "ocupacion_predicha_pct": 74.6,
+          "delta_buses": 0,
+          "delta_continuo": 0.041,
+          "etiqueta": "Mantener",
+          "delta_regla": 0,
+          "soporte": 0.9719,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.0,
+            "R2_media_lejos_mantener": 0.9719,
+            "R3_alta_lejos_aumentar": 0.0281,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Turismo Dias",
+          "tipo_bus": "Oro",
+          "n_servicios": 1,
+          "asientos_totales": 43,
+          "pasajeros_previstos": 34.8,
+          "ocupacion_predicha_pct": 80.9,
+          "delta_buses": 0,
+          "delta_continuo": 0.348,
+          "etiqueta": "Mantener",
+          "delta_regla": 0,
+          "soporte": 0.6848,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.0,
+            "R2_media_lejos_mantener": 0.6848,
+            "R3_alta_lejos_aumentar": 0.3152,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Expreso Jireh",
+          "tipo_bus": "BUS CAMA",
+          "n_servicios": 2,
+          "asientos_totales": 140,
+          "pasajeros_previstos": 84.5,
+          "ocupacion_predicha_pct": 60.4,
+          "delta_buses": -1,
+          "delta_continuo": -0.574,
+          "etiqueta": "Reducir",
+          "delta_regla": 0,
+          "soporte": 0.5916,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.5916,
+            "R2_media_lejos_mantener": 0.4084,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Ronco Perú",
+          "tipo_bus": "COMERCIAL",
+          "n_servicios": 2,
+          "asientos_totales": 120,
+          "pasajeros_previstos": 65.8,
+          "ocupacion_predicha_pct": 54.8,
+          "delta_buses": -1,
+          "delta_continuo": -0.794,
+          "etiqueta": "Reducir",
+          "delta_regla": 0,
+          "soporte": 0.8346,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.8346,
+            "R2_media_lejos_mantener": 0.1654,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Ronco Perú",
+          "tipo_bus": "DOBLE VIP",
+          "n_servicios": 1,
+          "asientos_totales": 43,
+          "pasajeros_previstos": 16.3,
+          "ocupacion_predicha_pct": 38.0,
+          "delta_buses": -1,
+          "delta_continuo": -1.0,
+          "etiqueta": "Reducir",
+          "delta_regla": 0,
+          "soporte": 1.0,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 1.0,
+            "R2_media_lejos_mantener": 0.0,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Transportes Crucero",
+          "tipo_bus": "Golden Class",
+          "n_servicios": 1,
+          "asientos_totales": 69,
+          "pasajeros_previstos": 26.5,
+          "ocupacion_predicha_pct": 38.3,
+          "delta_buses": -1,
+          "delta_continuo": -1.0,
+          "etiqueta": "Reducir",
+          "delta_regla": 0,
+          "soporte": 1.0,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 1.0,
+            "R2_media_lejos_mantener": 0.0,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "EJECUTIVO PLUS",
+          "n_servicios": 1,
+          "asientos_totales": 50,
+          "pasajeros_previstos": 24.7,
+          "ocupacion_predicha_pct": 49.4,
+          "delta_buses": -1,
+          "delta_continuo": -1.0,
+          "etiqueta": "Reducir",
+          "delta_regla": 0,
+          "soporte": 1.0,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 1.0,
+            "R2_media_lejos_mantener": 0.0,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "EJECUTIVO VIP",
+          "n_servicios": 1,
+          "asientos_totales": 44,
+          "pasajeros_previstos": 24.0,
+          "ocupacion_predicha_pct": 54.6,
+          "delta_buses": -1,
+          "delta_continuo": -0.805,
+          "etiqueta": "Reducir",
+          "delta_regla": 0,
+          "soporte": 0.8446,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.8446,
+            "R2_media_lejos_mantener": 0.1554,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "PREMIUM",
+          "n_servicios": 1,
+          "asientos_totales": 49,
+          "pasajeros_previstos": 28.8,
+          "ocupacion_predicha_pct": 58.8,
+          "delta_buses": -1,
+          "delta_continuo": -0.631,
+          "etiqueta": "Reducir",
+          "delta_regla": 0,
+          "soporte": 0.6603,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.6603,
+            "R2_media_lejos_mantener": 0.3397,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        },
+        {
+          "operador": "Turismo Tacna Internacional",
+          "tipo_bus": "King Service",
+          "n_servicios": 1,
+          "asientos_totales": 49,
+          "pasajeros_previstos": 30.3,
+          "ocupacion_predicha_pct": 61.8,
+          "delta_buses": -1,
+          "delta_continuo": -0.523,
+          "etiqueta": "Reducir",
+          "delta_regla": 0,
+          "soporte": 0.5284,
+          "activaciones": {
+            "R1_baja_lejos_reducir": 0.5284,
+            "R2_media_lejos_mantener": 0.4716,
+            "R3_alta_lejos_aumentar": 0.0,
+            "R4_baja_feriado_mantener": 0.0,
+            "R5_media_feriado_aumentar": 0.0,
+            "R6_alta_feriado_urgente": 0.0
+          },
+          "decide": false
+        }
+      ],
+      "servicios": [
+        {
+          "hora_salida": "08:00",
+          "operador": "Turismo Tacna Internacional",
+          "tipo_bus": "King Service",
+          "asientos_totales": 49,
+          "ocupacion_d3": 9,
+          "ocupacion_predicha": 30.3,
+          "ocupacion_predicha_pct": 61.8
+        },
+        {
+          "hora_salida": "15:30",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 13,
+          "ocupacion_predicha": 42.9,
+          "ocupacion_predicha_pct": 71.5
+        },
+        {
+          "hora_salida": "16:30",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 60,
+          "ocupacion_d3": 11,
+          "ocupacion_predicha": 35.8,
+          "ocupacion_predicha_pct": 59.7
+        },
+        {
+          "hora_salida": "17:00",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 13,
+          "ocupacion_predicha": 45.3,
+          "ocupacion_predicha_pct": 75.4
+        },
+        {
+          "hora_salida": "17:00",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 60,
+          "ocupacion_d3": 11,
+          "ocupacion_predicha": 37.9,
+          "ocupacion_predicha_pct": 63.1
+        },
+        {
+          "hora_salida": "17:00",
+          "operador": "Expreso Jireh",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 66,
+          "ocupacion_d3": 9,
+          "ocupacion_predicha": 43.4,
+          "ocupacion_predicha_pct": 65.8
+        },
+        {
+          "hora_salida": "17:05",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 6,
+          "ocupacion_predicha": 39.7,
+          "ocupacion_predicha_pct": 66.2
+        },
+        {
+          "hora_salida": "17:15",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 1,
+          "ocupacion_predicha": 46.2,
+          "ocupacion_predicha_pct": 76.9
+        },
+        {
+          "hora_salida": "17:30",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 5,
+          "ocupacion_predicha": 40.4,
+          "ocupacion_predicha_pct": 67.4
+        },
+        {
+          "hora_salida": "17:30",
+          "operador": "Sajybus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 3,
+          "ocupacion_predicha": 47.3,
+          "ocupacion_predicha_pct": 78.8
+        },
+        {
+          "hora_salida": "17:30",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 60,
+          "ocupacion_d3": 11,
+          "ocupacion_predicha": 36.1,
+          "ocupacion_predicha_pct": 60.2
+        },
+        {
+          "hora_salida": "17:45",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 13,
+          "ocupacion_predicha": 42.4,
+          "ocupacion_predicha_pct": 70.6
+        },
+        {
+          "hora_salida": "17:50",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 1,
+          "ocupacion_predicha": 43.9,
+          "ocupacion_predicha_pct": 73.2
+        },
+        {
+          "hora_salida": "18:00",
+          "operador": "Transportes Sagitario",
+          "tipo_bus": "EJECUTIVO PLUS",
+          "asientos_totales": 69,
+          "ocupacion_d3": 10,
+          "ocupacion_predicha": 27.1,
+          "ocupacion_predicha_pct": 39.2
+        },
+        {
+          "hora_salida": "18:00",
+          "operador": "Ronco Perú",
+          "tipo_bus": "COMERCIAL",
+          "asientos_totales": 60,
+          "ocupacion_d3": 0,
+          "ocupacion_predicha": 32.1,
+          "ocupacion_predicha_pct": 53.4
+        },
+        {
+          "hora_salida": "18:00",
+          "operador": "Expreso Jireh",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 74,
+          "ocupacion_d3": 7,
+          "ocupacion_predicha": 41.1,
+          "ocupacion_predicha_pct": 55.5
+        },
+        {
+          "hora_salida": "18:00",
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 43,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 30.7,
+          "ocupacion_predicha_pct": 71.3
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 5,
+          "ocupacion_predicha": 38.3,
+          "ocupacion_predicha_pct": 63.8
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Transportes Crucero",
+          "tipo_bus": "Golden Class",
+          "asientos_totales": 69,
+          "ocupacion_d3": 4,
+          "ocupacion_predicha": 26.5,
+          "ocupacion_predicha_pct": 38.3
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Linea",
+          "tipo_bus": "ECONOMICO",
+          "asientos_totales": 22,
+          "ocupacion_d3": 8,
+          "ocupacion_predicha": 19.7,
+          "ocupacion_predicha_pct": 89.6
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "PREMIUM",
+          "asientos_totales": 49,
+          "ocupacion_d3": 9,
+          "ocupacion_predicha": 28.8,
+          "ocupacion_predicha_pct": 58.8
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 43,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 30.2,
+          "ocupacion_predicha_pct": 70.1
+        },
+        {
+          "hora_salida": "18:30",
+          "operador": "Transportes Chiclayo",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 52,
+          "ocupacion_d3": 13,
+          "ocupacion_predicha": 38.8,
+          "ocupacion_predicha_pct": 74.6
+        },
+        {
+          "hora_salida": "18:35",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 6,
+          "ocupacion_predicha": 41.7,
+          "ocupacion_predicha_pct": 69.5
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "ITTSABUS",
+          "tipo_bus": "SEMI CAMA",
+          "asientos_totales": 56,
+          "ocupacion_d3": 13,
+          "ocupacion_predicha": 38.3,
+          "ocupacion_predicha_pct": 68.3
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 5,
+          "ocupacion_predicha": 41.2,
+          "ocupacion_predicha_pct": 68.7
+        },
+        {
+          "hora_salida": "19:00",
+          "operador": "America Express",
+          "tipo_bus": "Premium Plus",
+          "asientos_totales": 43,
+          "ocupacion_d3": 1,
+          "ocupacion_predicha": 30.4,
+          "ocupacion_predicha_pct": 70.6
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 6,
+          "ocupacion_predicha": 40.6,
+          "ocupacion_predicha_pct": 67.6
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "Transportes Sagitario",
+          "tipo_bus": "EJECUTIVO PLUS",
+          "asientos_totales": 69,
+          "ocupacion_d3": 10,
+          "ocupacion_predicha": 28.9,
+          "ocupacion_predicha_pct": 41.9
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "Sajybus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 3,
+          "ocupacion_predicha": 46.0,
+          "ocupacion_predicha_pct": 76.7
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "Turismo Dias",
+          "tipo_bus": "Oro",
+          "asientos_totales": 43,
+          "ocupacion_d3": 12,
+          "ocupacion_predicha": 34.8,
+          "ocupacion_predicha_pct": 80.9
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "EJECUTIVO PLUS",
+          "asientos_totales": 50,
+          "ocupacion_d3": 6,
+          "ocupacion_predicha": 24.7,
+          "ocupacion_predicha_pct": 49.4
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "Ronco Perú",
+          "tipo_bus": "COMERCIAL",
+          "asientos_totales": 60,
+          "ocupacion_d3": 0,
+          "ocupacion_predicha": 33.7,
+          "ocupacion_predicha_pct": 56.1
+        },
+        {
+          "hora_salida": "19:30",
+          "operador": "ITTSABUS",
+          "tipo_bus": "Super Cama",
+          "asientos_totales": 32,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 22.7,
+          "ocupacion_predicha_pct": 70.9
+        },
+        {
+          "hora_salida": "19:45",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "EJECUTIVO VIP",
+          "asientos_totales": 44,
+          "ocupacion_d3": 3,
+          "ocupacion_predicha": 24.0,
+          "ocupacion_predicha_pct": 54.6
+        },
+        {
+          "hora_salida": "20:00",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 40.2,
+          "ocupacion_predicha_pct": 67.0
+        },
+        {
+          "hora_salida": "20:00",
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 43,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 30.9,
+          "ocupacion_predicha_pct": 71.8
+        },
+        {
+          "hora_salida": "20:15",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 44,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 31.0,
+          "ocupacion_predicha_pct": 70.5
+        },
+        {
+          "hora_salida": "20:15",
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 43,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 31.9,
+          "ocupacion_predicha_pct": 74.1
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Transportes Sagitario",
+          "tipo_bus": "EJECUTIVO PLUS",
+          "asientos_totales": 69,
+          "ocupacion_d3": 10,
+          "ocupacion_predicha": 27.7,
+          "ocupacion_predicha_pct": 40.1
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 60,
+          "ocupacion_d3": 4,
+          "ocupacion_predicha": 27.6,
+          "ocupacion_predicha_pct": 45.9
+        },
+        {
+          "hora_salida": "20:30",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 5,
+          "ocupacion_predicha": 39.7,
+          "ocupacion_predicha_pct": 66.2
+        },
+        {
+          "hora_salida": "20:45",
+          "operador": "Ronco Perú",
+          "tipo_bus": "DOBLE VIP",
+          "asientos_totales": 43,
+          "ocupacion_d3": 1,
+          "ocupacion_predicha": 16.3,
+          "ocupacion_predicha_pct": 38.0
+        },
+        {
+          "hora_salida": "20:45",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 38.2,
+          "ocupacion_predicha_pct": 63.6
+        },
+        {
+          "hora_salida": "21:00",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 5,
+          "ocupacion_predicha": 36.4,
+          "ocupacion_predicha_pct": 60.6
+        },
+        {
+          "hora_salida": "21:15",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 37.1,
+          "ocupacion_predicha_pct": 61.8
+        },
+        {
+          "hora_salida": "21:45",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 44,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 27.9,
+          "ocupacion_predicha_pct": 63.4
+        },
+        {
+          "hora_salida": "22:00",
+          "operador": "Turismo Cautivo",
+          "tipo_bus": "MASTER",
+          "asientos_totales": 60,
+          "ocupacion_d3": 4,
+          "ocupacion_predicha": 24.2,
+          "ocupacion_predicha_pct": 40.4
+        },
+        {
+          "hora_salida": "22:15",
+          "operador": "Allinbus",
+          "tipo_bus": "BUS CAMA",
+          "asientos_totales": 60,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 37.4,
+          "ocupacion_predicha_pct": 62.3
+        },
+        {
+          "hora_salida": "22:30",
+          "operador": "Allinbus",
+          "tipo_bus": "GOLD",
+          "asientos_totales": 43,
+          "ocupacion_d3": 2,
+          "ocupacion_predicha": 28.6,
+          "ocupacion_predicha_pct": 66.4
         }
       ]
     }
