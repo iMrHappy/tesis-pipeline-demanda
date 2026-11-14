@@ -15,6 +15,10 @@ on:
         description: "Forzar captura de redBus aunque hoy ya se haya hecho (GASTA crédito de Apify)"
         type: boolean
         default: false
+      offsets:
+        description: "Dias a capturar separados por coma (vacio = 0,3). Ej: 2"
+        type: string
+        default: ""
 
 
 concurrency:
@@ -84,6 +88,8 @@ jobs:
       - name: Ingesta redBus (con reintentos)
         if: steps.guardia.outputs.ya_corrio != 'true' || github.event.inputs.forzar_captura == 'true'
         timeout-minutes: 20
+        env:
+          OFFSETS: ${{ github.event.inputs.offsets }}
         run: |
           for intento in 1 2 3; do
             if python src/test_apify.py; then
