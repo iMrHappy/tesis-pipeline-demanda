@@ -101,13 +101,17 @@ def resumen_fecha(grupos):
               "grupos_decisorios": len(decisorios), "grupos": len(grupos)}
     if not decisorios:
         return f"Sin grupos con {MIN_SERVICIOS}+ servicios", conteo
-    mayor, menor = max(g["delta_buses"] for g in decisorios), min(g["delta_buses"] for g in decisorios)
-    if mayor >= 2: return "Aumentar (urgente)", conteo
-    if mayor >= 1: return "Aumentar", conteo
+    mayor = max(g["delta_buses"] for g in decisorios)
+    menor = min(g["delta_buses"] for g in decisorios)
+    if mayor >= 2:
+        return "Aumentar (urgente)", conteo
+    if mayor >= 1:
+        return "Aumentar", conteo
     if menor <= -1:
         if conteo["mantener"] == 0:
             return "Reducir", conteo
         return f"Mixto: reducir en {conteo['reducir']} de {len(decisorios)} grupos", conteo
+    return "Mantener", conteo
 
 
 def _registros(df):
