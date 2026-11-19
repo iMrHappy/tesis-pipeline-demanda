@@ -561,6 +561,17 @@
       "emitido_en": "2026-11-16",
       "modelo": "XGBoost",
       "entrenado_en": "2026-11-09T18:16:41-05:00"
+    },
+    {
+      "hora_salida": "20:00",
+      "operador": "Allinbus",
+      "tipo_bus": "GOLD",
+      "asientos_totales": 43,
+      "ocupacion_d3": 6,
+      "ocupacion_predicha": 30.2,
+      "emitido_en": "2026-11-19",
+      "modelo": "XGBoost",
+      "entrenado_en": "2026-11-09T18:16:41-05:00"
     }
   ]
 }
