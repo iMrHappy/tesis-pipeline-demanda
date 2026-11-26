@@ -25,6 +25,8 @@ jobs:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -40,23 +42,27 @@ jobs:
           git add docs/data
           if git diff --cached --quiet; then
             echo "Sin cambios"
-          else
-            git commit -m "Prediccion diaria $(date +%F)"
-            git restore .
-            git pull --rebase origin main
-            git push origin main
+            exit 0
           fi
+          git commit -m "Prediccion diaria $(date +%F)"
+          git restore . 2>/dev/null || true
+          for i in 1 2 3 4; do
+            if git pull --rebase -X theirs origin main && git push origin main; then
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            echo "::warning::Intento $i de guardado fallido; reintentando"
+            sleep $((i * 5))
+          done
+          exit 1
 
-  publicar:
+  construir:
     needs: predecir
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pages: write
       id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -65,5 +71,23 @@ jobs:
       - uses: actions/upload-pages-artifact@v4
         with:
           path: docs
-      - id: deployment
+
+  desplegar:
+    needs: construir
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.d2.outputs.page_url || steps.d1.outputs.page_url }}
+    steps:
+      - id: d1
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Esperar antes de reintentar el despliegue
+        if: steps.d1.outcome == 'failure'
+        run: sleep 30
+      - id: d2
+        if: steps.d1.outcome == 'failure'
         uses: actions/deploy-pages@v4

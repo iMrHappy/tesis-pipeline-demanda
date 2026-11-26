@@ -5,15 +5,19 @@ Ingesta de redBus -> raw.redbus_services_raw.
 Consulta cada dia las fechas de viaje definidas en OFFSETS (0 = hoy, 3 = dentro de 3 dias).
   - Es idempotente: si una fecha ya se capturo hoy (fecha de Lima), la salta.
   - Cada fecha se guarda en una sola transaccion: o entran todas sus filas o ninguna.
-  - Reintenta cada fecha y termina con codigo 1 si alguna queda sin capturar.
+  - Reintenta cada fecha ante fallos reales (Apify caido, sin servicios, etc.).
   - Avisa si el resultado llega al tope de MAX_ITEMS (posible truncamiento).
   - Defensa D-10: el actor trabaja en UTC. Si la fecha pedida ya paso en UTC (desde las 19:00 de Lima
     para la fecha de hoy), NO llama a Apify. Ademas, si los servicios recibidos no salen en la fecha
     pedida, NO los guarda (el actor los sustituye por "hoy + 7").
+  - Codigo de salida (v3.3):
+      * 1 si una fecha fallo de verdad tras reintentos (se reintenta el script completo en el workflow).
+      * 1 si no se capturo NADA hoy (ni se habia capturado antes) por desfase de fecha.
+      * 0 si solo se omitieron fechas por el desfase UTC (queda un ::warning:: visible, sin reintentos inutiles).
   - OFFSETS se puede sobreescribir sin tocar el codigo con la variable de entorno OFFSETS
     (ej. OFFSETS=2 captura solo hoy+2; OFFSETS=0,3 es lo habitual). Vacia = valor por defecto.
 
-Costo (Starter, 13/11/2026): ~US$ 0.003 por servicio devuelto (60 servicios = US$ 0.18).
+Costo (Starter): ~US$ 0.003 por servicio devuelto (90 servicios = US$ 0.27).
     costo diario = len(OFFSETS) * servicios_por_fecha * 0.003
 
 Ubicacion: src/test_apify.py
@@ -36,7 +40,7 @@ load_dotenv()
 
 ACTOR = "rl1987/redbus-api-scraper"
 OFFSETS = [0, 3]     # D+0 (objetivo) y D+3 (pronostico). Anadir 1 solo si el presupuesto lo permite
-MAX_ITEMS = int(os.getenv("MAX_ITEMS") or "60")   # ajustar tras medir cuantos servicios hay por fecha
+MAX_ITEMS = int(os.getenv("MAX_ITEMS") or "90")   # ajustar tras medir cuantos servicios hay por fecha
 INTENTOS_POR_FECHA = 2
 ESPERA_SEGUNDOS = 30
 ZONA = ZoneInfo("America/Lima")
@@ -120,18 +124,23 @@ def main():
     fechas = [(hoy + timedelta(days=o)).isoformat() for o in offsets]
     print(f"Hoy (Lima): {hoy} | fechas a consultar: {fechas} | maxItems={MAX_ITEMS}")
 
-    fallidas = []
+    guardadas = []         # capturadas en este run
+    ya_hechas = []         # ya estaban capturadas hoy
+    omitidas_fecha = []    # no se pueden capturar por el desfase UTC (no es un fallo)
+    fallidas = []          # fallos reales tras reintentos
+
     for fecha in fechas:
         with engine.connect() as conn:
             ya = conn.execute(SQL_YA_CAPTURADA, {"f": fecha, "hoy": hoy}).scalar()
         if ya:
             print(f"[OMITIDA] {fecha}: ya capturada hoy ({ya} filas)")
+            ya_hechas.append(fecha)
             continue
 
         if fecha_pasada_en_utc(fecha):
-            print(f"[NO CAPTURADA] {fecha}: la fecha ya paso en UTC (el actor la sustituiria por hoy+7). "
-                  f"No se llama a Apify.")
-            fallidas.append(fecha)
+            print(f"[OMITIDA-FECHA] {fecha}: la fecha ya paso en UTC (el actor la sustituiria por hoy+7). "
+                  f"No se llama a Apify ni se reintenta.")
+            omitidas_fecha.append(fecha)
             continue
 
         for intento in range(1, INTENTOS_POR_FECHA + 1):
@@ -143,10 +152,11 @@ def main():
                         conn.execute(SQL_INSERTAR, {"f": fecha, "raw_data": json.dumps(item)})
                 aviso = "  [AVISO] llego al tope: subir MAX_ITEMS" if len(items) >= MAX_ITEMS else ""
                 print(f"[OK] {fecha}: {len(items)} servicios guardados{aviso}")
+                guardadas.append(fecha)
                 break
             except FechaSustituida as e:
-                print(f"[NO CAPTURADA] {fecha}: {e}. No se guarda ni se reintenta.")
-                fallidas.append(fecha)
+                print(f"[OMITIDA-FECHA] {fecha}: {e}. No se guarda ni se reintenta.")
+                omitidas_fecha.append(fecha)
                 break
             except Exception as e:
                 print(f"[ADVERTENCIA] {fecha}, intento {intento}/{INTENTOS_POR_FECHA}: {e}")
@@ -155,10 +165,21 @@ def main():
         else:
             fallidas.append(fecha)
 
+    for f in omitidas_fecha:
+        print(f"::warning::{f} no capturada hoy por desfase de fecha UTC (el run llego tarde). "
+              f"Ese dia queda sin esa foto.")
+
     if fallidas:
-        print(f"[ERROR] No se pudo capturar: {fallidas}")
+        print(f"[ERROR] Fallo real de captura: {fallidas}")
         sys.exit(1)
-    print("Captura completa.")
+    if omitidas_fecha and not (guardadas or ya_hechas):
+        print("[ERROR] No se capturo ninguna fecha hoy (todas omitidas por desfase UTC).")
+        sys.exit(1)
+
+    if omitidas_fecha:
+        print(f"Captura parcial (sin error): omitidas por fecha {omitidas_fecha}")
+    else:
+        print("Captura completa.")
 
 
 if __name__ == "__main__":

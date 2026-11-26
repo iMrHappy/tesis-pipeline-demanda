@@ -1,13 +1,15 @@
 name: Pipeline Diario Lima-Chiclayo
 
-
 on:
   schedule:
-    # Principal: 16:17 UTC = 11:17 Lima
-    - cron: '17 16 * * *'
-
-    # Respaldo: 21:47 UTC = 16:47 Lima
-    - cron: '47 21 * * *'
+    # Varios intentos repartidos (GitHub puede retrasar o descartar runs programados).
+    # La guardia evita duplicar trabajo: si ya esta completo, el run termina rapido.
+    - cron: '17 14 * * *'   # 09:17 Lima (principal)
+    - cron: '47 15 * * *'   # 10:47 Lima
+    - cron: '17 17 * * *'   # 12:17 Lima
+    - cron: '47 18 * * *'   # 13:47 Lima
+    - cron: '17 20 * * *'   # 15:17 Lima
+    - cron: '47 21 * * *'   # 16:47 Lima (ultimo respaldo)
 
   workflow_dispatch:
     inputs:
@@ -20,15 +22,12 @@ on:
         type: string
         default: ""
 
-
 concurrency:
   group: pipeline-diario
   cancel-in-progress: false
 
-
 permissions:
   contents: read
-
 
 jobs:
   pipeline:
@@ -38,9 +37,6 @@ jobs:
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
-
-      # Permitir que Python encuentre los módulos
-      # ubicados en la raíz del repositorio.
       PYTHONPATH: ${{ github.workspace }}
 
     steps:
@@ -84,7 +80,8 @@ jobs:
         run: python src/guardia_diaria.py
 
       # DATO PRINCIPAL: ingesta redBus con reintentos.
-      # Solo corre si hoy no se capturó, o si se fuerza a mano con "forzar_captura".
+      # El script sale con 1 solo ante fallos reales (no por fechas omitidas por desfase UTC),
+      # por eso aqui los reintentos si tienen sentido.
       - name: Ingesta redBus (con reintentos)
         if: steps.guardia.outputs.ya_corrio != 'true' || github.event.inputs.forzar_captura == 'true'
         timeout-minutes: 20
